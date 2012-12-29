@@ -11,18 +11,22 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-pym is an editor for structured text, in particular for Python source code. pym was inspired by vim but, unlike vim, it handles structured text, not plain text.
+What is pym?
+-----------
+pym is an editor for structured text, in particular for Python source code. pym was inspired by vim but it handles structured (not plain) text.
 
 At present pym is entirely vapourware, and consists of some ideas based around manipulation of Abstract Syntax Trees, such as those handled by the `ast module <http://docs.python.org/2/library/ast.html?highlight=ast#node-classes>`_ .
 
 Pretty printing
----------------
+^^^^^^^^^^^^^^^
 
 In order to be useful to people such trees need to be pretty printed. Some other code which may be helpful in rendering such trees as Python text are
  
  * Python's own unparser
 
-  * The unparser is an script in the `Demo/parser <http://svn.python.org/projects/python/trunk/Demo/parser/README&view=markup>`_ directory `unparse.py <http://svn.python.org/projects/python/trunk/Demo/parser/unparse.py>`_, and there is a test script `here <http://hg.python.org/cpython/file/default/Tools/parser/test_unparse.py>`_
+  * The unparser is a script in the `Demo/parser <http://hg.python.org/cpython/file/3f7d5c235d82/Tools/parser>`_ directory called `unparse.py <http://hg.python.org/cpython/file/3f7d5c235d82/Tools/parser/unparse.py>`_.
+  * This script is a continuation from the file in the older `Demo directory <http://hg.python.org/cpython/file/043ef04f64d2/Demo/>`_, which has been `intermittently maintained for a few years <http://hg.python.org/cpython/log/d989c3fc9e28/Demo/parser/unparse.py>`_
+  * There is `a test script <http://hg.python.org/cpython/file/3f7d5c235d82/Tools/parser/test_unparse.py>`_ is the same directory.
   * There are some issues about it, such as `this one <http://bugs.python.org/issue14695>`_ claiming that it is out of date.
 
  * Other unparsers
@@ -34,7 +38,7 @@ In order to be useful to people such trees need to be pretty printed. Some other
 A significant initial task shall be to evaluate these unparsers, find their commonalities, find their idiosyncracies, and decide on my own unparsing strategy.
 
 Parsing
--------
+^^^^^^^
 
 Parsing in general is of interest. One reason for delay in starting this project has been the postponing of the choice between using Python's built-in parsing modules, or more general parsing components. Although I have now decide to start with Python's built in parser I remain committed to use of other parser. Not much point in having a "structured text editor" which cannot handle structured text such as other langages, marked-up texts, config files, log files, and so on.
 
@@ -59,14 +63,14 @@ Parsing produces Abstract Syntax Trees, which have a reasonable amount of relate
  * `Reddit on ASTs (in /r/python) <http://www.reddit.com/r/Python/search?q=ast&restrict_sr=on>`_
 
 Related tools
--------------
+^^^^^^^^^^^^^
 
 Autopep8 is a tool which re-writes Python source code (to increase compliance with PEP8), but does not use ASTs to do so.
 
   * `autopep8 <https://github.com/jalanb/autopep8>`_
 
 Miscellaneous
--------------
+^^^^^^^^^^^^^
 
 Other stuff I have read recently
 
