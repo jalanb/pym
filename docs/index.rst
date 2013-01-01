@@ -24,9 +24,9 @@ In order to be useful to people such trees need to be pretty printed. Some other
  
  * Python's own unparser
 
-  * The unparser is a script in the `Demo/parser <http://hg.python.org/cpython/file/3f7d5c235d82/Tools/parser>`_ directory called `unparse.py <http://hg.python.org/cpython/file/3f7d5c235d82/Tools/parser/unparse.py>`_.
-  * This script is a continuation from the file in the older `Demo directory <http://hg.python.org/cpython/file/043ef04f64d2/Demo/>`_, which has been `intermittently maintained for a few years <http://hg.python.org/cpython/log/d989c3fc9e28/Demo/parser/unparse.py>`_
-  * There is `a test script <http://hg.python.org/cpython/file/3f7d5c235d82/Tools/parser/test_unparse.py>`_ is the same directory.
+  * The unparser is a script in the `Tools/parser <http://hg.python.org/cpython/file/3f7d5c235d82/Tools/parser>`_ directory called `unparse.py <http://hg.python.org/cpython/file/3f7d5c235d82/Tools/parser/unparse.py>`_.
+  * This script is a continuation from the `unparse.py file <http://hg.python.org/cpython/file/e36513032265/Demo/parser/unparse.py>`_ in the older (2.7) `Demo/parser <http://hg.python.org/cpython/file/e36513032265/Demo/parser>`_ directory, and has been `intermittently maintained for a few years <http://hg.python.org/cpython/log/d989c3fc9e28/Demo/parser/unparse.py>`_
+  * There is `a test script <http://hg.python.org/cpython/file/3f7d5c235d82/Tools/parser/test_unparse.py>`_ in the same directory, and an equivalent `test script <http://hg.python.org/cpython/file/e36513032265/Demo/parser/test_unparse.py>`_ for the 2.7 branch
   * There are some issues about it, such as `this one <http://bugs.python.org/issue14695>`_ claiming that it is out of date.
 
  * Other unparsers
