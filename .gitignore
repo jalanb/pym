@@ -33,3 +33,9 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+# OS X
+.DS_Store
+
+# vim
+.*sw[po]
