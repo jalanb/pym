@@ -6,4 +6,4 @@ A collection of Python modules to aid editting Python code at the structural lev
 Documentation
 =============
 
-Documentaion is available via [ReadTheDocs](https://pym.readthedocs.org)
+pym remains entirely vapourware at present, but the ideas behind it are being curated over at [ReadTheDocs](https://pym.readthedocs.org)
