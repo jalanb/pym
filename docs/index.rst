@@ -11,6 +11,8 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   python_unparser
+
 What is pym?
 ------------
 
