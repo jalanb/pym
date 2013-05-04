@@ -11,6 +11,8 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   sourcecodegen
+
 .. _pythons_own_unparser:
 
 Links to the unparser
