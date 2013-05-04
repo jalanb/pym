@@ -6,12 +6,7 @@
 Python's Unparser
 =================
 
-Contents:
-
-.. toctree::
-   :maxdepth: 2
-
-   sourcecodegen
+The source for python includes an unparser, which can render ASTs to source.
 
 .. _pythons_own_unparser:
 

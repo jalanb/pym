@@ -6,10 +6,7 @@
 Malthe Borch's sourcecodegen
 ============================
 
-Contents:
-
-.. toctree::
-   :maxdepth: 2
+sourcecodegen is a project by `Malthe Borch <http://www.maltheborch.com/>`_ which can generate source code from ASTs.
 
 .. _malthes_sourcecodegen:
 
@@ -18,7 +15,6 @@ Links to sourcecodegen
 
   * The source codegen project is stored `on github <https://github.com/malthe/sourcecodegen>`_
   * It is available `in the Cheeseshop <https://pypi.python.org/pypi/sourcecodegen/0.6.14>`_
-
 
 Summary
 -------
