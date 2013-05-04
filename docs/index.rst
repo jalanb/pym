@@ -23,13 +23,13 @@ At present pym is entirely vapourware, and consists of some ideas based around m
 Rendering code
 ^^^^^^^^^^^^^^
 
-In order to be useful to people such trees need to be pretty printed (aka rendered). Some other code which may be helpful in rendering such trees as Python text are
+In order to be more easily read AST trees can pretty printed (`a.k.a. <http://en.wiktionary.org/wiki/AKA#English>`_ rendered). Some other code which may be helpful in rendering AST trees as Python text are
  
  * :ref:`pythons_unparser`
 
  * Other unparsers
 
-  * `sourcecodegen <http://pypi.python.org/pypi/sourcecodegen/0.6.14>`_
+  * :ref:`sourcecodegen`
   * `pyRegurgitator <http://pypi.python.org/pypi/pyRegurgitator>`_
   * `Python-Decompiler <https://github.com/jalanb/Python-Decompiler>`_
   * `Approach <http://alexmic.net/building-a-template-engine>`_
