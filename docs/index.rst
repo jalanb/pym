@@ -20,10 +20,10 @@ pym is an editor for structured text, in particular for Python source code. pym 
 
 At present pym is entirely vapourware, and consists of some ideas based around manipulation of Abstract Syntax Trees, such as those handled by the `ast module <http://docs.python.org/2/library/ast.html?highlight=ast>`_ .
 
-Pretty printing
-^^^^^^^^^^^^^^^
+Rendering code
+^^^^^^^^^^^^^^
 
-In order to be useful to people such trees need to be pretty printed. Some other code which may be helpful in rendering such trees as Python text are
+In order to be useful to people such trees need to be pretty printed (aka rendered). Some other code which may be helpful in rendering such trees as Python text are
  
  * :ref:`pythons_unparser`
 
@@ -32,6 +32,8 @@ In order to be useful to people such trees need to be pretty printed. Some other
   * `sourcecodegen <http://pypi.python.org/pypi/sourcecodegen/0.6.14>`_
   * `pyRegurgitator <http://pypi.python.org/pypi/pyRegurgitator>`_
   * `Python-Decompiler <https://github.com/jalanb/Python-Decompiler>`_
+  * `Approach <http://alexmic.net/building-a-template-engine>`_
+  * `Grako <https://bitbucket.org/apalala/grako#templates-and-translation>`_
 
 A significant initial task shall be to evaluate these unparsers, find their commonalities, find their idiosyncracies, and decide on my own unparsing strategy.
 
@@ -75,12 +77,11 @@ Other stuff I have read recently
   * `Static Modification of Python With Python: The AST Module <http://blueprintforge.com/blog/2012/02/27/static-modification-of-python-with-python-the-ast-module/>`_
   * `Coding in a debugger <http://msinilo.pl/blog/?p=965>`_
   * `DMS® Software Reengineering Toolki <http://www.semanticdesigns.com/Products/DMS/DMSToolkit.html>`_
-  * `Recognition can be garder than parsing <http://www.academia.edu/798690/Recognition_can_be_harder_than_parsing>`_
+  * `Recognition can be harder than parsing <http://www.academia.edu/798690/Recognition_can_be_harder_than_parsing>`_
 
 Indices and tables
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
 
