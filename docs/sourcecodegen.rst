@@ -62,7 +62,7 @@ Most of the above issues seem to be matters of opinion and should be deferred to
 Pepping
 ^^^^^^^
 
-To check that the output can be run through the `pep8 tool <http://pypi.python.org/pypi/pep8>`_. I've already noticed that blank lines are removed, so we can ignore errors E301 and E302. And ignore W191 because we know indentation uses tabs. 
+To check that the output can be run through the `pep8 tool <http://pypi.python.org/pypi/pep8>`_. I've already noticed that blank lines are removed, so we can ignore errors E301 and E302. And ignore W191 because we know indentation uses tabs::
 
     $ pep8 --ignore=W191,E301,E302 visitor.py
     visitor.py:8:80: E501 line too long (114 > 79 characters)
