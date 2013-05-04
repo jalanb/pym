@@ -54,10 +54,10 @@ Some differences are apparent in `the commit <https://github.com/jalanb/pym/comm
      In at least one case this has resulted in incorrect code, with `two lines being incorrectly joined <https://github.com/jalanb/pym/blob/7305db84ede8120de3f13393ed3b792d0b583d7c/demo/sourcecoden/visitor.py#L47479>`_.
  #. Indentation is changed from spaces to tabs
  #. Extraneous parentheses are introduced
-     Some of these seem improvident, such as those `introduced around conditions of (some) if statements<https://github.com/jalanb/pym/blob/7305db84ede8120de3f13393ed3b792d0b583d7c/demo/sourcecoden/visitor.py#L42>`_. `Some return statements<https://github.com/jalanb/pym/blob/7305db84ede8120de3f13393ed3b792d0b583d7c/demo/sourcecoden/visitor.py#L6>`_ also get extra parentheses, but not `others<https://github.com/jalanb/pym/blob/7305db84ede8120de3f13393ed3b792d0b583d7c/demo/sourcecoden/visitor.py#L8>`_. Some introduced parentheses seem harmless, or even helpful, such as `introduing parentheses around a tuple<https://github.com/jalanb/pym/blob/7305db84ede8120de3f13393ed3b792d0b583d7c/demo/sourcecoden/visitor.py#L126>`_.
+     Some of these seem improvident, such as those `introduced around conditions of (some) if statements <https://github.com/jalanb/pym/blob/7305db84ede8120de3f13393ed3b792d0b583d7c/demo/sourcecoden/visitor.py#L42>`_. `Some return statements <https://github.com/jalanb/pym/blob/7305db84ede8120de3f13393ed3b792d0b583d7c/demo/sourcecoden/visitor.py#L6>`_ also get extra parentheses, but not `others <https://github.com/jalanb/pym/blob/7305db84ede8120de3f13393ed3b792d0b583d7c/demo/sourcecoden/visitor.py#L8>`_. Some introduced parentheses seem harmless, or even helpful, such as `introduing parentheses around a tuple <https://github.com/jalanb/pym/blob/7305db84ede8120de3f13393ed3b792d0b583d7c/demo/sourcecoden/visitor.py#L126>`_.
  #. Re-formatting of multi-line arguments for method calls to single lines
 
-Most of the above issues seem to be matters of opinion and should be deferred to `PEP 8<http://www.python.org/dev/peps/pep-0008/>`_. The unparser's output does seem closer to PEP8 than is its code.
+Most of the above issues seem to be matters of opinion and should be deferred to `PEP 8 <http://www.python.org/dev/peps/pep-0008/>`_. The unparser's output does seem closer to PEP8 than is its code.
 
 Pepping
 ^^^^^^^
@@ -77,8 +77,8 @@ This shows up some more problems
 
  #. Some lines are too long
  #. The final line is not correctly terminated
- #. The `code uses <https://github.com/jalanb/pym/blob/7305db84ede8120de3f13393ed3b792d0b583d7c/demo/sourcecoden/visitor.py#L84>`_ " == False", but that is not introduced by sourcecodegen itself, as it was `in the original<https://github.com/jalanb/pym/blob/b433254965df03b79363d48b44efc1e6069cb781/demo/sourcecoden/visitor.py#L105>`_.
- #. Some lines are joined, in particular pep8 notices a problem resulting from the `joining of the lines before line 480<https://github.com/jalanb/pym/blob/7305db84ede8120de3f13393ed3b792d0b583d7c/demo/sourcecoden/visitor.py#L479>`_.
+ #. The `code uses <https://github.com/jalanb/pym/blob/7305db84ede8120de3f13393ed3b792d0b583d7c/demo/sourcecoden/visitor.py#L84>`_ " == False", but that is not introduced by sourcecodegen itself, as it was `in the original <https://github.com/jalanb/pym/blob/b433254965df03b79363d48b44efc1e6069cb781/demo/sourcecoden/visitor.py#L105>`_.
+ #. Some lines are joined, in particular pep8 notices a problem resulting from the `joining of the lines before line 480 <https://github.com/jalanb/pym/blob/7305db84ede8120de3f13393ed3b792d0b583d7c/demo/sourcecoden/visitor.py#L479>`_.
 
 Conclusion
 ^^^^^^^^^^
