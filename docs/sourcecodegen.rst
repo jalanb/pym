@@ -83,6 +83,4 @@ This shows up some more problems
 Conclusion
 ^^^^^^^^^^
 
-This is not a test of the unparser, just an indication of where some of its strengths/weaknesses may lie. It did not show up any fatal flaws, but does suggest the unparser needs some (small) work to get it's own code to meet PEP 8 standards.
-
-This quick run through also shows up the fact that "what code should look like" is a very opinionated subject. Python is lucky to have PEP 8 as a standard to refer to, but even that allows for variations (only "new code" need use spaces, for example). Which shows up one further bug in the unparser: all its formatting choices are hard-coded, whereas we may need greater flexibility in such choices.
+This is not a test of sourcecodegen, just an indication of where some of its strengths/weaknesses may lie. It has one flaw (badly joined lines) which can result in unusable code, but otherwise seems robust
