@@ -47,11 +47,12 @@ Run the unparser, with the commands::
 Some differences are apparent in `the commit <https://github.com/jalanb/pym/commit/7305db84ede8120de3f13393ed3b792d0b583d7c#demo/sourcecoden/visitor.py>`_.
 
  #. Blank lines are not maintained
-     In at least one case this has resulted in incorrect code, with `two lines being incorrectly joined <https://github.com/jalanb/pym/blob/7305db84ede8120de3f13393ed3b792d0b583d7c/demo/sourcecoden/visitor.py#L47479>`_.
+     In at least one case this has resulted in incorrect code, with `two lines being incorrectly joined <https://github.com/jalanb/pym/blob/7305db84ede8120de3f13393ed3b792d0b583d7c/demo/sourcecoden/visitor.py#L479>`_.
  #. Indentation is changed from spaces to tabs
  #. Extraneous parentheses are introduced
-     Some of these seem improvident, such as those `introduced around conditions of <https://github.com/jalanb/pym/blob/7305db84ede8120de3f13393ed3b792d0b583d7c/demo/sourcecoden/visitor.py#L42>`_ (some) if statements. Some return statements also `get extra parentheses <https://github.com/jalanb/pym/blob/7305db84ede8120de3f13393ed3b792d0b583d7c/demo/sourcecoden/visitor.py#L6>`_, but not `others <https://github.com/jalanb/pym/blob/7305db84ede8120de3f13393ed3b792d0b583d7c/demo/sourcecoden/visitor.py#L8>`_. Some introduced parentheses seem harmless, or even helpful, such as `introduing parentheses around a tuple <https://github.com/jalanb/pym/blob/7305db84ede8120de3f13393ed3b792d0b583d7c/demo/sourcecoden/visitor.py#L126>`_.
+     Some of these seem improvident, such as those `introduced around conditions of <https://github.com/jalanb/pym/blob/7305db84ede8120de3f13393ed3b792d0b583d7c/demo/sourcecoden/visitor.py#L42>`_ (some) if statements. Some return statements also `get extra parentheses <https://github.com/jalanb/pym/commit/7305db84ede8120de3f13393ed3b792d0b583d7c#L0L10>`_, but not `others <https://github.com/jalanb/pym/commit/7305db84ede8120de3f13393ed3b792d0b583d7c#L0L13>`_. Some introduced parentheses seem harmless, or even helpful, such as `introduing parentheses around a tuple <https://github.com/jalanb/pym/blob/7305db84ede8120de3f13393ed3b792d0b583d7c/demo/sourcecoden/visitor.py#L126>`_.
  #. Re-formatting of multi-line arguments for method calls to single lines
+ #. Re-formatting of strings to `remove redundant escaping <https://github.com/jalanb/pym/commit/7305db84ede8120de3f13393ed3b792d0b583d7c#L0L10>`_.
 
 Most of the above issues seem to be matters of opinion and should be deferred to `PEP 8 <http://www.python.org/dev/peps/pep-0008/>`_. The unparser's output does seem closer to PEP8 than is its code.
 

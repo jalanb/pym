@@ -42,9 +42,9 @@ Some differences are apparent
      This feature is also apparent in other strings.
  #. Blank lines are not maintained
  #. Extraneous parentheses are introduced
-     Some of these seem improvident, such as those introduced around conditions of (some) if statements. Others seem harmless, or even helpful, such as introduing parentheses around a literal tuple. Introducing parentheses around expressions after a print statement is dubious, given that I used python 2, not 3.
+     Some of these seem improvident, such as those introduced around conditions of (some) if statements. Others seem harmless, or even helpful, such as introducing parentheses around a literal tuple. Introducing parentheses around expressions after a print statement is dubious, given that I used python 2, not 3.
  #. Extra indentation is introduced at control structures
-     In particular this is noticeable at if/else statements, where the original uses compound statements for both if and else, but the unparsed version splits them over two lines. Once again the unparsed version seem `more correct <http://www.python.org/dev/peps/pep-0008/#other-recommendations>`_.
+     In particular this is noticeable at if/else statements, where the original uses compound statements for both if and else, but the unparsed version splits them over two lines. Once again the unparsed version seems `more correct <http://www.python.org/dev/peps/pep-0008/#other-recommendations>`_.
  #. Re-formatting of a multi-line dictionary to a single line
  #. Re-formatting expressions to introduce spaces around operators
 
