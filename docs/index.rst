@@ -3,40 +3,30 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to pym's documentation!
-===============================
+.. _pym_index:
 
-Contents:
+pym v0.0.1 documentation
+========================
+
+Parts of the documentation:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
-   python_unparser
+   renderers
 
 What is pym?
 ------------
 
 pym is an editor for structured text, in particular for Python source code. pym was inspired by vim but it handles structured (not plain) text.
 
-At present pym is entirely vapourware, and consists of some ideas based around manipulation of Abstract Syntax Trees, such as those handled by the `ast module <http://docs.python.org/2/library/ast.html?highlight=ast>`_ .
+At present pym is entirely vapourware, and consists of some ideas based around manipulation of `Abstract Syntax Trees <http://en.wikipedia.org/wiki/Abstract_syntax_tree>`_, such as those handled by the `ast module <http://docs.python.org/2/library/ast.html?highlight=ast>`_ .
 
 Rendering code
 ^^^^^^^^^^^^^^
 
-In order to be more easily read AST trees can pretty printed (`a.k.a. <http://en.wiktionary.org/wiki/AKA#English>`_ rendered). Some other code which may be helpful in rendering AST trees as Python text are
+In order to be more easily read AST trees can pretty printed (`a.k.a. <http://en.wiktionary.org/wiki/AKA#English>`_ rendered). Some other code which may be helpful in rendering AST trees as Python text are documented in :ref:`renderers`
  
- * :ref:`pythons_unparser`
-
- * Other unparsers
-
-  * :ref:`sourcecodegen`
-  * `pyRegurgitator <http://pypi.python.org/pypi/pyRegurgitator>`_
-  * `Python-Decompiler <https://github.com/jalanb/Python-Decompiler>`_
-  * `Approach <http://alexmic.net/building-a-template-engine>`_
-  * `Grako <https://bitbucket.org/apalala/grako#templates-and-translation>`_
-
-A significant initial task shall be to evaluate these unparsers, find their commonalities, find their idiosyncracies, and decide on my own unparsing strategy.
-
 Parsing
 ^^^^^^^
 
