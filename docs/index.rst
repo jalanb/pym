@@ -5,7 +5,7 @@
 
 .. _pym_index:
 
-pym v0.0.1 documentation
+pym v0.0.2 documentation
 ========================
 
 Parts of the documentation:
