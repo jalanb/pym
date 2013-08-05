@@ -39,3 +39,6 @@ nosetests.xml
 
 # vim
 .*sw[po]
+
+# Sphinx
+_build
