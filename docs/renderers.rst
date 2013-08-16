@@ -14,11 +14,11 @@ Some other code which may be helpful in rendering AST trees as Python text are
 
    python_unparser
    sourcecodegen
+   pyregurgitator
 
 Other renderers
 ---------------
 
-  * `pyRegurgitator <http://pypi.python.org/pypi/pyRegurgitator>`_
   * `Python-Decompiler <https://github.com/jalanb/Python-Decompiler>`_
   * `Approach <http://alexmic.net/building-a-template-engine>`_
   * `Grako <https://bitbucket.org/apalala/grako#templates-and-translation>`_
