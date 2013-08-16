@@ -42,3 +42,7 @@ nosetests.xml
 
 # Sphinx
 _build
+
+
+# local dev files
+build.sh
