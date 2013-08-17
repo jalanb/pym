@@ -21,7 +21,7 @@ Other renderers
   * `Python-Decompiler <https://github.com/jalanb/Python-Decompiler>`_
   * `Approach <http://alexmic.net/building-a-template-engine>`_
   * `Grako <https://bitbucket.org/apalala/grako#templates-and-translation>`_
-  * `Eduardo Schettino’s pyregurgitator <pyregurgitator>`_
+  * `Eduardo Schettino’s pyregurgitator <pyregurgitator.html>`_
 
 To Do
 -----
