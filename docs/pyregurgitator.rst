@@ -44,6 +44,4 @@ This produces `output showing the detail as the AST <http://www.al-got-rhythm.ne
 Conclusion
 ^^^^^^^^^^
 
-pyregurgitator is a helpful tool for anyone working with ASTs (such as myself). But it has proved not to be directly relevant to pym, as it concentrates on printing the AST, not the python. The methods it uses to pretty print the AST could yet prove informative, but details are buried in some monolithic and obscure code.
-
-I think I shall leave investigation of pyregurgitator there.
+pyregurgitator is a helpful tool for anyone working with ASTs (such as myself). But it has proved not to be directly relevant to pym, as it concentrates on printing the AST, not the python. The methods it uses to pretty print the AST could yet prove informative, but details deserve a bit more investigation. Looks like he's using a `dictionary <https://bitbucket.org/schettino72/pyregurgitator/src/63dc0c9946e50885d0aeb6044a2fb8ea773389ae/regurgitator/astview/ast2html.py?at=default#cl-4>`_.
