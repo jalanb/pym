@@ -25,18 +25,15 @@ pyregurgitator is intended to offer two primary tools
   * asdl2html which provides a reference table of python's ASDL
   * ast2html which provides a super pretty print of python source-code's AST
 
-It is released under the MIT license, so can be copied for investigation.
-
-Running pyregurgitator on itself
---------------------------------
-
-As of version 0.1 there are three tools available 
+As of version 0.1 I have found three tools available 
   * ast2html which provides a super pretty print of python source-code's AST
   * ast2txt which dumps out the AST, similarly to `ast.dump <http://docs.python.org/2/library/ast.html?highlight=ast.dump#ast.dump>`_
   * ast2map which prints out the AST as a list of items, with minimal information about each
 
-Running
-^^^^^^^
+It is released under the MIT license, so can be copied for investigation.
+
+Running pyregurgitator on itself
+--------------------------------
 
 Run the ast2html tool, with the commands::
 
