@@ -1,0 +1,176 @@
+<html><head><style type="text/css">
+* {font-size:small;}
+.att{font-size:x-small;}
+.node_tbl{border: 1px solid #66B;}
+.node_tbl th{text-align:left;}
+.node_tbl td{vertical-align:top;}
+.stmt{border-top: 2px solid #ff8800;}
+.mod{border: hidden;}
+.field_list{border: 2px solid #eef;}
+.field_name{background-color:#eef;}
+.node_type{background-color:#99B;}
+.final{background-color:#A88;}
+.code{background-color:#ff8800;}
+pre{font-size:13px;margin-bottom:0;}
+</style></head>
+<body><h4>bin/ast2html</h4>
+<div class="mod node_tbl"><table><th colspan="10"><span class="node_type">Module</span> <span class="att">()</span></th><tr class="field_name"><td></td></tr><tr><td></td></tr></table><table><tr><td class="field_name">body</td><td><table class="field_list"><tr><td><div class="stmt node_tbl"><table><th colspan="10"><span class="node_type">Import</span> <span class="att">(3, 0)</span></th><tr class="code"><td colspan="10"><pre>3: import sys
+</pre></td></tr><tr class="field_name"><td>names</td></tr><tr><td><table class="field_list"><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">alias</span> <span class="att">()</span></th><tr class="field_name"><td>name</td>
+<td>asname</td></tr><tr><td><span class="final">'sys'</span></td>
+<td><span class="final">None</span></td></tr></table><table></table><div></td></tr></table></td></tr></table><table></table><div></td></tr><tr><td><div class="stmt node_tbl"><table><th colspan="10"><span class="node_type">ImportFrom</span> <span class="att">(4, 0)</span></th><tr class="code"><td colspan="10"><pre>4: from optparse import OptionParser
+</pre></td></tr><tr class="field_name"><td>module</td>
+<td>names</td>
+<td>level</td></tr><tr><td><span class="final">'optparse'</span></td>
+<td><table class="field_list"><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">alias</span> <span class="att">()</span></th><tr class="field_name"><td>name</td>
+<td>asname</td></tr><tr><td><span class="final">'OptionParser'</span></td>
+<td><span class="final">None</span></td></tr></table><table></table><div></td></tr></table></td>
+<td><span class="final">0</span></td></tr></table><table></table><div></td></tr><tr><td><div class="stmt node_tbl"><table><th colspan="10"><span class="node_type">ImportFrom</span> <span class="att">(6, 0)</span></th><tr class="code"><td colspan="10"><pre>6: from regurgitator.astview import ast2html
+</pre></td></tr><tr class="field_name"><td>module</td>
+<td>names</td>
+<td>level</td></tr><tr><td><span class="final">'regurgitator.astview'</span></td>
+<td><table class="field_list"><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">alias</span> <span class="att">()</span></th><tr class="field_name"><td>name</td>
+<td>asname</td></tr><tr><td><span class="final">'ast2html'</span></td>
+<td><span class="final">None</span></td></tr></table><table></table><div></td></tr></table></td>
+<td><span class="final">0</span></td></tr></table><table></table><div></td></tr><tr><td><div class="stmt node_tbl"><table><th colspan="10"><span class="node_type">FunctionDef</span> <span class="att">(9, 0)</span></th><tr class="code"><td colspan="10"><pre>9: def main():
+</pre></td></tr><tr class="field_name"><td>name</td>
+<td>args</td>
+<td>decorators</td></tr><tr><td><span class="final">'main'</span></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">arguments</span> <span class="att">()</span></th><tr class="field_name"><td>args</td>
+<td>defaults</td>
+<td>vararg</td>
+<td>kwarg</td></tr><tr><td><table class="field_list"></table></td>
+<td><table class="field_list"></table></td>
+<td><span class="final">None</span></td>
+<td><span class="final">None</span></td></tr></table><table></table><div></td>
+<td><table class="field_list"></table></td></tr></table><table><tr><td class="field_name">body</td><td><table class="field_list"><tr><td><div class="stmt node_tbl"><table><th colspan="10"><span class="node_type">Assign</span> <span class="att">(10, 4)</span></th><tr class="code"><td colspan="10"><pre>10:     usage = "usage: %prog MODULE"
+</pre></td></tr><tr class="field_name"><td>targets</td>
+<td>value</td></tr><tr><td><table class="field_list"><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Name</span> <span class="att">(10, 4)</span></th><tr class="field_name"><td>id</td>
+<td>ctx</td></tr><tr><td><span class="final">'usage'</span></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Store</span> <span class="att">()</span></th><tr class="field_name"><td></td></tr><tr><td></td></tr></table><table></table><div></td></tr></table><table></table><div></td></tr></table></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Str</span> <span class="att">(10, 12)</span></th><tr class="field_name"><td>s</td></tr><tr><td><span class="final">'usage: %prog MODULE'</span></td></tr></table><table></table><div></td></tr></table><table></table><div></td></tr><tr><td><div class="stmt node_tbl"><table><th colspan="10"><span class="node_type">Assign</span> <span class="att">(11, 4)</span></th><tr class="code"><td colspan="10"><pre>11:     description = """
+</pre></td></tr><tr class="code"><td colspan="10"><pre>14: """
+</pre></td></tr><tr class="field_name"><td>targets</td>
+<td>value</td></tr><tr><td><table class="field_list"><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Name</span> <span class="att">(11, 4)</span></th><tr class="field_name"><td>id</td>
+<td>ctx</td></tr><tr><td><span class="final">'description'</span></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Store</span> <span class="att">()</span></th><tr class="field_name"><td></td></tr><tr><td></td></tr></table><table></table><div></td></tr></table><table></table><div></td></tr></table></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Str</span> <span class="att">(14, -1)</span></th><tr class="field_name"><td>s</td></tr><tr><td><span class="final">"\n<br/>Super pretty-printer for python modules's AST(abstract syntax tree).\n<br/>Prints generated HTML in stdout.\n<br/>"</span></td></tr></table><table></table><div></td></tr></table><table></table><div></td></tr><tr><td><div class="stmt node_tbl"><table><th colspan="10"><span class="node_type">Assign</span> <span class="att">(15, 4)</span></th><tr class="code"><td colspan="10"><pre>15:     parser = OptionParser(usage=usage, description=description)
+</pre></td></tr><tr class="field_name"><td>targets</td>
+<td>value</td></tr><tr><td><table class="field_list"><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Name</span> <span class="att">(15, 4)</span></th><tr class="field_name"><td>id</td>
+<td>ctx</td></tr><tr><td><span class="final">'parser'</span></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Store</span> <span class="att">()</span></th><tr class="field_name"><td></td></tr><tr><td></td></tr></table><table></table><div></td></tr></table><table></table><div></td></tr></table></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Call</span> <span class="att">(15, 13)</span></th><tr class="field_name"><td>func</td>
+<td>args</td>
+<td>keywords</td>
+<td>starargs</td>
+<td>kwargs</td></tr><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Name</span> <span class="att">(15, 13)</span></th><tr class="field_name"><td>id</td>
+<td>ctx</td></tr><tr><td><span class="final">'OptionParser'</span></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Load</span> <span class="att">()</span></th><tr class="field_name"><td></td></tr><tr><td></td></tr></table><table></table><div></td></tr></table><table></table><div></td>
+<td><table class="field_list"></table></td>
+<td><table class="field_list"><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">keyword</span> <span class="att">()</span></th><tr class="field_name"><td>arg</td>
+<td>value</td></tr><tr><td><span class="final">'usage'</span></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Name</span> <span class="att">(15, 32)</span></th><tr class="field_name"><td>id</td>
+<td>ctx</td></tr><tr><td><span class="final">'usage'</span></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Load</span> <span class="att">()</span></th><tr class="field_name"><td></td></tr><tr><td></td></tr></table><table></table><div></td></tr></table><table></table><div></td></tr></table><table></table><div></td></tr><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">keyword</span> <span class="att">()</span></th><tr class="field_name"><td>arg</td>
+<td>value</td></tr><tr><td><span class="final">'description'</span></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Name</span> <span class="att">(15, 51)</span></th><tr class="field_name"><td>id</td>
+<td>ctx</td></tr><tr><td><span class="final">'description'</span></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Load</span> <span class="att">()</span></th><tr class="field_name"><td></td></tr><tr><td></td></tr></table><table></table><div></td></tr></table><table></table><div></td></tr></table><table></table><div></td></tr></table></td>
+<td><span class="final">None</span></td>
+<td><span class="final">None</span></td></tr></table><table></table><div></td></tr></table><table></table><div></td></tr><tr><td><div class="stmt node_tbl"><table><th colspan="10"><span class="node_type">Assign</span> <span class="att">(16, 4)</span></th><tr class="code"><td colspan="10"><pre>16:     (options, args) = parser.parse_args()
+</pre></td></tr><tr class="field_name"><td>targets</td>
+<td>value</td></tr><tr><td><table class="field_list"><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Tuple</span> <span class="att">(16, 5)</span></th><tr class="field_name"><td>elts</td>
+<td>ctx</td></tr><tr><td><table class="field_list"><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Name</span> <span class="att">(16, 5)</span></th><tr class="field_name"><td>id</td>
+<td>ctx</td></tr><tr><td><span class="final">'options'</span></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Store</span> <span class="att">()</span></th><tr class="field_name"><td></td></tr><tr><td></td></tr></table><table></table><div></td></tr></table><table></table><div></td></tr><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Name</span> <span class="att">(16, 14)</span></th><tr class="field_name"><td>id</td>
+<td>ctx</td></tr><tr><td><span class="final">'args'</span></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Store</span> <span class="att">()</span></th><tr class="field_name"><td></td></tr><tr><td></td></tr></table><table></table><div></td></tr></table><table></table><div></td></tr></table></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Store</span> <span class="att">()</span></th><tr class="field_name"><td></td></tr><tr><td></td></tr></table><table></table><div></td></tr></table><table></table><div></td></tr></table></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Call</span> <span class="att">(16, 22)</span></th><tr class="field_name"><td>func</td>
+<td>args</td>
+<td>keywords</td>
+<td>starargs</td>
+<td>kwargs</td></tr><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Attribute</span> <span class="att">(16, 22)</span></th><tr class="field_name"><td>value</td>
+<td>attr</td>
+<td>ctx</td></tr><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Name</span> <span class="att">(16, 22)</span></th><tr class="field_name"><td>id</td>
+<td>ctx</td></tr><tr><td><span class="final">'parser'</span></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Load</span> <span class="att">()</span></th><tr class="field_name"><td></td></tr><tr><td></td></tr></table><table></table><div></td></tr></table><table></table><div></td>
+<td><span class="final">'parse_args'</span></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Load</span> <span class="att">()</span></th><tr class="field_name"><td></td></tr><tr><td></td></tr></table><table></table><div></td></tr></table><table></table><div></td>
+<td><table class="field_list"></table></td>
+<td><table class="field_list"></table></td>
+<td><span class="final">None</span></td>
+<td><span class="final">None</span></td></tr></table><table></table><div></td></tr></table><table></table><div></td></tr><tr><td><div class="stmt node_tbl"><table><th colspan="10"><span class="node_type">If</span> <span class="att">(17, 4)</span></th><tr class="code"><td colspan="10"><pre>17:     if len(args) != 1:
+</pre></td></tr><tr class="field_name"><td>test</td></tr><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Compare</span> <span class="att">(17, 7)</span></th><tr class="field_name"><td>ops</td>
+<td>left</td>
+<td>comparators</td></tr><tr><td><table class="field_list"><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">NotEq</span> <span class="att">()</span></th><tr class="field_name"><td></td></tr><tr><td></td></tr></table><table></table><div></td></tr></table></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Call</span> <span class="att">(17, 7)</span></th><tr class="field_name"><td>func</td>
+<td>args</td>
+<td>keywords</td>
+<td>starargs</td>
+<td>kwargs</td></tr><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Name</span> <span class="att">(17, 7)</span></th><tr class="field_name"><td>id</td>
+<td>ctx</td></tr><tr><td><span class="final">'len'</span></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Load</span> <span class="att">()</span></th><tr class="field_name"><td></td></tr><tr><td></td></tr></table><table></table><div></td></tr></table><table></table><div></td>
+<td><table class="field_list"><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Name</span> <span class="att">(17, 11)</span></th><tr class="field_name"><td>id</td>
+<td>ctx</td></tr><tr><td><span class="final">'args'</span></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Load</span> <span class="att">()</span></th><tr class="field_name"><td></td></tr><tr><td></td></tr></table><table></table><div></td></tr></table><table></table><div></td></tr></table></td>
+<td><table class="field_list"></table></td>
+<td><span class="final">None</span></td>
+<td><span class="final">None</span></td></tr></table><table></table><div></td>
+<td><table class="field_list"><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Num</span> <span class="att">(17, 20)</span></th><tr class="field_name"><td>n</td></tr><tr><td><span class="final">1</span></td></tr></table><table></table><div></td></tr></table></td></tr></table><table></table><div></td></tr></table><table><tr><td class="field_name">body</td><td><table class="field_list"><tr><td><div class="stmt node_tbl"><table><th colspan="10"><span class="node_type">Expr</span> <span class="att">(18, 8)</span></th><tr class="code"><td colspan="10"><pre>18:         parser.error("incorrect number of arguments")
+</pre></td></tr><tr class="field_name"><td>value</td></tr><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Call</span> <span class="att">(18, 8)</span></th><tr class="field_name"><td>func</td>
+<td>args</td>
+<td>keywords</td>
+<td>starargs</td>
+<td>kwargs</td></tr><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Attribute</span> <span class="att">(18, 8)</span></th><tr class="field_name"><td>value</td>
+<td>attr</td>
+<td>ctx</td></tr><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Name</span> <span class="att">(18, 8)</span></th><tr class="field_name"><td>id</td>
+<td>ctx</td></tr><tr><td><span class="final">'parser'</span></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Load</span> <span class="att">()</span></th><tr class="field_name"><td></td></tr><tr><td></td></tr></table><table></table><div></td></tr></table><table></table><div></td>
+<td><span class="final">'error'</span></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Load</span> <span class="att">()</span></th><tr class="field_name"><td></td></tr><tr><td></td></tr></table><table></table><div></td></tr></table><table></table><div></td>
+<td><table class="field_list"><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Str</span> <span class="att">(18, 21)</span></th><tr class="field_name"><td>s</td></tr><tr><td><span class="final">'incorrect number of arguments'</span></td></tr></table><table></table><div></td></tr></table></td>
+<td><table class="field_list"></table></td>
+<td><span class="final">None</span></td>
+<td><span class="final">None</span></td></tr></table><table></table><div></td></tr></table><table></table><div></td></tr></table></td></tr>
+<tr><td class="field_name">orelse</td><td><table class="field_list"></table></td></tr></table><div></td></tr><tr><td><div class="stmt node_tbl"><table><th colspan="10"><span class="node_type">Expr</span> <span class="att">(19, 4)</span></th><tr class="code"><td colspan="10"><pre>19:     ast2html.ast2html(args[0])
+</pre></td></tr><tr class="field_name"><td>value</td></tr><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Call</span> <span class="att">(19, 4)</span></th><tr class="field_name"><td>func</td>
+<td>args</td>
+<td>keywords</td>
+<td>starargs</td>
+<td>kwargs</td></tr><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Attribute</span> <span class="att">(19, 4)</span></th><tr class="field_name"><td>value</td>
+<td>attr</td>
+<td>ctx</td></tr><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Name</span> <span class="att">(19, 4)</span></th><tr class="field_name"><td>id</td>
+<td>ctx</td></tr><tr><td><span class="final">'ast2html'</span></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Load</span> <span class="att">()</span></th><tr class="field_name"><td></td></tr><tr><td></td></tr></table><table></table><div></td></tr></table><table></table><div></td>
+<td><span class="final">'ast2html'</span></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Load</span> <span class="att">()</span></th><tr class="field_name"><td></td></tr><tr><td></td></tr></table><table></table><div></td></tr></table><table></table><div></td>
+<td><table class="field_list"><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Subscript</span> <span class="att">(19, 22)</span></th><tr class="field_name"><td>value</td>
+<td>slice</td>
+<td>ctx</td></tr><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Name</span> <span class="att">(19, 22)</span></th><tr class="field_name"><td>id</td>
+<td>ctx</td></tr><tr><td><span class="final">'args'</span></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Load</span> <span class="att">()</span></th><tr class="field_name"><td></td></tr><tr><td></td></tr></table><table></table><div></td></tr></table><table></table><div></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Index</span> <span class="att">()</span></th><tr class="field_name"><td>value</td></tr><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Num</span> <span class="att">(19, 27)</span></th><tr class="field_name"><td>n</td></tr><tr><td><span class="final">0</span></td></tr></table><table></table><div></td></tr></table><table></table><div></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Load</span> <span class="att">()</span></th><tr class="field_name"><td></td></tr><tr><td></td></tr></table><table></table><div></td></tr></table><table></table><div></td></tr></table></td>
+<td><table class="field_list"></table></td>
+<td><span class="final">None</span></td>
+<td><span class="final">None</span></td></tr></table><table></table><div></td></tr></table><table></table><div></td></tr></table></td></tr></table><div></td></tr><tr><td><div class="stmt node_tbl"><table><th colspan="10"><span class="node_type">If</span> <span class="att">(21, 0)</span></th><tr class="code"><td colspan="10"><pre>21: if __name__ == "__main__":
+</pre></td></tr><tr class="field_name"><td>test</td></tr><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Compare</span> <span class="att">(21, 3)</span></th><tr class="field_name"><td>ops</td>
+<td>left</td>
+<td>comparators</td></tr><tr><td><table class="field_list"><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Eq</span> <span class="att">()</span></th><tr class="field_name"><td></td></tr><tr><td></td></tr></table><table></table><div></td></tr></table></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Name</span> <span class="att">(21, 3)</span></th><tr class="field_name"><td>id</td>
+<td>ctx</td></tr><tr><td><span class="final">'__name__'</span></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Load</span> <span class="att">()</span></th><tr class="field_name"><td></td></tr><tr><td></td></tr></table><table></table><div></td></tr></table><table></table><div></td>
+<td><table class="field_list"><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Str</span> <span class="att">(21, 15)</span></th><tr class="field_name"><td>s</td></tr><tr><td><span class="final">'__main__'</span></td></tr></table><table></table><div></td></tr></table></td></tr></table><table></table><div></td></tr></table><table><tr><td class="field_name">body</td><td><table class="field_list"><tr><td><div class="stmt node_tbl"><table><th colspan="10"><span class="node_type">Expr</span> <span class="att">(22, 4)</span></th><tr class="code"><td colspan="10"><pre>22:     main()
+</pre></td></tr><tr class="field_name"><td>value</td></tr><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Call</span> <span class="att">(22, 4)</span></th><tr class="field_name"><td>func</td>
+<td>args</td>
+<td>keywords</td>
+<td>starargs</td>
+<td>kwargs</td></tr><tr><td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Name</span> <span class="att">(22, 4)</span></th><tr class="field_name"><td>id</td>
+<td>ctx</td></tr><tr><td><span class="final">'main'</span></td>
+<td><div class=" node_tbl"><table><th colspan="10"><span class="node_type">Load</span> <span class="att">()</span></th><tr class="field_name"><td></td></tr><tr><td></td></tr></table><table></table><div></td></tr></table><table></table><div></td>
+<td><table class="field_list"></table></td>
+<td><table class="field_list"></table></td>
+<td><span class="final">None</span></td>
+<td><span class="final">None</span></td></tr></table><table></table><div></td></tr></table><table></table><div></td></tr></table></td></tr>
+<tr><td class="field_name">orelse</td><td><table class="field_list"></table></td></tr></table><div></td></tr></table></td></tr></table><div>
+</body></html>
