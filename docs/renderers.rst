@@ -16,14 +16,27 @@ Some other code which may be helpful in rendering AST trees as Python text are
    sourcecodegen
    pyregurgitator
 
-Other renderers
----------------
+Python renderers of Python ASTs
+-------------------------------
 
+  * :ref:`pythons_unparser`
+  * :ref:`sourcecodegen`
   * `Python-Decompiler <https://github.com/jalanb/Python-Decompiler>`_
-  * `Approach <http://alexmic.net/building-a-template-engine>`_
-  * `Grako <https://bitbucket.org/apalala/grako#templates-and-translation>`_
 
-..  * `Eduardo Schettino’s pyregurgitator <pyregurgitator.html>`_
+Python renderers of other trees
+-------------------------------
+
+  * :ref:`pyregurgitator`
+  * `Approach <http://alexmic.net/building-a-template-engine>`_
+  * Jorge Monforte's `heracles <https://github.com/llou/heracles>`_ is based on Augeas
+ 
+
+Other renderers of other trees
+------------------------------
+
+  * `Augeas <http://augeas.net/index.html>`_
+  
+
 
 To Do
 -----
