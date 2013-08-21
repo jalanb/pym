@@ -23,6 +23,13 @@ sourcecodegen is designed to worker with older versions of Python, specifically 
 
 It is released under the BSD license, so can be copied for investigation.
 
+Rendering
+---------
+
+The code provides an `ASTVisitor class <https://github.com/malthe/sourcecodegen/blob/master/src/sourcecodegen/visitor.py#l120>`_, which contains `a method <https://github.com/malthe/sourcecodegen/blob/master/src/sourcecodegen/visitor.py#l156>`_ for each type of node. The methods render their own node's code, and visit sub-nodes's methods sending in the respective nodes.
+
+This concept of a visitor class which visits eahc node of a tree is a classic way of handling ASTs.
+
 Running sourcecodegen on itself
 -------------------------------
 
