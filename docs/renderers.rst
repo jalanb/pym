@@ -27,7 +27,7 @@ Python renderers of other trees
 -------------------------------
 
  * :ref:`pyregurgitator`
- * `Approach <http://alexmic.net/building-a-template-engine>`_
+ * :ref:`approach`
  * Jorge Monforte's `heracles <https://github.com/llou/heracles>`_ is based on Augeas
  
 
