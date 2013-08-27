@@ -29,6 +29,7 @@ Python renderers of other trees
  * :ref:`pyregurgitator`
  * :ref:`approach`
  * Jorge Monforte's `heracles <https://github.com/llou/heracles>`_ is based on Augeas
+ * Guillaume Bour's `reblok <http://devedge.bour.cc/wiki/Reblok>`_ builds ASTs from bytecode
  
 
 Other renderers of other trees
