@@ -1,5 +1,5 @@
 .. pym documentation about Alex Michael's approach, created by
-   jalanb on Tuesday January 1st 2013
+   jalanb on Wednesday August 21st 2013
 
 .. _approach:
 

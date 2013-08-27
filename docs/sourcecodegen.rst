@@ -1,5 +1,5 @@
-.. pym documentation about Python's unparser, created by
-   jalanb on Tuesday January 1st 2013
+.. pym documentation about Malthe Borch's sourcecodegen, created by
+   jalanb on Saturday May 4th 2013
 
 .. _sourcecodegen:
 

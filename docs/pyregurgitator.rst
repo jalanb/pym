@@ -1,5 +1,5 @@
 .. pym documentation about Eduardo Schettino's pyregurgitator, created by
-   jalanb on Tuesday January 1st 2013
+   jalanb on Thursday August 15th 2013
 
 .. _pyregurgitator:
 
