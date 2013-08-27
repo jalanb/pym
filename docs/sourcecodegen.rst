@@ -19,7 +19,7 @@ Links to sourcecodegen
 Summary
 -------
 
-sourcecodegen is designed to worker with older versions of Python, specifically "2.4 and below", and is not compatible with the new `ast` module in Python 2.6.
+sourcecodegen is designed to work with older versions of Python, specifically "2.4 and below", and is not compatible with the new `ast` module in Python 2.6.
 
 It is released under the BSD license, so can be copied for investigation.
 
