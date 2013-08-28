@@ -11,14 +11,14 @@ Python-Decompiler is a project by `Chris Warburton <http://chriswarbo.net/>`_ wh
 .. _warbo_pythondecompiler:
 
 Links to Python-Decompiler
-----------------------
+--------------------------
 
-  * The source codegen project is stored `on gitorious <https://gitorious.org/python-decompiler>`_
+  * The most recent form of the project is stored `on gitorious <https://gitorious.org/python-decompiler>`_.
 
 Summary
 -------
 
-Python-Decompiler defines an OMeta grammar to parse Python's ASTs and thence render Python code. it is based on the ASTs of the 2.x `compiler module <http://docs.python.org/2/library/compiler.html>`_
+The Python-Decompiler project include a directory called `python_rewriter <https://gitorious.org/python-decompiler/python_rewriter/source/b263c45ad84a737422ee8e35f9e2f3a30cc28e56:python_rewriter>`_ which defines `an OMeta grammar <https://gitorious.org/python-decompiler/python_rewriter/source/b263c45ad84a737422ee8e35f9e2f3a30cc28e56:python_rewriter/base.py#L122>`_ to parse Python's ASTs and thence render Python code. it is based on the ASTs of the 2.x `compiler module <http://docs.python.org/2/library/compiler.html>`_
 
 It is released into the Public Domain, so can be copied for investigation.
 
