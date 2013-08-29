@@ -4,7 +4,7 @@
 .. _pythondecompiler:
 
 Chris Warburton's Python-Decompiler
-============================
+===================================
 
 Python-Decompiler is a project by `Chris Warburton <http://chriswarbo.net/>`_ which can generate source code from ASTs.
 
@@ -13,12 +13,13 @@ Python-Decompiler is a project by `Chris Warburton <http://chriswarbo.net/>`_ wh
 Links to Python-Decompiler
 --------------------------
 
-  * The most recent form of the project is stored `on gitorious <https://gitorious.org/python-decompiler>`_.
+* The most recent form of the project is stored `on gitorious <https://gitorious.org/python-decompiler>`_.
+* A previous version was stored `on Github <https://github.com/Warbo/Python-Decompiler>`_ (whence `I forked it <https://github.com/jalanb/Python-Decompiler>`_ while working with `PyMeta <https://launchpad.net/pymeta>`_).
 
 Summary
 -------
 
-The Python-Decompiler project include a directory called `python_rewriter <https://gitorious.org/python-decompiler/python_rewriter/source/b263c45ad84a737422ee8e35f9e2f3a30cc28e56:python_rewriter>`_ which defines `an OMeta grammar <https://gitorious.org/python-decompiler/python_rewriter/source/b263c45ad84a737422ee8e35f9e2f3a30cc28e56:python_rewriter/base.py#L122>`_ to parse Python's ASTs and thence render Python code. it is based on the ASTs of the 2.x `compiler module <http://docs.python.org/2/library/compiler.html>`_
+The Python-Decompiler project includes a directory called `python_rewriter <https://gitorious.org/python-decompiler/python_rewriter/source/b263c45ad84a737422ee8e35f9e2f3a30cc28e56:python_rewriter>`_ which defines `an OMeta grammar <https://gitorious.org/python-decompiler/python_rewriter/source/b263c45ad84a737422ee8e35f9e2f3a30cc28e56:python_rewriter/base.py#L122>`_ to parse Python's ASTs and thence render Python code. it is based on the ASTs of the 2.x `compiler module <http://docs.python.org/2/library/compiler.html>`_
 
 It is released into the Public Domain, so can be copied for investigation.
 
@@ -27,13 +28,16 @@ Rendering
 
 
 Running Python-Decompiler on itself
--------------------------------
+-----------------------------------
 
 
 Running
 ^^^^^^^
 
 Run the unparser, with the commands::
+
+    $ python
+
 
 
 Pepping
