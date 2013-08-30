@@ -37,8 +37,20 @@ Running
 Run the unparser, with the commands::
 
     $ python
-
-
+    >>> from python_rewriter import base
+    >>> from helpers.indent_lists import indented
+    >>> reload(base)
+    >>> source_text = file(source).read()
+    >>> parsed_source = base.parse(source_text)
+    >>> parsed_sources = [parsed_source]
+    >>> prettied_sources = pformat(parsed_sources)
+    >>> file('nodes.py','w').write(prettied_sources)
+    >>> indented_source = indented(parsed_sources)
+    >>> file('indents.py','w').write(indented_source)
+    >>> grammared_sources = base.grammar(parsed_sources)
+    >>> pythoned_sources = grammared_sources.apply('python', 0)
+    >>> text = pythoned_sources[0]
+    >>> file(out,'w').write(text)
 
 Pepping
 ^^^^^^^
