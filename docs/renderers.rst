@@ -17,21 +17,22 @@ Some other code which may be helpful in rendering AST trees as Python text are
    pyregurgitator
    python_decompiler
    approach
+   heracles
 
 Python renderers of Python ASTs
 -------------------------------
 
- * :ref:`pythons_unparser`
- * :ref:`sourcecodegen`
+* :ref:`pythons_unparser`
+* :ref:`sourcecodegen`
 
 Python renderers of other trees
 -------------------------------
 
- * :ref:`pyregurgitator`
- * :ref:`approach`
- * Jorge Monforte's `heracles <https://github.com/llou/heracles>`_ is based on Augeas
- * Guillaume Bour's `reblok <http://devedge.bour.cc/wiki/Reblok>`_ builds ASTs from bytecode
- * Cenk Alti's `pythml <https://github.com/cenkalti/pyhtml>`_ renders html from method calls
+* :ref:`pyregurgitator`
+* :ref:`approach`
+* :ref:`heracles`
+* Guillaume Bour's `reblok <http://devedge.bour.cc/wiki/Reblok>`_ builds ASTs from bytecode
+* Cenk Alti's `pythml <https://github.com/cenkalti/pyhtml>`_ renders html from method calls
  
 
 Other renderers of other trees
