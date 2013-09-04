@@ -73,6 +73,7 @@ Other stuff I have read recently
 
 Other stuff I need to read
 
+* `/r/parsing <http://www.reddit.com/r/parsing/`_
 * `Invertible Syntax Descriptions: Unifying Parsing and Pretty Printing <http://www.informatik.uni-marburg.de/~rendel/unparse/rendel10invertible.pdf>`_ by Tillmann Rendel & Klaus Ostermann
 
 Indices and tables
