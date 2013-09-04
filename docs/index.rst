@@ -71,6 +71,10 @@ Other stuff I have read recently
   * `DMS® Software Reengineering Toolki <http://www.semanticdesigns.com/Products/DMS/DMSToolkit.html>`_
   * `Recognition can be harder than parsing <http://www.academia.edu/798690/Recognition_can_be_harder_than_parsing>`_
 
+Other stuff I need to read
+
+* `Invertible Syntax Descriptions: Unifying Parsing and Pretty Printing <http://www.informatik.uni-marburg.de/~rendel/unparse/rendel10invertible.pdf>`_ by Tillmann Rendel & Klaus Ostermann
+
 Indices and tables
 ==================
 
