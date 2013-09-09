@@ -21,15 +21,17 @@ The code is `licensed under the Apache License, Version 2.0 <https://github.com/
 Summary
 -------
 
-pyhtml has been tested with Python 2.7 only.
+pyhtml has been tested by Cenk with Python 2.7 only.
 
 
 Rendering
 ---------
 
-
 Running
 ^^^^^^^
+
+I have run pythtml's tests with Pythons 2.5, 2.6 and 2.7. It passed with the latter only, but fails were only due to use of `assertIs <http://docs.python.org/2/library/unittest.html?highlight=assertis#unittest.TestCase.assertIs>`_ and `assertIn <http://docs.python.org/2/library/unittest.html?highlight=assertis#unittest.TestCase.assertIn>`_, both of which were introduced to `the unittest module <http://docs.python.org/2/library/unittest.html>`_ in 2.7. `Replacing them <https://github.com/jalanb/pyhtml/commit/e02264de5e9ded36647aeeed70098e0c44f786d7>`_ with the older `assertTrue <http://docs.python.org/2/library/unittest.html?highlight=assertis#unittest.TestCase.assertTrue>`_ led to the test suite passing in all three Python versions.
+
 
 Conclusion
 ^^^^^^^^^^

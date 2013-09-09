@@ -18,6 +18,7 @@ Some other code which may be helpful in rendering AST trees as Python text are
    python_decompiler
    approach
    heracles
+   pyhtml
 
 Python renderers of Python ASTs
 -------------------------------
