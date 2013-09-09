@@ -47,3 +47,4 @@ _build
 # local dev files
 build.sh
 todo.txt
+.pythonhistory
