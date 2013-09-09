@@ -42,7 +42,7 @@ Some differences are apparent
      This is expected.
      To my mind the problem here is that unparse.py includes any comments (but that may be a less common opinion).
  #. Docstrings are changed from double-quotes to single quotes.
-     Some docstrings in unparse.py use single double-quotes, others use the (`more correct <http://www.python.org/dev/peps/pep-0008/#documentation-strings>`_) triple double-quotes. In the output both have been reduced to single-quotes
+     Some docstrings in unparse.py use single double-quotes, others use the (`PEP 8 recommendation of <http://www.python.org/dev/peps/pep-0008/#documentation-strings>`_) triple double-quotes. In the output both have been reduced to single-quotes
 
      This feature is also apparent in other strings.
  #. Blank lines are not maintained

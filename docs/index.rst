@@ -39,7 +39,6 @@ Other parsers, written in Python but parsing other structures.
  * Juancarlo Añez' `Grako <https://bitbucket.org/apalala/grako#templates-and-translation>`_  is "a tool that takes grammars in a variation of EBNF as input, and outputs memoizing (Packrat) PEG parsers in Python".
  * `C parser and AST generator written in Python <http://code.google.com/p/pycparser/>`_
  * `PyPlus <http://www.reddit.com/r/Python/comments/wv6qn/plyplus_a_friendly_yet_powerful_lrparser_written/>`_
- * `/r/parsing <http://www.reddit.com/r/parsing>`_
  * `CodeTalker <http://pypi.python.org/pypi/CodeTalker/0.5>`_
 
 
@@ -73,7 +72,7 @@ Other stuff I have read recently
 
 Other stuff I need to read
 
-* `/r/parsing <http://www.reddit.com/r/parsing/`_
+* `/r/parsing <http://www.reddit.com/r/parsing/>`_
 * `Invertible Syntax Descriptions: Unifying Parsing and Pretty Printing <http://www.informatik.uni-marburg.de/~rendel/unparse/rendel10invertible.pdf>`_ by Tillmann Rendel & Klaus Ostermann
 
 Indices and tables
