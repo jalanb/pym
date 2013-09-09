@@ -31,7 +31,7 @@ Python renderers of other trees
 * :ref:`pyregurgitator`
 * :ref:`approach`
 * :ref:`heracles`
-* Guillaume Bour's `reblok <http://devedge.bour.cc/wiki/Reblok>`_ builds ASTs from bytecode
+* Guillaume Bour's `Reblok <http://devedge.bour.cc/wiki/Reblok>`_ builds ASTs from bytecode
 * Cenk Alti's `pythml <https://github.com/cenkalti/pyhtml>`_ renders html from method calls
  
 
