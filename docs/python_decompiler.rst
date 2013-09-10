@@ -52,6 +52,22 @@ Run the unparser, with the commands::
     >>> text = pythoned_sources[0]
     >>> file(out,'w').write(text)
 
+Some differences are apparent
+
+ #. Comments are stripped
+     This is expected.
+ #. Leading tabs are converted to spaces.
+     This is unsurprising, but not in the spirit of PEP 8's distinction about "new code"
+ #. Some extra blank lines are added
+ #. Extraneous parentheses are introduced
+     Some of these seem improvident, such as those introduced around conditions of (some) if statements. Others seem harmless, or even helpful, such as introducing parentheses around a literal tuple. Introducing parentheses around expressions after a print statement is dubious, given that I used python 2, not 3.
+ #. Re-formatting expressions to introduce spaces around operators
+ #. Reduction of a multi-line, triple-quoted string to a single-quoted string containing '\n' characters.
+     This is unfortunate as this string is a few hundred lines long and contains the OMeta grammar. The reduction renders the grammar effectively unreadable.
+
+Most of the above issues seem to be matters of opinion and should be deferred to `PEP 8 <http://www.python.org/dev/peps/pep-0008/>`_. This unparser's effects seem very similar to :ref:`those of Python's unparser <python_unparser_output>`.
+
+
 Pepping
 ^^^^^^^
 

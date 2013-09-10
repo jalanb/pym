@@ -36,6 +36,8 @@ Run the unparser, with the commands::
     $ python2.7 unparse.py unparse.py > unparse.out.py
     $ diff unparse.py unparse.out.py
 
+.. _python_unparser_output:
+
 Some differences are apparent
 
  #. Comments are stripped
