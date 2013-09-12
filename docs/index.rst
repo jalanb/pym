@@ -25,14 +25,14 @@ At present pym is entirely vapourware, and consists of some ideas based around m
 Rendering code
 ^^^^^^^^^^^^^^
 
-In order to be more easily read AST trees can pretty printed (`a.k.a. <http://en.wiktionary.org/wiki/AKA#English>`_ rendered). Some other code which may be helpful in rendering AST trees as Python text are documented in :ref:`renderers`
+In order to be more easily read AST trees can pretty printed (`a.k.a. <http://en.wiktionary.org/wiki/AKA#English>`_ rendered). Some other projects which may be helpful in rendering AST trees as Python text are documented in :ref:`renderers`
  
 Parsing
 ^^^^^^^
 
-Parsing in general is of interest. One reason for delay in starting this project has been the postponing of the choice between using Python's built-in parsing modules, or more general parsing components. Although I have now decide to start with Python's built in parser I remain committed to use of other parser. Not much point in having a "structured text editor" which cannot handle structured text such as other langages, marked-up texts, config files, log files, and so on.
+Parsing in general is of interest. One reason for delay in starting this project has been the postponing of the choice between using Python's built-in parsing modules, or more general parsing components. Although I have now decided to start with Python's built in parser I remain open to use of other parsers as well. Not much point in having a "structured text editor" which cannot handle structured text such as other langages, marked-up texts, config files, log files, and so on.
 
-Other parsers, written in Python but parsing other structures.
+Other parsers, written in Python but parsing other structures:
 
  * Allen Shorts's `Parsely <http://parsley.readthedocs.org/en/latest/>`_, which follows on from his `Pymeta <http://washort.twistedmatrix.com/2008/03/introducing-pymeta.html>`_, and which he `introduced at Pycon 2013 <http://www.youtube.com/watch?v=t5X3ljCOFSY>`_.
  * Ned Batchelder's `Python parsing tools <http://nedbatchelder.com/text/python-parsers.html>`_ is a page covering many other parsers.
