@@ -65,15 +65,15 @@ Miscellaneous
 
 Other stuff I have read recently
 
-  * `Static Modification of Python With Python: The AST Module <http://blueprintforge.com/blog/2012/02/27/static-modification-of-python-with-python-the-ast-module/>`_
-  * `Coding in a debugger <http://msinilo.pl/blog/?p=965>`_
-  * `DMS® Software Reengineering Toolki <http://www.semanticdesigns.com/Products/DMS/DMSToolkit.html>`_
-  * `Recognition can be harder than parsing <http://www.academia.edu/798690/Recognition_can_be_harder_than_parsing>`_
+* `Static Modification of Python With Python: The AST Module <http://blueprintforge.com/blog/2012/02/27/static-modification-of-python-with-python-the-ast-module/>`_
+* `Coding in a debugger <http://msinilo.pl/blog/?p=965>`_
+* `DMS® Software Reengineering Toolki <http://www.semanticdesigns.com/Products/DMS/DMSToolkit.html>`_
+* `Recognition can be harder than parsing <http://www.academia.edu/798690/Recognition_can_be_harder_than_parsing>`_
+* In `Invertible Syntax Descriptions: Unifying Parsing and Pretty Printing <http://www.informatik.uni-marburg.de/~rendel/unparse/rendel10invertible.pdf>`_ Tillmann Rendel & Klaus Ostermann proposing a method for writing parsers such the pretty printers can be written in the same manner. I do not have enough knowledge of their academic context to appreciate it.
 
 Other stuff I need to read
 
 * `/r/parsing <http://www.reddit.com/r/parsing/>`_
-* `Invertible Syntax Descriptions: Unifying Parsing and Pretty Printing <http://www.informatik.uni-marburg.de/~rendel/unparse/rendel10invertible.pdf>`_ by Tillmann Rendel & Klaus Ostermann
 
 Indices and tables
 ==================
