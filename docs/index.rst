@@ -25,7 +25,7 @@ At present pym is entirely vapourware, and consists of some ideas based around m
 Rendering code
 ^^^^^^^^^^^^^^
 
-In order to be more easily read AST trees can pretty printed (`a.k.a. <http://en.wiktionary.org/wiki/AKA#English>`_ rendered). Some other projects which may be helpful in rendering AST trees as Python text are documented in :ref:`renderers`
+In order to be more easily read AST trees can pretty printed (`a.k.a. <http://en.wiktionary.org/wiki/AKA#English>`_ rendered). Some other projects which may be helpful in rendering ASTs as plain text are documented in :ref:`renderers`
  
 Parsing
 ^^^^^^^
@@ -45,13 +45,14 @@ Other parsers, written in Python but parsing other structures:
 Parsing produces Abstract Syntax Trees, which have a reasonable amount of related documentation. Green Tree Snakes was a proximate spur to this project, and the other links in this section were found thence.
 
 
- * `Green Tree Snakes - the missing Python AST docs <http://greentreesnakes.readthedocs.org/en/latest/>`_
- * `Reddit on Green Tree Snakes <http://www.reddit.com/r/Python/comments/13kbyg/green_tree_snakes_a_new_guide_to_using_abstract/>`_
- * `Python internals: Working with Python ASTs <http://eli.thegreenplace.net/2009/11/28/python-internals-working-with-python-asts/>`_
- * `AST Transformation Hooks for Domain Specific Languages <http://mail.python.org/pipermail/python-ideas/2011-April/009765.html>`_
- * `possible meta coding in Python <https://github.com/albertz/CPython/blob/astcompile_patch/test_co_ast.py>`_
- * `Reddit on pydit <http://www.reddit.com/r/Python/comments/bfnn8/pydit_im_trying_to_find_the_most_elegant_way_to/>`_
- * `Reddit on ASTs (in /r/python) <http://www.reddit.com/r/Python/search?q=ast&restrict_sr=on>`_
+* `Green Tree Snakes - the missing Python AST docs <http://greentreesnakes.readthedocs.org/en/latest/>`_
+* `Reddit on Green Tree Snakes <http://www.reddit.com/r/Python/comments/13kbyg/green_tree_snakes_a_new_guide_to_using_abstract/>`_
+* The `Design of CPython's Compiler <http://docs.python.org/devguide/compiler.html>`_ lays out rationales behind some choices in the design of the compiler, and introduces a developer to the code supporting it. For pym it is particularly relevant in introducing `ASDL <http://www.cs.princeton.edu/research/techreps/TR-554-97>`_ and `SPARK <http://pages.cpsc.ucalgary.ca/~aycock/spark/>`_.
+* `Python internals: Working with Python ASTs <http://eli.thegreenplace.net/2009/11/28/python-internals-working-with-python-asts/>`_
+* `AST Transformation Hooks for Domain Specific Languages <http://mail.python.org/pipermail/python-ideas/2011-April/009765.html>`_
+* `possible meta coding in Python <https://github.com/albertz/CPython/blob/astcompile_patch/test_co_ast.py>`_
+* `Reddit on pydit <http://www.reddit.com/r/Python/comments/bfnn8/pydit_im_trying_to_find_the_most_elegant_way_to/>`_
+* `Reddit on ASTs (in /r/python) <http://www.reddit.com/r/Python/search?q=ast&restrict_sr=on>`_
 
 Related tools
 ^^^^^^^^^^^^^
@@ -74,6 +75,8 @@ Other stuff I have read recently
 Other stuff I need to read
 
 * `/r/parsing <http://www.reddit.com/r/parsing/>`_
+* Python's ASTs are specified in the `Zephyr Abstract Syntax Description Language <http://www.cs.princeton.edu/research/techreps/TR-554-97>`_.
+* Python uses `SPARK <http://pages.cpsc.ucalgary.ca/~aycock/spark/>`_, which is a Scanning, Parsing, and Rewriting Kit.
 
 Indices and tables
 ==================
