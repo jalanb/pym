@@ -79,6 +79,11 @@ Other stuff I need to read
 * This guy keeps turning up if forums I read, usually claiming things are hard: `DMS® Software Reengineering Toolki <http://www.semanticdesigns.com/Products/DMS/DMSToolkit.html>`_
 * `Recognition can be harder than parsing <http://www.academia.edu/798690/Recognition_can_be_harder_than_parsing>`_
 
+Version 2.0 +
+-------------
+
+* ACE was `A Cliche-based Program Structure Editor <http://dspace.mit.edu/bitstream/handle/1721.1/41181/AI_WP_294.pdf>`_. Clichés are higher branches of the (AS) tree, or collections of branches, and are closer to what editors are actually thinking about. Ultimately one would prefer to "replace the switch with inheritance", not twiddle about with nodes and branches.
+
 Indices and tables
 ==================
 
