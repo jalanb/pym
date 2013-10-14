@@ -39,7 +39,7 @@ Other parsers, written in Python but parsing other structures:
  * Juancarlo Añez' `Grako <https://bitbucket.org/apalala/grako#templates-and-translation>`_  is "a tool that takes grammars in a variation of EBNF as input, and outputs memoizing (Packrat) PEG parsers in Python".
  * `C parser and AST generator written in Python <http://code.google.com/p/pycparser/>`_
  * `PyPlus <http://www.reddit.com/r/Python/comments/wv6qn/plyplus_a_friendly_yet_powerful_lrparser_written/>`_
- * `CodeTalker <http://pypi.python.org/pypi/CodeTalker/0.5>`_
+ * `CodeTalker <http://pypi.python.org/pypi/CodeTalker>`_
 
 
 Parsing produces Abstract Syntax Trees, which have a reasonable amount of related documentation. Green Tree Snakes was a proximate spur to this project, and the other links in this section were found thence.
