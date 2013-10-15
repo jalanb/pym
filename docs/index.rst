@@ -67,23 +67,24 @@ Other stuff I have read recently
 Other stuff I need to read
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-* C parser and AST generator written in Python: `pycparser <http://code.google.com/p/pycparser/>`_
-* `PyPlus <http://www.reddit.com/r/Python/comments/wv6qn/plyplus_a_friendly_yet_powerful_lrparser_written/>`_
-* `CodeTalker <http://pypi.python.org/pypi/CodeTalker>`_
-* Reddit always has much to say, so `/r/parsing will too <http://www.reddit.com/r/parsing/>`_
+* C parser and AST generator written in Python: `pycparser <http://code.google.com/p/pycparser/>`_.
+* `PyPlus <http://www.reddit.com/r/Python/comments/wv6qn/plyplus_a_friendly_yet_powerful_lrparser_written/>`_.
+* `CodeTalker <http://pypi.python.org/pypi/CodeTalker>`_.
+* Reddit always has much to say, so `/r/parsing will too <http://www.reddit.com/r/parsing/>`_.
 * Python's ASTs are specified in the `Zephyr Abstract Syntax Description Language <http://www.cs.princeton.edu/research/techreps/TR-554-97>`_.
 * Python uses `SPARK <http://pages.cpsc.ucalgary.ca/~aycock/spark/>`_, which is a Scanning, Parsing, and Rewriting Kit.
 * There is a version of `Ometa in Javascript <http://b-studios.github.io/ometa-js/>`_.
-* `Static Modification of Python With Python: The AST Module <http://blueprintforge.com/blog/2012/02/27/static-modification-of-python-with-python-the-ast-module/>`_
-* Sounds like fun: `Coding in a debugger <http://msinilo.pl/blog/?p=965>`_
-* This guy keeps turning up if forums I read, usually claiming things are hard: `DMS® Software Reengineering Toolkit <http://www.semanticdesigns.com/Products/DMS/DMSToolkit.html>`_
-* `Recognition can be harder than parsing <http://www.academia.edu/798690/Recognition_can_be_harder_than_parsing>`_
+* `Static Modification of Python With Python: The AST Module <http://blueprintforge.com/blog/2012/02/27/static-modification-of-python-with-python-the-ast-module/>`_.
+* Sounds like fun: `Coding in a debugger <http://msinilo.pl/blog/?p=965>`_.
+* This guy keeps turning up if forums I read, usually claiming things are hard: `DMS® Software Reengineering Toolkit <http://www.semanticdesigns.com/Products/DMS/DMSToolkit.html>`_.
+* `Recognition can be harder than parsing <http://www.academia.edu/798690/Recognition_can_be_harder_than_parsing>`_.
+* KOD has an interesting `approach to text syntax trees (TST) <https://github.com/rsms/kod/wiki/Text-parser-2>`_.
 
 Version 2.0 +
 -------------
 
-* ACE was `A Cliche-based Program Structure Editor <http://dspace.mit.edu/bitstream/handle/1721.1/41181/AI_WP_294.pdf>`_. Clichés are higher branches of the (AS) tree, or collections of branches, and are closer to what editors are actually thinking about. Ultimately one would prefer to "replace the switch with inheritance", not twiddle about with nodes and branches.
-* One should be prepared to move beyond the standard flat represenation of text, to `3D Treemaps <http://www.sm.luth.se/csee/csn/publications/APCHI04Web.pdf>`_, especially `Interactive Rendering of 3D Treemaps <http://www.hpi.uni-potsdam.de/fileadmin/hpi/FG_Doellner/publications/2013/TSD2013/TreeMap.pdf>`_.
+* ACE was `A Cliche-based Program Structure Editor (pdf) <http://dspace.mit.edu/bitstream/handle/1721.1/41181/AI_WP_294.pdf>`_. Clichés are higher branches of the (AS) tree, or collections of branches, and are closer to what editors are actually thinking about. Ultimately one would prefer to "replace the switch with inheritance", not twiddle about with nodes and branches.
+* One should be prepared to move beyond the standard flat represenation of text, to `3D Treemaps (pdf) <http://www.sm.luth.se/csee/csn/publications/APCHI04Web.pdf>`_, especially `Interactive Rendering of 3D Treemaps (pdf) <http://www.hpi.uni-potsdam.de/fileadmin/hpi/FG_Doellner/publications/2013/TSD2013/TreeMap.pdf>`_.
 
 Indices and tables
 ==================
