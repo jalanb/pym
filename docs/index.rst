@@ -41,7 +41,7 @@ Other parsers, written in Python but parsing other structures:
 
 Parsing produces Abstract Syntax Trees, which have a reasonable amount of related documentation. Green Tree Snakes was a proximate spur to this project, and the other links in this section were found thence.
 
-* `Green Tree Snakes - the missing Python AST docs <http://greentreesnakes.readthedocs.org/en/latest/>`_ (and some `Reddit comments<http://www.reddit.com/r/Python/comments/13kbyg/green_tree_snakes_a_new_guide_to_using_abstract/>`_ on them).
+* `Green Tree Snakes - the missing Python AST docs <http://greentreesnakes.readthedocs.org/en/latest/>`_ (and some `Reddit comments <http://www.reddit.com/r/Python/comments/13kbyg/green_tree_snakes_a_new_guide_to_using_abstract/>`_ on them).
 * The `Design of CPython's Compiler <http://docs.python.org/devguide/compiler.html>`_ lays out rationales behind some choices in the design of the compiler, and introduces a developer to the code supporting it. For pym it is particularly relevant in introducing `ASDL <http://www.cs.princeton.edu/research/techreps/TR-554-97>`_ and `SPARK <http://pages.cpsc.ucalgary.ca/~aycock/spark/>`_.
 * `Python internals: Working with Python ASTs <http://eli.thegreenplace.net/2009/11/28/python-internals-working-with-python-asts/>`_
 * `AST Transformation Hooks for Domain Specific Languages <http://mail.python.org/pipermail/python-ideas/2011-April/009765.html>`_
@@ -61,7 +61,7 @@ Miscellaneous
 
 Other stuff I have read recently
 
-* In `Invertible Syntax Descriptions: Unifying Parsing and Pretty Printing <http://www.informatik.uni-marburg.de/~rendel/unparse/rendel10invertible.pdf>`_ Tillmann Rendel & Klaus Ostermann proposing a method for writing parsers such the pretty printers can be written in the same manner. I do not have enough knowledge of their academic context to appreciate it; but the idea of "invertible syntax" descriptions strikes a chord. It does seem reasonable that if one can parse from "A" into "B", then one should be able to render from "B" to "A; but the idea of    "invertible syntax" descriptions strikes a chord. It does seem reasonable that if one can parse from "A" into "B", then one should be able to render from "B" to "A".
+* In `Invertible Syntax Descriptions: Unifying Parsing and Pretty Printing (pdf) <http://www.informatik.uni-marburg.de/~rendel/unparse/rendel10invertible.pdf>`_ Tillmann Rendel & Klaus Ostermann proposing a method for writing parsers such the pretty printers can be written in the same manner. I do not have enough knowledge of their academic context to appreciate it; but the idea of "invertible syntax" descriptions strikes a chord. It does seem reasonable that if one can parse from "A" into "B", then one should be able to render from "B" to "A; but the idea of    "invertible syntax" descriptions strikes a chord. It does seem reasonable that if one can parse from "A" into "B", then one should be able to render from "B" to "A".
 * `LL and LR in Context: Why Parsing Tools Are Hard <http://blog.reverberate.org/2013/09/ll-and-lr-in-context-why-parsing-tools.html>`_ introduced me to the notion of undecidably ambiguous grammars and the common strategies for getting around them.
 
 Other stuff I need to read
@@ -76,14 +76,14 @@ Other stuff I need to read
 * There is a version of `Ometa in Javascript <http://b-studios.github.io/ometa-js/>`_.
 * `Static Modification of Python With Python: The AST Module <http://blueprintforge.com/blog/2012/02/27/static-modification-of-python-with-python-the-ast-module/>`_
 * Sounds like fun: `Coding in a debugger <http://msinilo.pl/blog/?p=965>`_
-* This guy keeps turning up if forums I read, usually claiming things are hard: `DMS® Software Reengineering Toolki <http://www.semanticdesigns.com/Products/DMS/DMSToolkit.html>`_
+* This guy keeps turning up if forums I read, usually claiming things are hard: `DMS® Software Reengineering Toolkit <http://www.semanticdesigns.com/Products/DMS/DMSToolkit.html>`_
 * `Recognition can be harder than parsing <http://www.academia.edu/798690/Recognition_can_be_harder_than_parsing>`_
 
 Version 2.0 +
 -------------
 
 * ACE was `A Cliche-based Program Structure Editor <http://dspace.mit.edu/bitstream/handle/1721.1/41181/AI_WP_294.pdf>`_. Clichés are higher branches of the (AS) tree, or collections of branches, and are closer to what editors are actually thinking about. Ultimately one would prefer to "replace the switch with inheritance", not twiddle about with nodes and branches.
-* One should be prepared to move beyond the standard flat represenation of text, to `3D Treemaps <http://www.sm.luth.se/csee/csn/publications/APCHI04Web.pdf>`, especially `Interactive Rendering of 3D Treemaps <http://www.hpi.uni-potsdam.de/fileadmin/hpi/FG_Doellner/publications/2013/TSD2013/TreeMap.pdf>`.
+* One should be prepared to move beyond the standard flat represenation of text, to `3D Treemaps <http://www.sm.luth.se/csee/csn/publications/APCHI04Web.pdf>`_, especially `Interactive Rendering of 3D Treemaps <http://www.hpi.uni-potsdam.de/fileadmin/hpi/FG_Doellner/publications/2013/TSD2013/TreeMap.pdf>`_.
 
 Indices and tables
 ==================
