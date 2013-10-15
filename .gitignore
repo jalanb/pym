@@ -42,9 +42,9 @@ nosetests.xml
 
 # Sphinx
 _build
+build.*.log
 
 
 # local dev files
-build.sh
 todo.txt
 .pythonhistory
