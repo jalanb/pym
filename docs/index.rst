@@ -85,6 +85,7 @@ Version 2.0 +
 
 * ACE was `A Cliche-based Program Structure Editor (pdf) <http://dspace.mit.edu/bitstream/handle/1721.1/41181/AI_WP_294.pdf>`_. Clichés are higher branches of the (AS) tree, or collections of branches, and are closer to what editors are actually thinking about. Ultimately one would prefer to "replace the switch with inheritance", not twiddle about with nodes and branches.
 * One should be prepared to move beyond the standard flat represenation of text, to `3D Treemaps (pdf) <http://www.sm.luth.se/csee/csn/publications/APCHI04Web.pdf>`_, especially `Interactive Rendering of 3D Treemaps (pdf) <http://www.hpi.uni-potsdam.de/fileadmin/hpi/FG_Doellner/publications/2013/TSD2013/TreeMap.pdf>`_.
+* (Like many others) I think Bret Victor is right about `Learnable Programming <http://worrydream.com/LearnableProgramming/>`_.
 
 Indices and tables
 ==================
