@@ -34,7 +34,7 @@ Parsing in general is of interest. One reason for delay in starting this project
 
 Other parsers, written in Python but parsing other structures:
 
-* Allen Shorts's `Parsely <http://parsley.readthedocs.org/en/latest/>`_, which follows on from his `Pymeta <http://washort.twistedmatrix.com/2008/03/introducing-pymeta.html>`_, and which he `introduced at Pycon 2013 <http://www.youtube.com/watch?v=t5X3ljCOFSY>`_.
+* Allen Shorts's `Parsley <http://parsley.readthedocs.org/en/latest/>`_, which follows on from his `Pymeta <http://washort.twistedmatrix.com/2008/03/introducing-pymeta.html>`_, and which he `introduced at Pycon 2013 <http://www.youtube.com/watch?v=t5X3ljCOFSY>`_.
 * Ned Batchelder's `Python parsing tools <http://nedbatchelder.com/text/python-parsers.html>`_ is a page covering many other parsers.
 * Juancarlo Añez' `Grako <https://bitbucket.org/apalala/grako#templates-and-translation>`_  is "a tool that takes grammars in a variation of EBNF as input, and outputs memoizing (Packrat) PEG parsers in Python".
 

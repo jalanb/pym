@@ -1,0 +1,6 @@
+The test_parsely module
+=======================
+
+	>>> import test_parsely
+	>>> print test_parsely.__doc__
+	Methods to aid testing parsely grammars

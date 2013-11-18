@@ -1,0 +1,97 @@
+hosts = (
+	section*
+)
+
+section = (
+	comment_lines:i
+	host_lines:j
+) -> i, j
+
+
+comment_lines = comment_line*
+
+comment_line = hash_line | blank_line
+
+host_lines = host_line+
+
+host_line = (
+	ip_address:i
+	some_blanks
+	host_names:j
+	blank_line
+) -> i, (j)
+
+host_names = (
+	host_name:i
+	(some_blanks host_name)*:j
+) -> [i] + j
+
+host_name = (
+	host_initial:i
+	host_character*:j
+) -> ''.join([i] + j)
+
+host_initial = letter | star
+
+host_character = letter | digit | underscore | minus | dot | star
+
+ip_address = (ip_v6_address|ip_v4_address) 
+
+ip_v4_address = (
+	ip_number:i dot
+	ip_number:j dot
+	ip_number:k dot
+	ip_number:l
+) -> '%s.%s.%s.%s' % ( i,j,k,l )
+
+ip_number = (
+	three_digit_number:i ?( 0 <= int(i) <= 255) 
+) -> int(i)
+
+ip_v6_address = (
+	<ip_v6_name?>:i colon
+	<ip_v6_name?>:j colon
+	<ip_v6_name>:k
+) -> ':'.join([i, j, k])
+
+ip_v6_name = <ip_v6_char+>
+
+ip_v6_char = (
+	anything:i ?( i not in ': \t') 
+) -> i
+
+three_digit_number = (
+	<digit>:i
+	<digit?>:j
+	<digit?>:k
+) -> int(''.join([i,j,k]))
+
+blank_line = any_blanks:i eol -> i
+
+hash_line = hash+ line
+
+line = <(~'\n' anything)*>:i '\n' -> i
+
+eol = '\r\n' | '\r' | '\n'
+
+any_blanks = blank*:i  -> ''.join(i)
+
+some_blanks = blank+:i  -> ''.join(i)
+
+blank = space | tab
+
+star = '*'
+
+hash = '#'
+
+dot = '.'
+
+colon = ':'
+
+underscore = '_'
+
+minus = '-'
+
+tab = '\t'
+
+space = ' '
