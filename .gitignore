@@ -48,3 +48,4 @@ build.*.log
 # local dev files
 todo.txt
 .pythonhistory
+*.fail
