@@ -1,16 +1,13 @@
 The hosts module
 ================
 
-	>>> import sys
-	>>> sys.path.insert(0, '/Volumes/HD/Users/jab/jab/github/parsley')
 	>>> import hosts
 	>>> print hosts.__doc__
 	A module to provide methods to parse hosts files
 
 	>>> import test_parsely
 
-	>>> grammar = hosts.make_hosts_grammar()
-	>>> see(grammar(''))
+	>>> grammar = hosts.read_hosts_grammar()
 	>>> test_parsely.use_grammar(grammar)
 
 	>>> three_digit_errors = ['', 'a', '1234', '123.']
