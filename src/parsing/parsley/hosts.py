@@ -9,22 +9,25 @@ from pprint import pprint
 import chimichurri
 
 
-def read_hosts_grammar():
+def read_hosts_makeParser():
 	"""Make a grammar for hosts files"""
-	return chimichurri.read_grammar('hosts.parsley')
+	return chimichurri.read_makeParser('hosts.parsley')
 
 
-def parse_text(string):
-	"""Parse the given string as a hosts file"""
-	grammar = read_hosts_grammar()
-	parser = grammar(string)
-	return parser.hosts()
+def parse_text(input_string):
+	"""Parse the given input_string as a hosts file"""
+	makeParser = read_hosts_makeParser()
+	import pudb
+	pudb.set_trace()
+	grammar_wrapper = makeParser(input_string)
+	return grammar_wrapper.hosts()
 
 
 def parse_path(hosts_file):
 	if not os.path.isfile(hosts_file):
 		raise ValueError('%r is not a file' % hosts_file)
-	return parse_text(file(hosts_file).read())
+	input_string = file(hosts_file).read()
+	return parse_text(input_string)
 
 
 def main(args):
