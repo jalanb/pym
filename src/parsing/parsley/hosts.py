@@ -34,11 +34,16 @@ def parse_path(path_to_hosts):
 	return parse_text(input_string)
 
 
+def show_parsed_hosts(path_to_hosts):
+	"""Parse a hosts file and show the result"""
+	parsed = parse_path(path_to_hosts)
+	pprint(parsed)
+
+
 def main(args):
 	"""Run the program"""
 	for arg in args:
-		parsed = parse_path(arg)
-		pprint(parsed)
+		show_parsed_hosts(arg)
 	return os.EX_OK
 
 
