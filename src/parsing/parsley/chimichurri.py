@@ -21,16 +21,6 @@ def _memoized(method, key):
 	return _memoized.cache[key]
 
 
-def read_grammar(path_to_grammar):
-	"""Re read a grammar from the given file
-
-	Look first in cached grammars in this function
-	Then look in generated grammars (NotImplemented)
-	Then make a grammar from the given path
-	"""
-	return _memoized(_read_grammar, path_to_grammar)
-
-
 def _read_grammar(path_to_grammar):
 	"""Make a grammar from the text in that path"""
 	grammar_text = file(path_to_grammar).read()
@@ -43,5 +33,15 @@ def _make_grammar(grammar_text):
 	Do not add any symbols to the made grammar
 	"""
 	return parsley.makeGrammar(grammar_text, {})
+
+
+def read_grammar(path_to_grammar):
+	"""Re read a grammar from the given file
+
+	Look first in cached grammars in this function
+	Then look in generated grammars (NotImplemented)
+	Then make a grammar from the given path
+	"""
+	return _memoized(_read_grammar, path_to_grammar)
 
 

@@ -1,15 +1,25 @@
 """Methods to aid testing parsely grammars"""
 
 
-def use_grammar(grammar):
-	use_grammar.grammar = grammar
+def _try_all(target, tests, try_method):
+	tests_result = True
+	for test in tests:
+		test_result = try_method(target, test)
+		tests_result &= test_result
+	return tests_result
 
 
-def instantiate(string):
+def _actual_match(target, test):
 	try:
-		return use_grammar.grammar(string)
-	except AttributeError:
-		return None
+		string, expected = test
+	except ValueError:
+		string = expected = test
+	return string, expected, try_parse(target, string)
+
+
+def _try_match_quietly(target, test):
+	_, expected, actual = _actual_match(target, test)
+	return actual == expected
 
 
 def _parse(target, string):
@@ -24,28 +34,28 @@ def _parse(target, string):
 	except Exception, e:
 		return None, str(e).splitlines()[-1]
 
+
+def use_grammar(grammar):
+	use_grammar.grammar = grammar
+
+
+def instantiate(string):
+	try:
+		return use_grammar.grammar(string)
+	except AttributeError:
+		return None
+
+
 def try_parse(target, string):
 	result, error = _parse(target, string)
 	if error:
 		print error
 	return result
 
+
 def try_error(target, string):
 	_, error = _parse(target, string)
 	return bool(error)
-
-
-def _actual_match(target, test):
-	try:
-		string, expected = test
-	except ValueError:
-		string = expected = test
-	return string, expected, try_parse(target, string)
-
-
-def _try_match_quietly(target, test):
-	_, expected, actual = _actual_match(target, test)
-	return actual == expected
 
 
 def try_match(target, test):
@@ -70,14 +80,6 @@ def try_non_matches(target, tests):
 
 def try_errors(target, tests):
 	return _try_all(target, tests, try_error)
-
-
-def _try_all(target, tests, try_method):
-	tests_result = True
-	for test in tests:
-		test_result = try_method(target, test)
-		tests_result &= test_result
-	return tests_result
 
 
 def try_target(target, errors, matches):
