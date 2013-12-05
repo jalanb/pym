@@ -3,7 +3,7 @@ The hosts module
 
 	>>> import hosts
 	>>> print hosts.__doc__
-	A module to provide methods to parse hosts files
+    A script to parse hosts files
 
 More imports for testing
 ------------------------
