@@ -17,8 +17,6 @@ def read_hosts_grammar():
 def parse_text(input_string):
 	"""Parse the given input_string as a hosts file"""
 	parser_maker = read_hosts_grammar()
-	import pudb
-	pudb.set_trace()
 	grammar_wrapper = parser_maker(input_string)
 	return grammar_wrapper.hosts()
 
