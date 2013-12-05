@@ -9,6 +9,18 @@ See https://en.wikipedia.org/wiki/Chimichurri for the sauce
 import parsley
 
 
+def _memoized(method, key):
+	"""Call that method once with the given key
+
+	Memoize the returned value for subsequent calls
+	"""
+	try:
+		_memoized.cache[key] = _memoized.cache.get(key, None) or method(key)
+	except AttributeError:
+		_memoized.cache = {key:method(key)}
+	return _memoized.cache[key]
+
+
 def read_grammar(path_to_grammar):
 	"""Re read a grammar from the given file
 
@@ -16,15 +28,7 @@ def read_grammar(path_to_grammar):
 	Then look in generated grammars (NotImplemented)
 	Then make a grammar from the given path
 	"""
-	cached_grammars = getattr(read_grammar, 'cached_grammars', {})
-	if not cached_grammars:
-		setattr(read_grammar, 'cached_grammars', {})
-	cached_grammar = cached_grammars.get(path_to_grammar, None)
-	if not cached_grammar:
-		cached_grammar = _read_grammar(path_to_grammar)
-		cached_grammars[path_to_grammar] = cached_grammar
-	setattr(read_grammar, 'cached_grammars', cached_grammars)
-	return cached_grammar
+	return _memoized(_read_grammar, path_to_grammar)
 
 
 def _read_grammar(path_to_grammar):
