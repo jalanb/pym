@@ -2,8 +2,9 @@
 
 This module provides support code for the parsley package
 
-See http://www.simplyrecipes.com/recipes/chimichurri/ for the sauce
+See https://en.wikipedia.org/wiki/Chimichurri for the sauce
 """
+
 
 import parsley
 
