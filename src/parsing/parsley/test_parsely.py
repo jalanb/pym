@@ -36,7 +36,7 @@ def _parse(target, string):
 		raise KeyboardInterrupt('Call use_grammar() before try_parse()')
 	method = getattr(instance, target, None)
 	if not method:
-		print 'No such target: %r' % target
+		raise ValueError('No such target: %r' % target)
 	try:
 		return method(), None
 	except Exception, e:
