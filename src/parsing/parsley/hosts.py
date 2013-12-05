@@ -9,17 +9,17 @@ from pprint import pprint
 import chimichurri
 
 
-def read_hosts_makeParser():
+def read_hosts_grammar():
 	"""Make a grammar for hosts files"""
 	return chimichurri.read_makeParser('hosts.parsley')
 
 
 def parse_text(input_string):
 	"""Parse the given input_string as a hosts file"""
-	makeParser = read_hosts_makeParser()
+	parser_maker = read_hosts_grammar()
 	import pudb
 	pudb.set_trace()
-	grammar_wrapper = makeParser(input_string)
+	grammar_wrapper = parser_maker(input_string)
 	return grammar_wrapper.hosts()
 
 

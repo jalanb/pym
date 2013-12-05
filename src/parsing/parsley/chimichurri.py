@@ -8,21 +8,21 @@ See http://www.simplyrecipes.com/recipes/chimichurri/ for the sauce
 import parsley
 
 
-def read_makeParser(path_to_grammar):
+def read_grammar(path_to_grammar):
 	"""Re read a grammar from the given file
 
 	Look first in cached grammars in this function
 	Then look in generated grammars (NotImplemented)
 	Then make a grammar from the given path
 	"""
-	cached_grammars = getattr(read_makeParser, 'cached_grammars', {})
+	cached_grammars = getattr(read_grammar, 'cached_grammars', {})
 	if not cached_grammars:
-		setattr(read_makeParser, 'cached_grammars', {})
+		setattr(read_grammar, 'cached_grammars', {})
 	cached_grammar = cached_grammars.get(path_to_grammar, None)
 	if not cached_grammar:
 		cached_grammar = _read_grammar(path_to_grammar)
 		cached_grammars[path_to_grammar] = cached_grammar
-	setattr(read_makeParser, 'cached_grammars', cached_grammars)
+	setattr(read_grammar, 'cached_grammars', cached_grammars)
 	return cached_grammar
 
 
