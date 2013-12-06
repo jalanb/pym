@@ -3,11 +3,7 @@
 
 def _try_all(target, tests, try_method):
 	"""Accumulate results for that target against all those tests"""
-	tests_result = True
-	for test in tests:
-		test_result = try_method(target, test)
-		tests_result &= test_result
-	return tests_result
+	return all([try_method(target, test) for test in tests])
 
 
 def _actual_match(target, test):
@@ -98,11 +94,7 @@ def try_non_matches(target, tests):
 
 	Each test is a tuple of (actual, expected) results
 	"""
-	tests_result = False
-	for test in tests:
-		test_result = _try_match_quietly(target, test)
-		tests_result |= test_result
-	return not tests_result
+	return not any([_try_match_quietly(target, test) for test in tests])
 
 
 def try_errors(target, tests):
