@@ -33,9 +33,11 @@ def _parse(target, string):
 	"""Try to match that string against that target in the current grammar"""
 	instance = instantiate(string)
 	try:
-		return getattr(instance, target)(), None
+		target_method = getattr(instance, target)
 	except AttributeError:
 		raise ValueError('No such target: %r' % target)
+	try:
+		return target_method(), None
 	except Exception, e:
 		return None, str(e).splitlines()[-1]
 
