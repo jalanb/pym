@@ -1,11 +1,6 @@
 """Methods to aid testing parsely grammars"""
 
 
-def _get_empty_attribute(thing, attribute):
-	"""Get that attribute from that thing, defaulting to None"""
-	return getattr(thing, attribute, None)
-
-
 def _try_all(target, tests, try_method):
 	"""Accumulate results for that target against all those tests"""
 	tests_result = True
@@ -37,13 +32,10 @@ def _try_match_quietly(target, test):
 def _parse(target, string):
 	"""Try to match that string against that target in the current grammar"""
 	instance = instantiate(string)
-	if not instance:
-		raise KeyboardInterrupt('Call use_grammar() before try_parse()')
-	method = _get_empty_attribute(instance, target)
-	if not method:
-		raise ValueError('No such target: %r' % target)
 	try:
-		return method(), None
+		return getattr(instance, target)(), None
+	except AttributeError:
+		raise ValueError('No such target: %r' % target)
 	except Exception, e:
 		return None, str(e).splitlines()[-1]
 
@@ -58,7 +50,7 @@ def instantiate(string):
 	try:
 		return use_grammar.grammar(string)
 	except AttributeError:
-		return None
+		raise KeyboardInterrupt('Call use_grammar() before try_parse()')
 
 
 def try_parse(target, string):
