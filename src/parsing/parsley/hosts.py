@@ -43,9 +43,14 @@ def show_parsed_hosts(path_to_hosts):
 
 def main(args):
 	"""Run the program"""
+	result = os.EX_OK
 	for arg in args:
-		show_parsed_hosts(arg)
-	return os.EX_OK
+		try:
+			show_parsed_hosts(arg)
+		except ValueError, e:
+			print >> sys.stderr, e
+			result = os.EX_NOHOST
+	return result
 
 
 if __name__ == '__main__':

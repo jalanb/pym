@@ -8,6 +8,7 @@ The hosts module
 More imports for testing
 ------------------------
 
+	>>> import sys
 	>>> import test_parsely
 
 Test the hosts grammar
@@ -110,3 +111,39 @@ Structures
 	['']
 	>>> test_parsely.try_target('comment_lines', ['k'], [('#\n', ['']), ('#\n# comment\n', ['', ' comment'])])
 	True
+
+Run the script
+--------------
+
+This should run with no errors
+	>>> _ = hosts.parse_path('/etc/hosts')
+
+Whereas this should show error for missing file
+	>>> hosts.parse_path('/no/such/path/to/hosts')
+	Traceback (most recent call last):
+	...
+	ValueError: '/no/such/path/to/hosts' is not a file
+
+And this should show what was parsed
+	Output will be a rather long list of lists
+	So only showing a known highlight here
+	>>> hosts.show_parsed_hosts('/etc/hosts')
+	[...
+	...
+	...('127.0.0.1', [...'localhost']),
+	...]
+
+Which is the effect of the main method
+	>>> sys.stderr = sys.stdout
+	>>> result = hosts.main(['/no/such/path/to/hosts', '/etc/hosts'])
+	'/no/such/path/to/hosts' is not a file
+	[...
+	...
+	...('127.0.0.1', [...'localhost']),
+	...]
+
+Clean up
+--------
+
+Tell the tester we're not using the grammar any longer
+	>>> test_parsely.use_grammar.invalidate()

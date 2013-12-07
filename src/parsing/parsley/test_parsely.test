@@ -4,3 +4,44 @@ The test_parsely module
 	>>> import test_parsely
 	>>> print test_parsely.__doc__
 	Methods to aid testing parsely grammars
+
+More imports for testing
+------------------------
+
+	>>> import chimichurri
+
+Be prepared
+-----------
+
+KeyboardInterrupt should be raised
+	if any of the try_... methods are called before calling use_grammar()
+		(Which will stop doctest from any further testing)
+	We'll call the latter below,
+		just testing the interrupt here
+	>>> try: test_parsely.try_parse('not_a_target', 'test')
+	... except KeyboardInterrupt: print 'test interrupted'
+	test interrupted
+
+
+Test a grammar
+---------------
+
+Get a wee grammar for testing
+	>>> grammar = chimichurri.minimal_grammar()
+
+Set up that grammar for testing
+	>>> test_parsely.use_grammar(grammar)
+
+	>>> test_parsely.try_parse('not_a_target', 'test')
+	No rule named 'not_a_target'
+
+	>>> test_parsely.try_parse('target', '9')
+	Parse error at line 1, column 0: expected a letter. trail: [letter target]
+
+	>>> test_parsely.try_error('target', '9')
+	True
+
+	>>> test_parsely.try_match('target', '9')
+	Parse error at line 1, column 0: expected a letter. trail: [letter target]
+	Not matched: '9' -> None, not '9'
+	False

@@ -28,10 +28,7 @@ def _try_match_quietly(target, test):
 def _parse(target, string):
 	"""Try to match that string against that target in the current grammar"""
 	instance = instantiate(string)
-	try:
-		target_method = getattr(instance, target)
-	except AttributeError:
-		raise ValueError('No such target: %r' % target)
+	target_method = getattr(instance, target)
 	try:
 		return target_method(), None
 	except Exception, e:
@@ -41,6 +38,9 @@ def _parse(target, string):
 def use_grammar(grammar):
 	"""Use that grammar in subsequent tests"""
 	use_grammar.grammar = grammar
+	def invalidate():
+		delattr(use_grammar, 'grammar')
+	use_grammar.invalidate = invalidate
 
 
 def instantiate(string):

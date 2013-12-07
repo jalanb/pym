@@ -5,3 +5,7 @@ The chimichurri module
 	>>> print chimichurri.__doc__
 	Chimichurri (IRL is a sauce which) uses parsley
 	...
+
+	>>> grammar = chimichurri.minimal_grammar()
+	>>> grammar('x').target() == 'x'
+	True

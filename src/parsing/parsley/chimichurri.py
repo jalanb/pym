@@ -45,3 +45,6 @@ def read_grammar(path_to_grammar):
 	return _memoized(_read_grammar, path_to_grammar)
 
 
+def minimal_grammar():
+	"""Make a tiny grammar, especially for testing"""
+	return _make_grammar('target = letter')
