@@ -44,8 +44,7 @@ application = indentation? name:name args:args
 foreignApply = indentation? name:grammar_name '.' name:rule_name args:args
                 -> t.ForeignApply(grammar_name, rule_name, self.rulename, args, span=self.getSpan())
 
-traceable = !(self.startSpan())
-          (  foreignApply
+traceable = (  foreignApply
           | application
           | ruleValue
           | semanticPredicate

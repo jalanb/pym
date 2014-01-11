@@ -5,14 +5,15 @@ import os
 import sys
 from pprint import pprint
 from decorators import debug
-
+from terml.nodes import termMaker
 
 import chimichurri
 
 
 def read_parsley_grammar():
 	"""Make a grammar for hosts grammar"""
-	return chimichurri.read_grammar('parsley.parsley')
+	symbols = {'t': termMaker}
+	return chimichurri.read_grammar_with_symbols('parsley.parsley', symbols)
 
 
 def parse_text(input_string):
