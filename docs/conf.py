@@ -41,7 +41,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'pym'
-copyright = u'2012, jalanb (Alan Brogan)'
+copyright = u'2014, jalanb (Alan Brogan)'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -222,7 +222,7 @@ man_pages = [
 epub_title = u'pym'
 epub_author = u'jalanb (Alan Brogan)'
 epub_publisher = u'jalanb (Alan Brogan)'
-epub_copyright = u'2012, jalanb (Alan Brogan)'
+epub_copyright = u'2014, jalanb (Alan Brogan)'
 
 # The language of the text. It defaults to the language option
 # or en if the language is not set.
