@@ -61,7 +61,7 @@ Miscellaneous
 
 Other stuff I have read recently
 
-* In `Invertible Syntax Descriptions: Unifying Parsing and Pretty Printing (pdf) <http://www.informatik.uni-marburg.de/~rendel/unparse/rendel10invertible.pdf>`_ Tillmann Rendel & Klaus Ostermann proposing a method for writing parsers such the pretty printers can be written in the same manner. I do not have enough knowledge of their academic context to appreciate it; but the idea of "invertible syntax" descriptions strikes a chord. It does seem reasonable that if one can parse from "A" into "B", then one should be able to render from "B" to "A; but the idea of    "invertible syntax" descriptions strikes a chord. It does seem reasonable that if one can parse from "A" into "B", then one should be able to render from "B" to "A".
+* In `Invertible Syntax Descriptions: Unifying Parsing and Pretty Printing (pdf) <http://www.informatik.uni-marburg.de/~rendel/unparse/rendel10invertible.pdf>`_ Tillmann Rendel & Klaus Ostermann propose a method for writing parsers such that pretty printers can be written in the same manner. I do not have enough knowledge of their academic context to appreciate it; but the idea of "invertible syntax" descriptions strikes a chord. It does seem reasonable that if one can parse from "A" into "B", then one should be able to render from "B" to "A".
 * `LL and LR in Context: Why Parsing Tools Are Hard <http://blog.reverberate.org/2013/09/ll-and-lr-in-context-why-parsing-tools.html>`_ introduced me to the notion of undecidably ambiguous grammars and the common strategies for getting around them.
 * Martin Fowler distinguishes between Concrete and Abstract syntax trees when discussing `language workbenches <http://martinfowler.com/articles/languageWorkbench.html>`_.
 
@@ -72,7 +72,8 @@ Other stuff I need to read
 * `PyPlus <http://www.reddit.com/r/Python/comments/wv6qn/plyplus_a_friendly_yet_powerful_lrparser_written/>`_.
 * `CodeTalker <http://pypi.python.org/pypi/CodeTalker>`_.
 * Reddit always has much to say, so `/r/parsing will too <http://www.reddit.com/r/parsing/>`_.
-* Python's ASTs are specified in the `Zephyr Abstract Syntax Description Language <http://www.cs.princeton.edu/research/techreps/TR-554-97>`_.
+* Python uses `Zephyr Abstract Syntax Description Language <http://www.cs.princeton.edu/research/techreps/TR-554-97>`_ to specify ASTs.
+* :ref:`parsley_page` uses `TermL <http://www.erights.org/data/terml/terml-spec.html>`_ to specify ASTs.
 * Python uses `SPARK <http://pages.cpsc.ucalgary.ca/~aycock/spark/>`_, which is a Scanning, Parsing, and Rewriting Kit.
 * There is a version of `Ometa in Javascript <http://b-studios.github.io/ometa-js/>`_.
 * `Static Modification of Python With Python: The AST Module <http://blueprintforge.com/blog/2012/02/27/static-modification-of-python-with-python-the-ast-module/>`_.

@@ -18,15 +18,17 @@ Summary
 
 Parsley is a PEG parser, which generates parsing code in Python from a grammar in OMeta.
 
+Parsley uses `TermL <http://www.erights.org/data/terml/terml-spec.html>`_ to produce syntax trees 
 
 Usage in pym
 ------------
 
 Done:
 
- * Read a hosts file with parsely: `hosts.py <https://github.com/jalanb/pym/blob/master/src/parsing/parsley/hosts.py>`_ 
+ * Read a hosts file with parsley: `hosts.py <https://github.com/jalanb/pym/blob/master/src/parsing/parsley/hosts.py>`_ 
 
 To Do:
  
  * Read a hosts grammar with Parsley: `meta_hosts.py <https://github.com/jalanb/pym/blob/master/src/parsing/parsley/meta_hosts.py>`_
-   * Read a Parsely grammar
+ * Read a Parsley grammar
+ * Derive a syntax tree from a Parsley-parsed text
