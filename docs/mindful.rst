@@ -38,3 +38,25 @@ Mindful Manipulation
 --------------------
 
 In order to capture such intentions one needs to stop thinking in terms of text, to move "up a level" by noticing why I'm doing "delete, delete, ..., delete". I need to notice these actions more consciously, hence mindful manipulation.
+
+Separation of Concerns
+----------------------
+
+I notice an interesting extract from Chris Reade's book *Elements of Functional Programming* on `Wikipedia <https://en.wikipedia.org/wiki/Separation_of_concerns#Origin>`_:
+
+    The programmer is having to do several things at the same time, namely,
+
+    1. describe what is to be computed;
+
+    2. organise the computation sequencing into small steps;
+
+    3. organise memory management during the computation.
+
+Reade continues to say,
+
+    Ideally, the programmer should be able to concentrate on the first of the three tasks (describing what is to be computed) without being distracted by the other two, more administrative, tasks. Clearly, administration is important but by separating it from the main task we are likely to get more reliable results and we can ease the programming problem by automating much of the administration.
+
+    The separation of concerns has other advantages as well. For example, program proving becomes much more feasible when details of sequencing and memory management are absent from the program. Furthermore, descriptions of what is to be computed should be free of such detailed step-by-step descriptions of how to do it if they are to be evaluated with different machine architectures. Sequences of small changes to a data object held in a store may be an inappropriate description of how to compute something when a highly parallel machine is being used with thousands of processors distributed throughout the machine and local rather than global storage facilities.
+
+    Automating the administrative aspects means that the language implementor has to deal with them, but he/she has far more opportunity to make use of very different computation mechanisms with different machine architectures.
+
