@@ -81,7 +81,7 @@ Other stuff I need to read
 * This guy keeps turning up if forums I read, usually claiming things are hard: `DMS® Software Reengineering Toolkit <http://www.semanticdesigns.com/Products/DMS/DMSToolkit.html>`_.
 * `Recognition can be harder than parsing <http://www.academia.edu/798690/Recognition_can_be_harder_than_parsing>`_.
 * KOD has an interesting `approach to text syntax trees (TST) <https://github.com/rsms/kod/wiki/Text-parser-2>`_.
-* `The Program Transformation Wiki<http://www.program-transformation.org/>`_.
+* The Program Transformation `Wiki <http://www.program-transformation.org/>`_.
 
 Version 2.0 +
 -------------
