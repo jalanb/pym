@@ -100,7 +100,7 @@ def try_non_matches(target, tests):
 
 
 def try_errors(target, tests):
-    """Try to generate an error from parsing for target with those tests"""
+    """Try to generate an error from parsing that target with those tests"""
     return _try_all(target, tests, try_error)
 
 
