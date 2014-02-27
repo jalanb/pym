@@ -4,7 +4,6 @@
 import os
 import sys
 from pprint import pprint
-from decorators import debug
 from terml.nodes import termMaker
 
 import chimichurri
@@ -30,7 +29,6 @@ def parse_path(parsley_file):
     return parse_text(input_string)
 
 
-@debug
 def main(args):
     parsed = parse_path('hosts.parsley')
     pprint(parsed, args)

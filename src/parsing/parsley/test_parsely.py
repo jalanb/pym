@@ -37,9 +37,11 @@ def _parse(target, string):
 
 def use_grammar(grammar):
     """Use that grammar in subsequent tests"""
-    use_grammar.grammar = grammar
+
     def invalidate():
         delattr(use_grammar, 'grammar')
+
+    use_grammar.grammar = grammar
     use_grammar.invalidate = invalidate
 
 
@@ -98,7 +100,7 @@ def try_non_matches(target, tests):
 
 
 def try_errors(target, tests):
-    """Try to generate an error from parsing for that target with those tests"""
+    """Try to generate an error from parsing for target with those tests"""
     return _try_all(target, tests, try_error)
 
 
@@ -109,4 +111,10 @@ def try_target(target, errors, matches):
 
 def verify_target(target, errors, matches, non_matches):
     """Verify that target with the other arguments"""
-    return try_errors(target, errors) and try_matches(target, matches) and try_non_matches(target, non_matches)
+    if not try_errors(target, errors):
+        return False
+    if not try_matches(target, matches):
+        return False
+    if not try_non_matches(target, non_matches):
+        return False
+    return True

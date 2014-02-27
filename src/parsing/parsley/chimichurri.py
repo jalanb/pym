@@ -18,7 +18,7 @@ def _memoized(method, args):
     try:
         _memoized.cache[key] = _memoized.cache.get(key, None) or method(key)
     except AttributeError:
-        _memoized.cache = {key:method(args)}
+        _memoized.cache = {key: method(args)}
     return _memoized.cache[key]
 
 
@@ -50,7 +50,6 @@ def read_grammar_with_symbols(path_to_grammar, symbols):
     Then make a grammar from the given path
     """
     return _memoized(_read_grammar, (path_to_grammar, symbols))
-
 
 
 def minimal_grammar():
