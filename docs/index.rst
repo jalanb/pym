@@ -48,6 +48,7 @@ Parsing produces Abstract Syntax Trees, which have a reasonable amount of relate
 * `possible meta coding in Python <https://github.com/albertz/CPython/blob/astcompile_patch/test_co_ast.py>`_
 * `Reddit on pydit <http://www.reddit.com/r/Python/comments/bfnn8/pydit_im_trying_to_find_the_most_elegant_way_to/>`_
 * `Reddit on ASTs (in /r/python) <http://www.reddit.com/r/Python/search?q=ast&restrict_sr=on>`_
+* `NuPIC <http://numenta.org/>`_ implements cortical algorithms
 
 Related tools
 ^^^^^^^^^^^^^
