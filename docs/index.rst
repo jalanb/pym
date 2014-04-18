@@ -79,7 +79,7 @@ Other stuff I need to read
 * There is a version of `Ometa in Javascript <http://b-studios.github.io/ometa-js/>`_.
 * `Static Modification of Python With Python: The AST Module <http://blueprintforge.com/blog/2012/02/27/static-modification-of-python-with-python-the-ast-module/>`_.
 * Sounds like fun: `Coding in a debugger <http://msinilo.pl/blog/?p=965>`_.
-* This guy keeps turning up if forums I read, usually claiming things are hard: `DMS® Software Reengineering Toolkit <http://www.semanticdesigns.com/Products/DMS/DMSToolkit.html>`_.
+* `Ira Baxter <http://www.semanticdesigns.com/Company/People/idbaxter/index.html>`_ often turns up on forums I read, usually claiming that this is going to be `harder <http://stackoverflow.com/a/3460977/500942>`_ than I think. He may have `a point <http://www.semanticdesigns.com/Products/DMS/LifeAfterParsing.html>`_! But, as the lady said: "Have you ever noticed how 'What the hell' is always the right decision to make?"
 * `Recognition can be harder than parsing <http://www.academia.edu/798690/Recognition_can_be_harder_than_parsing>`_.
 * KOD has an interesting `approach to text syntax trees (TST) <https://github.com/rsms/kod/wiki/Text-parser-2>`_.
 * The Program Transformation `Wiki <http://www.program-transformation.org/>`_.
