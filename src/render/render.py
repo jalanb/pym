@@ -72,6 +72,11 @@ class Renderer(ast.NodeVisitor):
     """Render an AST as nodal text
 
     This class just renders text snippets
+
+    This class is based on the Unparser class, from
+        http://hg.python.org/cpython/file/3f7d5c235d82/Tools/parser/unparse.py
+    That file is license under the PSF License
+        which is avialable in this directory as "PYTHONLICENSE.txt"
     """
     # pylint: disable-msg=R0921
     # TODO R0921: "Abstract class not referenced"
@@ -421,7 +426,13 @@ class Commenter(ast.NodeVisitor):
             self.comment = NoComment((-1, -1, ''))
 
     def generic_visit(self, node):
-        """Visit a node and add any needed comments """
+        """Visit a node and add any needed comments
+
+        Based on the equivalent method in ast.NodeTransformer which states:
+            :copyright: Copyright 2008 by Armin Ronacher
+            :license: Python License.
+        That license file is in this directory as "PYTHONLICENSE.txt"
+        """
         for field, old_value in ast.iter_fields(node):
             old_value = getattr(node, field, None)
             if isinstance(old_value, list):

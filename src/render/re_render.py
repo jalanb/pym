@@ -7,6 +7,8 @@ import argparse
 
 import render
 
+# All comments here are montyPythonic, (c) them, used for testing and LOLs
+
 ################### From "Army Protection Racket" #############################
 # No, no no no no, no, no no no. This is silly.                               #
 # What's silly?                                                               #
