@@ -49,3 +49,4 @@ build.*.log
 todo.txt
 .pythonhistory
 *.fail
+*.out.py
