@@ -1,15 +1,39 @@
 """Script to render a python file"""
 
 import os
-import ast
 import sys
 import argparse
 
 
-from render import render
+import render
 
+################### From "Army Protection Racket" #############################
+# No, no no no no, no, no no no. This is silly.                               #
+# What's silly?                                                               #
+# No the whole premise is silly and it's very badly witten.                   #
+#     I'm the senior officer here and I haven't had a funny line yet.         #
+#     So I'm stopping it.                                                     #
+# You can't do that!                                                          #
+# I've done it! The sketch is over                                            #
+#                                       ...                                   #
+# Right, director! Close up, zoom in on me, that's better                     #
+# It's only because you couldn't think of a punchline                         #
+# Not true! Not true! It's time for the cartoon. Cue telecine, in 10, 9, 8, ..#
+# The general public's not going to understand this, are they?                #
+# Shut up!                                                                    #
+###############################################################################
 
-i = render
+variable = 0  # who didn't want to be a variable anyway. It wanted to be a lumb
+
+# pylint: disable=W0105
+'''Go on, go on.
+What?
+Do the punchline.
+What punchline?
+The punchline for this bit.
+I don't know it, didn't say anything about a punchline.
+Oh! Eh, well in that case I'll be saying "Goodbye then sir". Goodbye then sir.
+'''
 
 
 def parse_args():
@@ -35,15 +59,10 @@ def read_source(path):
         return stream.read()
 
 
-def parse(source, path):
-    return ast.parse(source, path)
-
-
 def re_render(path):
     path = absolute_python_path(path)
-    src = read_source(path)
-    tree = parse(src, path)
-    source = render(tree)
+    string = read_source(path)
+    source = render.re_render(string)
     print source
 
 

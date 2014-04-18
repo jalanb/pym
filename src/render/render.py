@@ -1,7 +1,10 @@
 """Module to render Python ASTs to text"""
 
 
+import sys
 import ast
+import tokenize
+from cStringIO import StringIO
 
 
 from indent import Indenter
@@ -13,6 +16,10 @@ def has_import(string):
 
 def render_docstring(string):
     return '"""%s"""' % string
+
+
+def render_multiline_string(string):
+    return "'''%s'''" % string
 
 
 def extract_docstring(node):
@@ -40,6 +47,25 @@ class Commas(object):
             self.renderer.write(', ')
         else:
             self.comma = True
+
+
+def get_comments(string):
+    """Hold equivalent tokens for a tree being rendered"""
+    stream = StringIO(string)
+    tokens = list(tokenize.generate_tokens(stream.readline))
+    comments = [
+        (start_line, start_column, string)
+        for type_, string, (start_line, start_column), _, _,
+        in tokens
+        if type_ == tokenize.COMMENT
+    ]
+    return sorted(comments)
+
+
+def as_comment_nodes(comments):
+    return [Comment(string, lineno=line, col_offset=column)
+            for line, column, _, string
+            in comments]
 
 
 class Renderer(ast.NodeVisitor):
@@ -103,6 +129,9 @@ class Renderer(ast.NodeVisitor):
             self.write_line()
 
     def visit_Str(self, node):
+        self.write(repr(node.s))
+
+    def visit_Comment(self, node):
         self.write(repr(node.s))
 
     def visit_Expr(self, node):
@@ -336,8 +365,103 @@ class Renderer(ast.NodeVisitor):
     def visit_Pass(self, _node):
         self.write('pass')
 
+    def visit_Num(self, node):
+        string = repr(node.n)
+        string = string.replace("inf", infinity_string())
+        self.write(string)
+
+
+def infinity_string():
+    """Large float and imaginary literals get turned into infinities in the AST
+
+    Unparse them here
+    """
+    return '1e' + repr(sys.float_info.max_10_exp + 1)
+
+
+def parse(source, path=None):
+    path = path if path else '<unknown>'
+    return ast.parse(source, path)
+
+
+class Comment(ast.Str):
+    def __init__(self, comment):
+        ast.Str.__init__(self)
+        line, column, string = comment
+        self.lineno = line
+        self.col_offset = column
+        self.s = string
+
+    def is_before(self, node):
+        if not hasattr(node, 'lineno'):
+            return False
+        if self.lineno < node.lineno:
+            return True
+        if self.lineno == node.lineno:
+            return self.col_offset < node.col_offset
+        return False
+
+
+class NoComment(Comment):
+    def is_before(self, _):
+        return False
+
+
+class Commenter(ast.NodeVisitor):
+    """Add comments into an AST"""
+    def __init__(self, comments):
+        ast.NodeVisitor.__init__(self)
+        self.comments = comments
+        self.next_comment()
+
+    def next_comment(self):
+        try:
+            self.comment = Comment(self.comments.pop(0))
+        except IndexError:
+            self.comment = NoComment((-1, -1, ''))
+
+    def generic_visit(self, node):
+        """Visit a node and add any needed comments """
+        for field, old_value in ast.iter_fields(node):
+            old_value = getattr(node, field, None)
+            if isinstance(old_value, list):
+                new_values = []
+                for value in old_value:
+                    if isinstance(value, ast.AST):
+                        while self.comment.is_before(value):
+                            new_values.append(self.comment)
+                            self.next_comment()
+                        value = self.visit(value)
+                        if value is None:
+                            continue
+                        if not isinstance(value, ast.AST):
+                            new_values.extend(value)
+                            continue
+                    new_values.append(value)
+                old_value[:] = new_values
+            elif isinstance(old_value, ast.AST):
+                new_node = self.visit(old_value)
+                if new_node is None:
+                    delattr(node, field)
+                else:
+                    setattr(node, field, new_node)
+        return node
+
+
+def add_comments(tree, string):
+    """Add comments into the tree"""
+    comments = get_comments(string)
+    commenter = Commenter(comments)
+    commenter.visit(tree)
+
 
 def render(node):
     renderer = Renderer()
     renderer.visit(node)
     return '\n'.join(renderer.lines)
+
+
+def re_render(string, path=None):
+    tree = parse(string, path)
+    add_comments(tree, string)
+    return render(tree)
