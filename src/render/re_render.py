@@ -1,4 +1,7 @@
-"""Script to render a python file"""
+"""Script to render a python file
+
+To itself
+"""
 
 import os
 import sys
