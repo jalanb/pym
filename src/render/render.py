@@ -15,7 +15,10 @@ def has_import(string):
 
 
 def render_docstring(string):
-    return '"""%s"""' % string
+    if '\n' in string:
+        return '"""%s\n"""' % string
+    else:
+        return '"""%s"""' % string
 
 
 def render_multiline_string(string):
@@ -134,10 +137,16 @@ class Renderer(ast.NodeVisitor):
             self.write_line()
 
     def visit_Str(self, node):
-        self.write(repr(node.s))
+        if '\n' in node.s:
+            self.write("'''")
+            for line in node.s.splitlines():
+                self.write_line(line)
+            self.write("'''")
+        else:
+            self.write(repr(node.s))
 
     def visit_Comment(self, node):
-        self.write(repr(node.s))
+        self.write(node.s)
 
     def visit_Expr(self, node):
         self.dispatch(node.value)
