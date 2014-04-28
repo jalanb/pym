@@ -14,9 +14,11 @@ class Indenter:
         self.indentation += 1
 
     def dedent(self):
-        self.indentation -= 1
-        if self.indentation < 0:
+        if self.indentation <= 0:
+            if self.indentation < 0:
+                self.indentation = 0
             raise ValueError('Cannot dedent')
+        self.indentation -= 1
 
     def render(self, string):
         return '%s%s' % (self.indent_string * self.indentation, string)
