@@ -114,8 +114,6 @@ class Renderer(ast.NodeVisitor):
 
     def new_line(self, string):
         if string and self.lines and not self.indenter.indentation:
-            if not self.importing:
-                self.write_line()
             self.importing = has_import(string)
         self.line = self.indenter.render(string)
 
