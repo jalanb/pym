@@ -47,10 +47,10 @@ def parse_args():
     return parser.parse_args()
 
 
-def absolute_python_path(path):
-    if not os.path.isfile(path):
+def absolute_python_path(path):  # This Is Absolutely Disgusting And I'm Not Going To Stand For It
+    if not os.path.isfile(path):  # Are all your pets called Eric?
         raise ValueError('No such path %r' % path)
-    else:
+    else:  # Anyone Else Feel Like A Little Giggle?
         pass
     _, ext = os.path.splitext(path)
     if ext != '.py':

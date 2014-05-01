@@ -71,6 +71,14 @@ def as_comment_nodes(comments):
             in comments]
 
 
+def line_after(body):
+    result = None
+    for node in body:
+        if hasattr(node, 'lineno'):
+            result = getattr(node, 'lineno')
+    return result + 1
+
+
 class Renderer(ast.NodeVisitor):
     """Render an AST as nodal text
 
@@ -123,10 +131,16 @@ class Renderer(ast.NodeVisitor):
             self.lines.append(self.line)
         self.line = ''
 
-    def render_block(self, node):
-        self.write_line(':')
+    def render_block(self, values, line_number):
+        value = values[0]
+        if isinstance(value, Comment) and value.lineno == line_number:
+            string = ':  %s' % value.s
+            values = values[1:]
+        else:
+            string = ':'
+        self.write_line(string)
         self.indenter.indent()
-        self.render_body(node)
+        self.render_body(values)
         self.indenter.dedent()
 
     def render_body(self, node):
@@ -144,6 +158,9 @@ class Renderer(ast.NodeVisitor):
             self.write(repr(node.s))
 
     def visit_Comment(self, node):
+        if node.prefix:
+            self.dispatch(node.prefix)
+            self.write('  ')
         self.write(node.s)
 
     def visit_Expr(self, node):
@@ -164,16 +181,16 @@ class Renderer(ast.NodeVisitor):
     def visit_If(self, node):
         self.write('if ')
         self.dispatch(node.test)
-        self.render_block(node.body)
+        self.render_block(node.body, node.lineno)
         while (node.orelse and len(node.orelse) == 1 and
                isinstance(node.orelse[0], ast.If)):
             node = node.orelse[0]
             self.write('elif ')
             self.dispatch(node.test)
-            self.render_block(node.body)
+            self.render_block(node.body, node.test.lineno)
         if node.orelse:
             self.write('else')
-            self.render_block(node.orelse)
+            self.render_block(node.orelse, line_after(node.body))
 
     def render_decorators(self, node):
         if not node.decorator_list:
@@ -188,7 +205,7 @@ class Renderer(ast.NodeVisitor):
         self.write('def %s(' % node.name)
         self.dispatch(node.args)
         self.write(')')
-        self.render_block(node.body)
+        self.render_block(node.body, node.lineno)
 
     def visit_ClassDef(self, node):
         self.render_decorators(node)
@@ -199,7 +216,7 @@ class Renderer(ast.NodeVisitor):
             for base in node.bases:
                 commas.dispatch(base)
             self.write(')')
-        self.render_block(node.body)
+        self.render_block(node.body, node.lineno)
 
     def visit_ImportFrom(self, node):
         if node.module and node.module == '__future__':
@@ -269,7 +286,7 @@ class Renderer(ast.NodeVisitor):
         if node.optional_vars:
             self.write(' as ')
             self.dispatch(node.optional_vars)
-        self.render_block(node.body)
+        self.render_block(node.body, node.lineno)
 
     def visit_Print(self, node):
         self.write('print ')
@@ -289,12 +306,12 @@ class Renderer(ast.NodeVisitor):
 
     def visit_TryExcept(self, node):
         self.write('try')
-        self.render_block(node.body)
+        self.render_block(node.body, node.lineno)
         for handler in node.handlers:
             self.dispatch(handler)
         if node.orelse:
             self.write('else')
-            self.render_block(node.orelse)
+            self.render_block(node.orelse, node.lineno)
 
     def visit_ExceptHandler(self, node):
         self.write('except')
@@ -304,7 +321,7 @@ class Renderer(ast.NodeVisitor):
         if node.name:
             self.write(' as ')
             self.dispatch(node.name)
-        self.render_block(node.body)
+        self.render_block(node.body, node.lineno)
 
     def visit_arguments(self, node):
         if node.defaults:
@@ -396,26 +413,40 @@ def parse(source, path=None):
     return ast.parse(source, path)
 
 
-class Comment(ast.Str):
+class Comment(ast.stmt):
     def __init__(self, comment):
-        ast.Str.__init__(self)
+        ast.stmt.__init__(self)
         line, column, string = comment
         self.lineno = line
         self.col_offset = column
         self.s = string
+        self.prefix = None
 
-    def is_before(self, node):
+    def is_line_before(self, node):
         if not hasattr(node, 'lineno'):
             return False
         if self.lineno < node.lineno:
             return True
-        if self.lineno == node.lineno:
+        return False
+
+    def same_line(self, node):
+        try:
+            return self.lineno == node.lineno
+        except AttributeError:
+            return False
+
+    def is_before(self, node):
+        if self.is_line_before(node):
+            return True
+        if self.same_line(self):
             return self.col_offset < node.col_offset
         return False
 
+    def set_prefix(self, statement):
+        self.prefix = statement
 
 class NoComment(Comment):
-    def is_before(self, _):
+    def is_line_before(self, _):
         return False
 
 
@@ -446,7 +477,7 @@ class Commenter(ast.NodeVisitor):
                 new_values = []
                 for value in old_value:
                     if isinstance(value, ast.AST):
-                        while self.comment.is_before(value):
+                        while self.comment.is_line_before(value):
                             new_values.append(self.comment)
                             self.next_comment()
                         value = self.visit(value)
@@ -455,7 +486,12 @@ class Commenter(ast.NodeVisitor):
                         if not isinstance(value, ast.AST):
                             new_values.extend(value)
                             continue
-                    new_values.append(value)
+                    if isinstance(value, ast.stmt) and self.comment.same_line(value):
+                        self.comment.prefix = value
+                        new_values.append(self.comment)
+                        self.next_comment()
+                    else:
+                        new_values.append(value)
                 old_value[:] = new_values
             elif isinstance(old_value, ast.AST):
                 new_node = self.visit(old_value)
