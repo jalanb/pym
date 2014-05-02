@@ -110,7 +110,8 @@ class Renderer(ast.NodeVisitor):
 
     def visit_Module(self, node):
         docstring = extract_docstring(node)
-        self.write_line(render_docstring(docstring))
+        if docstring:
+            self.write_line(render_docstring(docstring))
         self.render_body(node.body)
 
     def write(self, string):
@@ -444,6 +445,7 @@ class Comment(ast.stmt):
 
     def set_prefix(self, statement):
         self.prefix = statement
+
 
 class NoComment(Comment):
     def is_line_before(self, _):
