@@ -39,7 +39,11 @@ class Commas(object):
 
     def dispatch(self, node):
         self.prefix()
-        self.renderer.dispatch(node)
+        if isinstance(node, list):
+            for item in node:
+                self.renderer.dispatch(item)
+        else:
+            self.renderer.dispatch(node)
 
     def write(self, string):
         self.prefix()
@@ -268,7 +272,8 @@ class Renderer(ast.NodeVisitor):
             self.dispatch(node.value)
 
     def visit_Tuple(self, node):
-        if node.ctx == ast.Load:
+        loading = isinstance(node.ctx, ast.Load)
+        if loading:
             self.write('(')
         if len(node.elts) == 1:
             (item,) = node.elts
@@ -278,7 +283,7 @@ class Renderer(ast.NodeVisitor):
             commas = Commas(self)
             for item in node.elts:
                 commas.dispatch(item)
-        if node.ctx == ast.Load:
+        if loading:
             self.write(')')
 
     def visit_With(self, node):
@@ -400,6 +405,45 @@ class Renderer(ast.NodeVisitor):
         string = string.replace("inf", infinity_string())
         self.write(string)
 
+    def visit_Dict(self, node):
+        self.write('{')
+        items = zip(node.keys, node.values)
+        commas = Commas(self)
+        for key, value in items:
+            commas.dispatch([key,': ', value])
+        self.write('}')
+
+    def visit_str(self, string):
+        self.write(string)
+
+    def visit_List(self, node):
+        self.write('[')
+        commas = Commas(self)
+        for item in node.elts:
+            commas.dispatch(item)
+        self.write(']')
+
+    def visit_For(self, node):
+        self.write('for ')
+        self.dispatch(node.target)
+        self.write(' in ')
+        self.dispatch(node.iter)
+        self.render_block(node.body, node.lineno)
+        if node.orelse:
+            self.write('else')
+            self,render_block(node.orelse, line_after(node.body))
+
+    def visit_Continue(self, node):
+        self.write('continue')
+
+    def visit_Subscript(self, node):
+        self.dispatch(node.value)
+        self.write('[')
+        self.dispatch(node.slice)
+        self.write(']')
+
+    def visit_Index(self, node):
+        self.dispatch(node.value)
 
 def infinity_string():
     """Large float and imaginary literals get turned into infinities in the AST
