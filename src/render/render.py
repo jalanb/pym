@@ -452,6 +452,10 @@ class NoComment(Comment):
         return False
 
 
+def statement_precedes_comment(value, comment):
+    return isinstance(value, ast.stmt) and comment.same_line(value)
+
+
 class Commenter(ast.NodeVisitor):
     """Add comments into an AST"""
     def __init__(self, comments):
@@ -488,7 +492,7 @@ class Commenter(ast.NodeVisitor):
                         if not isinstance(value, ast.AST):
                             new_values.extend(value)
                             continue
-                    if isinstance(value, ast.stmt) and self.comment.same_line(value):
+                    if statement_precedes_comment(value, self.comment):
                         self.comment.prefix = value
                         new_values.append(self.comment)
                         self.next_comment()
