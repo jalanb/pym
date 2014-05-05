@@ -1,7 +1,7 @@
 pym
 ===
 
-A collection of Python modules to aid editting Python code at the structural level
+Python code to edit Python structures
 
 Documentation
 =============
