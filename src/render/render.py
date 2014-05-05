@@ -32,10 +32,11 @@ def extract_docstring(node):
     return docstring
 
 
-class Commas(object):
-    def __init__(self, renderer):
-        self.comma = False
+class Punctuator(object):
+    def __init__(self, renderer, punctuation):
+        self.punctuated = False
         self.renderer = renderer
+        self.punctuation = punctuation
 
     def dispatch(self, node):
         self.prefix()
@@ -50,10 +51,15 @@ class Commas(object):
         self.renderer.write(string)
 
     def prefix(self):
-        if self.comma:
-            self.renderer.write(', ')
+        if self.punctuated:
+            self.renderer.write('%s ' % self.punctuation)
         else:
-            self.comma = True
+            self.punctuated = True
+
+
+class Commas(Punctuator):
+    def __init__(self, renderer):
+        Punctuator.__init__(self, renderer, ',')
 
 
 def get_comments(string):
@@ -317,7 +323,31 @@ class Renderer(ast.NodeVisitor):
             self.dispatch(handler)
         if node.orelse:
             self.write('else')
-            self.render_block(node.orelse, node.lineno)
+            self.render_block(node.orelse, line_after(node.body))
+
+    def visit_TryFinally(self, node):
+        if len(node.body) == 1 and isinstance(node.body[0], ast.TryExcept):
+            # try-except-finally
+            self.dispatch(node.body)
+        else:
+            self.write('try')
+            self.render_block(node.body, node.lineno)
+        self.write('finally')
+        self.render_block(node.finalbody, line_after(node.body))
+
+    def visit_While(self, node):
+        self.write('while ')
+        self.dispatch(node.test)
+        self.render_block(node.body, node.lineno)
+        if node.orelse:
+            self.write('else')
+            self.render_block(node.orelse, line_after(node.body))
+
+    def visit_Yield(self, node):
+        self.write('yield')
+        if node.value:
+            self.write(' ')
+            self.dispatch(node.value)
 
     def visit_ExceptHandler(self, node):
         self.write('except')
@@ -362,15 +392,16 @@ class Renderer(ast.NodeVisitor):
         else:
             self.dispatch(node.operand)
 
+    binary_operators = {
+        'Add': '+', 'Sub': '-', 'Mult': '*', 'Div': '/', 'Mod': '%',
+        'LShift': '<<', 'RShift': '>>', 'BitOr': '|', 'BitXor': '^',
+        'BitAnd': '&', 'FloorDiv': '//', 'Pow': '**'
+    }
+
     def visit_BinOp(self, node):
-        operators = {
-            'Add': '+', 'Sub': '-', 'Mult': '*', 'Div': '/', 'Mod': '%',
-            'LShift': '<<', 'RShift': '>>', 'BitOr': '|', 'BitXor': '^',
-            'BitAnd': '&', 'FloorDiv': '//', 'Pow': '**'
-        }
         operator_name = node.op.__class__.__name__
         self.dispatch(node.left)
-        self.write(' %s ' % operators[operator_name])
+        self.write(' %s ' % self.binary_operators[operator_name])
         self.dispatch(node.right)
 
     def visit_Compare(self, node):
@@ -410,7 +441,7 @@ class Renderer(ast.NodeVisitor):
         items = zip(node.keys, node.values)
         commas = Commas(self)
         for key, value in items:
-            commas.dispatch([key,': ', value])
+            commas.dispatch([key, ': ', value])
         self.write('}')
 
     def visit_str(self, string):
@@ -431,9 +462,12 @@ class Renderer(ast.NodeVisitor):
         self.render_block(node.body, node.lineno)
         if node.orelse:
             self.write('else')
-            self,render_block(node.orelse, line_after(node.body))
+            self.render_block(node.orelse, line_after(node.body))
 
-    def visit_Continue(self, node):
+    def visit_Break(self, _node):
+        self.write('break')
+
+    def visit_Continue(self, _node):
         self.write('continue')
 
     def visit_Subscript(self, node):
@@ -444,6 +478,137 @@ class Renderer(ast.NodeVisitor):
 
     def visit_Index(self, node):
         self.dispatch(node.value)
+
+    def visit_AugAssign(self, node):
+        self.dispatch(node.target)
+        self.write(' %s= ' % self.binary_operators[node.op.__class__.__name__])
+        self.dispatch(node.value)
+
+    boolops = {ast.And: 'and', ast.Or: 'or'}
+
+    def visit_BoolOp(self, node):
+        punctuator = Punctuator(self, self.boolops[node.op.__class__])
+        for value in node.values:
+            punctuator.dispatch(value)
+
+    def visit_Delete(self, node):
+        self.write('del ')
+        commas = Commas(self)
+        for target in node.targets:
+            commas.dispatch(target)
+
+    def visit_Slice(self, node):
+        if node.lower:
+            self.dispatch(node.lower)
+        self.write(':')
+        if node.upper:
+            self.dispatch(node.upper)
+        if node.step:
+            self.write(':')
+            self.dispatch(node.step)
+
+    def visit_Set(self, node):
+        if not node.elts:
+            raise ValueError(
+                'Set should have at least one element: %r' % node.elts)
+        self.write('{')
+        commas = Commas(self)
+        for element in node.elts:
+            commas.dispatch(element)
+        self.write('}')
+
+    def visit_SetComp(self, node):
+        self.write('{')
+        self.dispatch(node.elt)
+        for generator in node.generators:
+            self.dispatch(generator)
+        self.write('}')
+
+    def visit_Repr(self, node):
+        self.write('repr(')
+        self.dispatch(node.value)
+        self.write(')')
+
+    def visit_ListComp(self, node):
+        self.write('[')
+        self.dispatch(node.elt)
+        for generator in node.generators:
+            self.dispatch(generator)
+        self.write(']')
+
+    def visit_Lambda(self, node):
+        self.write('(')
+        self.write('lambda ')
+        self.dispatch(node.args)
+        self.write(': ')
+        self.dispatch(node.body)
+        self.write(')')
+
+    def visit_IfExp(self, node):
+        self.write('(')
+        self.dispatch(node.body)
+        self.write(' if ')
+        self.dispatch(node.test)
+        self.write(' else ')
+        self.dispatch(node.orelse)
+        self.write(')')
+
+    def visit_Global(self, node):
+        self.write('global ')
+        commas = Commas(self)
+        for name in node.names:
+            commas.dispatch(name)
+
+    def visit_GeneratorExp(self, node):
+        self.write('(')
+        self.dispatch(node.elt)
+        for generator in node.generators:
+            self.dispatch(generator)
+        self.write(')')
+
+    def visit_ExtSlice(self, node):
+        commas = Commas(self)
+        for dimension in node.dims:
+            commas.dispatch(dimension)
+
+    def visit_Exec(self, node):
+        self.write('exec ')
+        self.dispatch(node.body)
+        if node.globals:
+            self.write(' in ')
+            self.dispatch(node.globals)
+        if node.locals:
+            self.write(', ')
+            self.dispatch(node.locals)
+
+    def visit_Ellipsis(self, _node):
+        self.write('...')
+
+    def visit_DictComp(self, node):
+        self.write('{')
+        self.dispatch(node.key)
+        self.write(': ')
+        self.dispatch(node.value)
+        for generator in node.generators:
+            self.dispatch(generator)
+        self.write('}')
+
+    def visit_Assert(self, node):
+        self.write('assert ')
+        self.dispatch(node.test)
+        if node.msg:
+            self.write(', ')
+            self.dispatch(node.msg)
+
+    def visit_comprehension(self, node):
+        self.write(' for ')
+        self.dispatch(node.target)
+        self.write(' in ')
+        self.dispatch(node.iter)
+        for if_clause in node.ifs:
+            self.write(' if ')
+            self.dispatch(if_clause)
+
 
 def infinity_string():
     """Large float and imaginary literals get turned into infinities in the AST
