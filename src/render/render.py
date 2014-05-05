@@ -138,18 +138,21 @@ class Renderer(ast.NodeVisitor):
             self.dispatch(child)
             self.write_line()
 
+    def write_multiline_string(self, quotes, string):
+        self.write(quotes)
+        for line in string.splitlines():
+            self.write_line(line)
+        self.write(quotes)
+
     def visit_DocString(self, node):
         if '\n' in node.s:
-            self.write('"""%s\n"""' % node.s)
+            self.write_multiline_string('"""', node.s)
         else:
             self.write('"""%s"""' % node.s)
 
     def visit_Str(self, node):
         if '\n' in node.s:
-            self.write("'''")
-            for line in node.s.splitlines():
-                self.write_line(line)
-            self.write("'''")
+            self.write_multiline_string("'''", node.s)
         else:
             self.write(repr(node.s))
 
@@ -712,7 +715,7 @@ class Commenter(ast.NodeVisitor):
 
 def convert_docstring(node):
     try:
-        string = ast.get_docstring(node)
+        string = ast.get_docstring(node, clean=True)
     except TypeError:
         string = None
     if string is None:
