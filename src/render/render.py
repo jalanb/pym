@@ -81,8 +81,6 @@ class Renderer(ast.NodeVisitor):
     That file is license under the PSF License
         which is avialable in this directory as "PYTHONLICENSE.txt"
     """
-    # pylint: disable-msg=R0921
-    # TODO R0921: "Abstract class not referenced"
 
     def __init__(self):
         ast.NodeVisitor.__init__(self)
