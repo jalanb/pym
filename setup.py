@@ -1,18 +1,15 @@
 """Set up the pym project"""
 
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 import pym
 
 
-name = 'pym'
-
-
 setup(
-    name=name,
-    packages=[name],
+    name='pym',
+    packages=find_packages(),
     version=pym.__version__,
     url='https://github.com/jalanb/pym',
     download_url=
