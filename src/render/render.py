@@ -657,10 +657,11 @@ def statement_precedes_comment(value, comment):
     return isinstance(value, ast.stmt) and comment.same_line(value)
 
 
-class Commenter(ast.NodeVisitor):
+class Commenter(ast.NodeTransformer):
     """Add comments into an AST"""
     def __init__(self, comments):
-        ast.NodeVisitor.__init__(self)
+        ast.NodeTransformer.__init__(self)
+        self.comment = NoComment((-1, -1, ''))
         self.comments = comments
         self.next_comment()
 
@@ -720,9 +721,9 @@ def convert_docstring(node):
     return node
 
 
-class DocStringer(ast.NodeVisitor):
+class DocStringer(ast.NodeTransformer):
     def __init__(self):
-        ast.NodeVisitor.__init__(self)
+        ast.NodeTransformer.__init__(self)
 
     def generic_visit(self, node):
         """Visit a node and convert first string to a docstring"""
