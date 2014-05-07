@@ -10,10 +10,6 @@ from cStringIO import StringIO
 from indent import Indenter
 
 
-def has_import(string):
-    return string.startswith('import ')
-
-
 class Punctuator(object):
     def __init__(self, renderer, punctuation):
         self.punctuated = False
@@ -44,29 +40,24 @@ class Commas(Punctuator):
         Punctuator.__init__(self, renderer, ',')
 
 
-def get_comments(string):
-    """Hold equivalent tokens for a tree being rendered"""
-    stream = StringIO(string)
-    tokens = list(tokenize.generate_tokens(stream.readline))
-    comments = [
-        (start_line, start_column, string)
-        for type_, string, (start_line, start_column), _, _,
-        in tokens
-        if type_ == tokenize.COMMENT
-    ]
-    return sorted(comments)
-
-
-def as_comment_nodes(comments):
-    return [Comment(string) for line, column, _, string in comments]
-
-
 def line_after(body):
     result = None
     for node in body:
         if hasattr(node, 'lineno'):
             result = getattr(node, 'lineno')
     return result + 1
+
+
+def has_import(string):
+    return string.startswith('import ')
+
+
+def infinity_string():
+    """Large float and imaginary literals get turned into infinities in the AST
+
+    Unparse them here
+    """
+    return '1e' + repr(sys.float_info.max_10_exp + 1)
 
 
 class Renderer(ast.NodeVisitor):
@@ -77,7 +68,7 @@ class Renderer(ast.NodeVisitor):
     This class is based on the Unparser class, from
         http://hg.python.org/cpython/file/3f7d5c235d82/Tools/parser/unparse.py
     That file is license under the PSF License
-        which is avialable in this directory as "PYTHONLICENSE.txt"
+        which is available in this directory as "PYTHONLICENSE.txt"
     """
 
     def __init__(self):
@@ -594,19 +585,6 @@ class Renderer(ast.NodeVisitor):
             self.dispatch(if_clause)
 
 
-def infinity_string():
-    """Large float and imaginary literals get turned into infinities in the AST
-
-    Unparse them here
-    """
-    return '1e' + repr(sys.float_info.max_10_exp + 1)
-
-
-def parse(source, path=None):
-    path = path if path else '<unknown>'
-    return ast.parse(source, path)
-
-
 class DocString(ast.Str):
     def __init__(self, node, string):
         ast.Str.__init__(self)
@@ -737,16 +715,34 @@ class DocStringer(ast.NodeTransformer):
         return node
 
 
-def add_comments(tree, string):
-    """Add comments into the tree"""
-    comments = get_comments(string)
-    commenter = Commenter(comments)
-    commenter.visit(tree)
+def get_comments(string):
+    """Hold equivalent tokens for a tree being rendered"""
+    stream = StringIO(string)
+    tokens = list(tokenize.generate_tokens(stream.readline))
+    comments = [
+        (start_line, start_column, string)
+        for type_, string, (start_line, start_column), _, _,
+        in tokens
+        if type_ == tokenize.COMMENT
+    ]
+    return sorted(comments)
+
+
+def parse(source, path=None):
+    path = path if path else '<unknown>'
+    return ast.parse(source, path)
 
 
 def find_docstrings(tree):
     doc_stringer = DocStringer()
     doc_stringer.visit(tree)
+
+
+def add_comments(tree, string):
+    """Add comments into the tree"""
+    comments = get_comments(string)
+    commenter = Commenter(comments)
+    commenter.visit(tree)
 
 
 def render(node):
