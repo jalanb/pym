@@ -4,6 +4,7 @@ import ast
 
 
 from nodes import Comment, NoComment, DocString
+from tokens import get_comments
 
 
 def convert_docstring(node):
@@ -90,3 +91,15 @@ class Commenter(ast.NodeTransformer):
                 else:
                     setattr(node, field, new_node)
         return node
+
+
+def recast_docstrings(tree):
+    doc_stringer = DocStringer()
+    doc_stringer.visit(tree)
+
+
+def add_comments(tree, string):
+    """Add comments into the tree"""
+    comments = get_comments(string)
+    commenter = Commenter(comments)
+    commenter.visit(tree)
