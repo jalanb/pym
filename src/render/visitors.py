@@ -75,7 +75,6 @@ class Renderer(ast.NodeVisitor):
         self.indenter = Indenter()
         self.line = ''
         self.lines = []
-        self.importing = False
         self.future_imports = []
 
     def generic_visit(self, node):
@@ -88,8 +87,6 @@ class Renderer(ast.NodeVisitor):
             return self.visit(node)
 
     def new_line(self, string):
-        if string and self.lines and not self.indenter.indentation:
-            self.importing = has_import(string)
         self.line = self.indenter.render(string)
 
     def write(self, string):
