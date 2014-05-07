@@ -47,10 +47,6 @@ def line_after(body):
     return result + 1
 
 
-def has_import(string):
-    return string.startswith('import ')
-
-
 def infinity_string():
     """Large float and imaginary literals get turned into infinities in the AST
 
