@@ -12,6 +12,8 @@ def parse(source, path=None):
 
 
 def render(node):
+    if not node:
+        return None
     renderer = Renderer()
     renderer.visit(node)
     return '\n'.join(renderer.lines)
@@ -21,4 +23,7 @@ def re_render(string, path=None):
     tree = parse(string, path)
     recast_docstrings(tree)
     add_comments(tree, string)
-    return render(tree)
+    text = render(tree)
+    if string[-1] == '\n' and text[-1] != '\n':
+        return '%s\n' % text
+    return text
