@@ -58,9 +58,7 @@ def get_comments(string):
 
 
 def as_comment_nodes(comments):
-    return [Comment(string, lineno=line, col_offset=column)
-            for line, column, _, string
-            in comments]
+    return [Comment(string) for line, column, _, string in comments]
 
 
 def line_after(body):
