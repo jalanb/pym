@@ -4,7 +4,7 @@ import ast
 import tokenize
 from cStringIO import StringIO
 
-from src.render.visitors import Renderer
+from visitors import Renderer
 from transformers import DocStringer, Commenter
 
 
