@@ -44,7 +44,7 @@ class TestRender(TestCase):
 
     def test_re_render(self):
         path = os.path.dirname(__file__)
-        path = os.path.join(path, 'example_source.txt')
+        path = os.path.join(path, 're_render.txt')
         with open(path) as stream:
             expected = stream.read()
             actual = render.re_render(expected, path)
