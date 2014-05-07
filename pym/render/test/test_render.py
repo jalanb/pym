@@ -6,7 +6,7 @@ import ast
 from unittest import TestCase
 
 
-import render
+from pym.render import render
 
 
 class TestRender(TestCase):
