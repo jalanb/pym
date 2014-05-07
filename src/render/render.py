@@ -649,6 +649,10 @@ class Commenter(ast.NodeTransformer):
         except IndexError:
             self.comment = NoComment((-1, -1, ''))
 
+    def use_comment(self, new_values):
+        new_values.append(self.comment)
+        self.next_comment()
+
     def generic_visit(self, node):
         """Visit a node and add any needed comments
 
@@ -664,8 +668,7 @@ class Commenter(ast.NodeTransformer):
                 for value in old_value:
                     if isinstance(value, ast.AST):
                         while self.comment.is_line_before(value):
-                            new_values.append(self.comment)
-                            self.next_comment()
+                            self.use_comment(new_values)
                         value = self.visit(value)
                         if value is None:
                             continue
@@ -674,8 +677,7 @@ class Commenter(ast.NodeTransformer):
                             continue
                     if statement_precedes_comment(value, self.comment):
                         self.comment.prefix = value
-                        new_values.append(self.comment)
-                        self.next_comment()
+                        self.use_comment(new_values)
                     else:
                         new_values.append(value)
                 old_value[:] = new_values
