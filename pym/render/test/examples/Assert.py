@@ -1,0 +1,1 @@
+assert NotImplementedError('Do nothing')

@@ -3,11 +3,18 @@
 
 import os
 import ast
+from fnmatch import fnmatch
 from unittest import TestCase
 
 
 from pym.render import render
 
+
+def get_source_here(source):
+    path = os.path.dirname(__file__)
+    path = os.path.join(path, source)
+    with open(path) as stream:
+        return path, stream.read()
 
 class TestRender(TestCase):
 
@@ -43,13 +50,21 @@ class TestRender(TestCase):
         self.assertFalse(render.render(' '))
 
     def test_re_render(self):
-        path = os.path.dirname(__file__)
-        path = os.path.join(path, 're_render.txt')
-        with open(path) as stream:
-            expected = stream.read()
+        path, expected = get_source_here('re_render.txt')
+        actual = render.re_render(expected, path)
+        self.assertEqual(expected, actual)
+
+    def test_examples(self):
+        there = os.path.join(os.path.dirname(__file__), 'examples')
+        examples = [f for f in os.listdir(there) if fnmatch(f, '*.py')]
+        for path in examples:
+            path, expected = get_source_here('examples/%s' % path)
             actual = render.re_render(expected, path)
-            self.assertEqual(actual, expected)
             expected_lines = expected.splitlines()
             actual_lines = actual.splitlines()
-            for expected, actual in zip(expected_lines, actual_lines):
-                self.assertEqual(actual, expected)
+            lines = zip(expected_lines, actual_lines)
+            for i, (expected, actual) in enumerate(lines):
+                name = os.path.basename(path)
+                message = '%s, %s: %r != %r' % (name, i, expected, actual)
+                self.assertEqual(expected, actual, message)
+
