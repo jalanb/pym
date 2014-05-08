@@ -26,14 +26,6 @@ pip-log.txt
 .tox
 nosetests.xml
 
-# Translations
-*.mo
-
-# Mr Developer
-.mr.developer.cfg
-.project
-.pydevproject
-
 # OS X
 .DS_Store
 
@@ -48,5 +40,7 @@ build.*.log
 # local dev files
 todo.txt
 .pythonhistory
+.idea
 *.fail
 *.out.py
+tags
