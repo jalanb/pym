@@ -57,14 +57,14 @@ class TestRender(TestCase):
     def test_examples(self):
         there = os.path.join(os.path.dirname(__file__), 'examples')
         examples = [f for f in os.listdir(there) if fnmatch(f, '*.py')]
-        for path in examples:
-            path, expected = get_source_here('examples/%s' % path)
-            actual = render.re_render(expected, path)
+        for example in examples:
+            example, expected = get_source_here('examples/%s' % example)
+            actual = render.re_render(expected, example)
             expected_lines = expected.splitlines()
             actual_lines = actual.splitlines()
             lines = zip(expected_lines, actual_lines)
             for i, (expected, actual) in enumerate(lines):
-                name = os.path.basename(path)
+                name = os.path.basename(example)
                 message = '%s, %s: %r != %r' % (name, i, expected, actual)
                 self.assertEqual(expected, actual, message)
 
