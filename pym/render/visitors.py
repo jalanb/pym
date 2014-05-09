@@ -201,7 +201,8 @@ class Renderer(ast.NodeVisitor):
     boolops = {ast.And: 'and', ast.Or: 'or'}
 
     def visit_BoolOp(self, node):
-        punctuator = Punctuator(self, self.boolops[node.op.__class__])
+        punctuation = ' %s' % self.boolops[node.op.__class__]
+        punctuator = Punctuator(self, punctuation)
         for value in node.values:
             punctuator.dispatch(value)
 
