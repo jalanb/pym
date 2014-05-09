@@ -24,6 +24,6 @@ def re_render(string, path=None):
     recast_docstrings(tree)
     add_comments(tree, string)
     text = render(tree)
-    if string[-1] == '\n' and text[-1] != '\n':
+    if string and text and string[-1] == '\n' and text[-1] != '\n':
         return '%s\n' % text
     return text
