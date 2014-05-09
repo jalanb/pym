@@ -279,13 +279,13 @@ class Renderer(ast.NodeVisitor):
         items = zip(node.keys, node.values)
         commas = Commas(self)
         for key, value in items:
-            commas.dispatch([key, ': ', value])
+            commas.dispatch([key, ':', value])
         self.write('}')
 
     def visit_DictComp(self, node):
         self.write('{')
         self.dispatch(node.key)
-        self.write(': ')
+        self.write(':')
         self.dispatch(node.value)
         for generator in node.generators:
             self.dispatch(generator)
