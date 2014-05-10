@@ -11,10 +11,10 @@ import argparse
 import render
 
 
-def parse_args():
+def parse_args(args=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('path', help='path to a python file')
-    return parser.parse_args()
+    return parser.parse_args(args)
 
 
 def absolute_python_path(path):
@@ -35,15 +35,14 @@ def read_source(path):
 def re_render(path):
     path = absolute_python_path(path)
     string = read_source(path)
-    source = render.re_render(string)
-    print source
+    return render.re_render(string)
 
 
 def main():
     """Run the program"""
     args = parse_args()
     try:
-        re_render(args.path)
+        print re_render(args.path)
     except ValueError as e:
         print >> sys.stderr, e
         return os.EX_USAGE
