@@ -32,5 +32,45 @@ class IndentTest(TestCase):
         indenter.dedent()
         self.assertRaises(ValueError, indenter.dedent)
 
+    def test_reset_to_0_on_indent(self):
+        indenter = indent.Indenter()
+        indenter.indentation = -5
+        self.assertRaises(ValueError, indenter.indent)
+        self.assertEqual(indenter.indentation, 0)
+
+    def test_reset_to_0_on_dedent(self):
+        indenter = indent.Indenter()
+        indenter.indentation = -5
+        self.assertRaises(ValueError, indenter.dedent)
+        self.assertEqual(indenter.indentation, 0)
+
+    def test_reset_limit_on_indent(self):
+        """Before indenting the current level should be 0 or greater"""
+        indenter = indent.Indenter()
+        indenter.indentation = -2
+        self.assertRaises(ValueError, indenter.indent)
+        indenter.indentation = -1
+        self.assertRaises(ValueError, indenter.indent)
+        indenter.indentation = 0
+        indenter.indent()
+        indenter.indentation = +1
+        indenter.indent()
+        indenter.indentation = +2
+        indenter.indent()
+
+    def test_reset_limit_on_dedent(self):
+        """Before dedenting the current level should be 1 or greater"""
+        indenter = indent.Indenter()
+        indenter.indentation = -2
+        self.assertRaises(ValueError, indenter.dedent)
+        indenter.indentation = -1
+        self.assertRaises(ValueError, indenter.dedent)
+        indenter.indentation = 0
+        self.assertRaises(ValueError, indenter.dedent)
+        indenter.indentation = +1
+        indenter.dedent()
+        indenter.indentation = +2
+        indenter.dedent()
+
     def tearDown(self):
         pass
