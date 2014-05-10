@@ -36,7 +36,7 @@ class Comment(ast.stmt):
     def is_before(self, node):
         if self.is_line_before(node):
             return True
-        if self.same_line(self):
+        if self.same_line(node):
             return self.col_offset < node.col_offset
         return False
 
