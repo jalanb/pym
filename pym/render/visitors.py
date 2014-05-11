@@ -107,7 +107,7 @@ class Renderer(ast.NodeVisitor):
     def visit_alias(self, node):
         self.write(node.name)
         if node.asname:
-            self.write('as %s' % node.asname)
+            self.write(' as %s' % node.asname)
 
     def visit_arguments(self, node):
         if node.defaults:
@@ -405,12 +405,12 @@ class Renderer(ast.NodeVisitor):
         self.dispatch(node.value)
 
     def visit_Lambda(self, node):
-        self.write('(')
-        self.write('lambda ')
-        self.dispatch(node.args)
+        self.write('lambda')
+        if node.args and node.args.args:
+            self.write(' ')
+            self.dispatch(node.args)
         self.write(': ')
         self.dispatch(node.body)
-        self.write(')')
 
     def visit_List(self, node):
         self.write('[')
@@ -549,7 +549,9 @@ class Renderer(ast.NodeVisitor):
     def visit_UnaryOp(self, node):
         operators = {'Invert': '~', 'Not': 'not', 'UAdd': '+', 'USub': '-'}
         operator_name = node.op.__class__.__name__
-        self.write('%s ' % operators[operator_name])
+        operator = operators[operator_name]
+        space = operator_name == 'Not' and ' ' or ''
+        self.write('%s%s' % (operator, space))
         if operator_name == 'USub' and isinstance(node.operand, ast.Num):
             self.write('(')
             self.dispatch(node.operand)
