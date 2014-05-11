@@ -25,12 +25,13 @@ class DocStringer(ast.NodeTransformer):
     def generic_visit(self, node):
         """Visit a node and convert first string to a docstring"""
         node = convert_docstring(node)
-        for _, value in ast.iter_fields(node):
-            if isinstance(value, list):
-                for item in value:
-                    self.visit(item)
-            elif isinstance(value, ast.AST):
-                self.visit(value)
+        if isinstance(node, ast.AST):
+            for _, value in ast.iter_fields(node):
+                if isinstance(value, list):
+                    for item in value:
+                        self.visit(item)
+                elif isinstance(value, ast.AST):
+                    self.visit(value)
         return node
 
 
