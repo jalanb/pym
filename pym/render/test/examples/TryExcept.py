@@ -1,4 +1,11 @@
 try:
-    1 / 0
+    print "Evenin', squire"
 except ZeroDivisionError:
-    print 'Duh'
+    print 'Evening'
+
+try:
+    print 'You married?'
+except ValueError:
+    print 'Yes'
+else:
+    print "I'm a bachelor meself. Is your wife a goer? Eh?"

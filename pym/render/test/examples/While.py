@@ -1,2 +1,7 @@
 while False:
-    print 'No one expects the Spanish Inquisition'
+    print 'Wenn ist das Nunstuck git und Slotermeyer?'
+
+while True:
+    break
+else:
+    print 'Ja! Beierhund das oder die Flippervaldt gesputt!'

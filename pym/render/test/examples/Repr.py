@@ -1,1 +1,1 @@
-print repr(__file__)
+print `__file__`

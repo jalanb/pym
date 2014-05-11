@@ -55,7 +55,15 @@ def infinity_string():
     return '1e' + repr(sys.float_info.max_10_exp + 1)
 
 
-class Renderer(ast.NodeVisitor):
+class Visitor(ast.NodeVisitor):
+    def __init__(self):
+        ast.NodeVisitor.__init__(self)
+
+    def generic_visit(self, node):
+        raise NotImplementedError('Cannot visit %s' % node.__class__.__name__)
+
+
+class Renderer(Visitor):
     """Render an AST as nodal text
 
     This class just renders text snippets
@@ -67,14 +75,11 @@ class Renderer(ast.NodeVisitor):
     """
 
     def __init__(self):
-        ast.NodeVisitor.__init__(self)
+        Visitor.__init__(self)
         self.indenter = Indenter()
         self.line = ''
         self.lines = []
         self.future_imports = []
-
-    def generic_visit(self, node):
-        raise NotImplementedError('Cannot visit %s' % node.__class__.__name__)
 
     def dispatch(self, node):
         if isinstance(node, list):
@@ -189,6 +194,7 @@ class Renderer(ast.NodeVisitor):
 
     def visit_Attribute(self, node):
         self.dispatch(node.value)
+        # ints are objects too, so can have attributes, e.g. 1 .__add__(1) == 2
         if isinstance(node.value, ast.Num) and isinstance(node.value.n, int):
             self.write(' ')
         self.write('.')
@@ -374,13 +380,11 @@ class Renderer(ast.NodeVisitor):
             self.visit_block(node.orelse, line_after(node.body))
 
     def visit_IfExp(self, node):
-        self.write('(')
         self.dispatch(node.body)
         self.write(' if ')
         self.dispatch(node.test)
         self.write(' else ')
         self.dispatch(node.orelse)
-        self.write(')')
 
     def visit_Import(self, node):
         self.write('import ')
@@ -463,9 +467,9 @@ class Renderer(ast.NodeVisitor):
             self.dispatch(node.tback)
 
     def visit_Repr(self, node):
-        self.write('repr(')
+        self.write('`')
         self.dispatch(node.value)
-        self.write(')')
+        self.write('`')
 
     def visit_Return(self, node):
         self.write('return')
@@ -474,9 +478,6 @@ class Renderer(ast.NodeVisitor):
             self.dispatch(node.value)
 
     def visit_Set(self, node):
-        if not node.elts:
-            raise ValueError(
-                'Set should have at least one element: %r' % node.elts)
         self.write('{')
         commas = Commas(self)
         for element in node.elts:
