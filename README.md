@@ -17,3 +17,6 @@ Sourcegraph
 [![funcs](https://sourcegraph.com/api/repos/github.com/jalanb/pym/badges/funcs.png)](https://sourcegraph.com/github.com/jalanb/pym)
 [![library users](https://sourcegraph.com/api/repos/github.com/jalanb/pym/badges/library-users.png)](https://sourcegraph.com/github.com/jalanb/pym)
 
+Travis
+------
+[![Build Status](https://travis-ci.org/jalanb/pym.svg?branch=v0.1.3)](https://travis-ci.org/jalanb/pym)
