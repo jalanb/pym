@@ -8,6 +8,11 @@ from unittest import TestCase
 from pym.render import re_render
 
 
+def write_extension(path, ext):
+    stem, _ = os.path.splitext(path)
+    return '%s.%s' % (stem, ext)
+
+
 class ReRenderTest(TestCase):
     def setUp(self):
         pass
@@ -21,7 +26,7 @@ class ReRenderTest(TestCase):
         self.assertRaises(SystemExit, re_render.parse_args)
 
     def test_absolute_python_path(self):
-        expected = __file__
+        expected = write_extension(__file__, 'py')
         actual = re_render.absolute_python_path(expected)
         self.assertEqual(expected, actual)
 
@@ -35,20 +40,17 @@ class ReRenderTest(TestCase):
         We need a file which exists, but is not ...py
             Use the compiled (.pyc) version of this file
         """
-        stem, _ = os.path.splitext(__file__)
-        compiled_path = '%s.pyc' % stem
+        compiled_path = write_extension(__file__, 'pyc')
         self.assertRaises(
             ValueError, re_render.absolute_python_path, compiled_path)
 
     def test_read_source(self):
-        stem, _ = os.path.splitext(__file__)
-        python_path = '%s.py' % stem
+        python_path = write_extension(__file__, 'py')
         source_text = re_render.read_source(python_path)
         self.assertTrue('test_read_source' in source_text)
 
     def test_re_render(self):
-        stem, _ = os.path.splitext(re_render.__file__)
-        python_path = '%s.py' % stem
+        python_path = write_extension(__file__, 'py')
         expected = re_render.read_source(python_path)
         actual = re_render.re_render(python_path)
         # TODO - fix problems with adding back blank lines
