@@ -3,7 +3,7 @@
 
 import os
 from unittest import TestCase
-
+from dotsite import streams
 
 from pym.render import re_render
 
@@ -23,7 +23,8 @@ class ReRenderTest(TestCase):
         self.assertEqual(args.path, expected)
 
     def test_no_args(self):
-        self.assertRaises(SystemExit, re_render.parse_args, [])
+        with streams.swallow_stderr():
+            self.assertRaises(SystemExit, re_render.parse_args, [])
 
     def test_absolute_python_path(self):
         expected = write_extension(__file__, 'py')
@@ -50,6 +51,7 @@ class ReRenderTest(TestCase):
         self.assertTrue('test_read_source' in source_text)
 
     def test_re_render(self):
+        # pylint: disable=W0612,R0201
         python_path = write_extension(__file__, 'py')
         expected = re_render.read_source(python_path)
         actual = re_render.re_render(python_path)

@@ -12,8 +12,7 @@ setup(
     packages=find_packages(),
     version=pym.__version__,
     url='https://github.com/jalanb/pym',
-    download_url=
-        'https://github.com/jalanb/pym/tarball/v%s' % pym.__version__,
+    download_url='https://github.com/jalanb/pym/tarball/v%s' % pym.__version__,
     license='MIT License',
     author='J Alan Brogan',
     author_email='pym@al-got-rhythm.net',
@@ -31,7 +30,7 @@ setup(
         'Topic :: Software Development :: Code Generators',
     ],
     test_suite='nose.collector',
-    tests_require=['nose'],
+    tests_require=['nose', 'dotsite'],
     extras_require={
         'testing': ['nose'],
     }
