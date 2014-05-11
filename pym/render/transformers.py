@@ -18,9 +18,50 @@ def convert_docstring(node):
     return node
 
 
-class DocStringer(ast.NodeTransformer):
+class PymTransformer(ast.NodeTransformer):
+    """Transform an AST Node
+
+    Based on ast.NodeTransformer which states:
+        :copyright: Copyright 2008 by Armin Ronacher
+        :license: Python License.
+    That license file is in this directory as "PYTHONLICENSE.txt"
+    """
+
+    def before_old_value(self, new_values, value):
+        pass
+
+    def add_new_value(self, new_values, value):
+        # pylint: disable-msg=no-self-use
+        new_values.append(value)
+
+    def generic_visit(self, node):
+        for field, old_value in ast.iter_fields(node):
+            old_value = getattr(node, field, None)
+            if isinstance(old_value, list):
+                new_values = []
+                for value in old_value:
+                    if isinstance(value, ast.AST):
+                        self.before_old_value(new_values, value)
+                        value = self.visit(value)
+                        if value is None:
+                            continue
+                        if not isinstance(value, ast.AST):
+                            new_values.extend(value)
+                            continue
+                    self.add_new_value(new_values, value)
+                old_value[:] = new_values
+            elif isinstance(old_value, ast.AST):
+                new_node = self.visit(old_value)
+                if new_node is None:
+                    delattr(node, field)
+                else:
+                    setattr(node, field, new_node)
+        return node
+
+
+class DocStringer(PymTransformer):
     def __init__(self):
-        ast.NodeTransformer.__init__(self)
+        PymTransformer.__init__(self)
 
     def generic_visit(self, node):
         """Visit a node and convert first string to a docstring"""
@@ -39,10 +80,10 @@ def statement_precedes_comment(value, comment):
     return isinstance(value, ast.stmt) and comment.same_line(value)
 
 
-class Commenter(ast.NodeTransformer):
+class Commenter(PymTransformer):
     """Add comments into an AST"""
     def __init__(self, comments):
-        ast.NodeTransformer.__init__(self)
+        PymTransformer.__init__(self)
         self.comment = NoComment((-1, -1, ''))
         self.comments = comments
         self.next_comment()
@@ -53,45 +94,18 @@ class Commenter(ast.NodeTransformer):
         except IndexError:
             self.comment = NoComment((-1, -1, ''))
 
-    def use_comment(self, new_values):
-        new_values.append(self.comment)
-        self.next_comment()
+    def before_old_value(self, new_values, value):
+        while self.comment.is_line_before(value):
+            new_values.append(self.comment)
+            self.next_comment()
 
-    def generic_visit(self, node):
-        """Visit a node and add any needed comments
-
-        Based on the equivalent method in ast.NodeTransformer which states:
-            :copyright: Copyright 2008 by Armin Ronacher
-            :license: Python License.
-        That license file is in this directory as "PYTHONLICENSE.txt"
-        """
-        for field, old_value in ast.iter_fields(node):
-            old_value = getattr(node, field, None)
-            if isinstance(old_value, list):
-                new_values = []
-                for value in old_value:
-                    if isinstance(value, ast.AST):
-                        while self.comment.is_line_before(value):
-                            self.use_comment(new_values)
-                        value = self.visit(value)
-                        if value is None:
-                            continue
-                        if not isinstance(value, ast.AST):
-                            new_values.extend(value)
-                            continue
-                    if statement_precedes_comment(value, self.comment):
-                        self.comment.prefix = value
-                        self.use_comment(new_values)
-                    else:
-                        new_values.append(value)
-                old_value[:] = new_values
-            elif isinstance(old_value, ast.AST):
-                new_node = self.visit(old_value)
-                if new_node is None:
-                    delattr(node, field)
-                else:
-                    setattr(node, field, new_node)
-        return node
+    def add_new_value(self, new_values, value):
+        if statement_precedes_comment(value, self.comment):
+            self.comment.prefix = value
+            new_values.append(self.comment)
+            self.next_comment()
+        else:
+            new_values.append(value)
 
 
 def recast_docstrings(tree):
