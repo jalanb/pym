@@ -280,7 +280,7 @@ class Renderer(ast.NodeVisitor):
         items = zip(node.keys, node.values)
         commas = Commas(self)
         for key, value in items:
-            commas.dispatch([key, ':', value])
+            commas.dispatch([key, ': ', value])
         self.write('}')
 
     def visit_DictComp(self, node):
