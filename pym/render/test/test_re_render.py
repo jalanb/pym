@@ -23,7 +23,7 @@ class ReRenderTest(TestCase):
         self.assertEqual(args.path, expected)
 
     def test_no_args(self):
-        self.assertRaises(SystemExit, re_render.parse_args)
+        self.assertRaises(SystemExit, re_render.parse_args, [])
 
     def test_absolute_python_path(self):
         expected = write_extension(__file__, 'py')
