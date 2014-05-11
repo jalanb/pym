@@ -113,7 +113,8 @@ class Renderer(ast.NodeVisitor):
         if node.defaults:
             i = len(node.defaults)
             plain_args = node.args[:-i]
-            defaulted_args = zip(node.args[i:], node.defaults)
+            default_args = node.args[-i:]
+            defaulted_args = zip(default_args, node.defaults)
         else:
             plain_args = node.args
             defaulted_args = []
