@@ -68,3 +68,9 @@ class TestRender(TestCase):
                 message = '%s, %s: %r != %r' % (name, i, expected, actual)
                 self.assertEqual(expected, actual, message)
 
+    def test_unknown_node(self):
+        class JustInventedThisNow(ast.Str):
+            pass
+        testable = JustInventedThisNow()
+        renderer = render.Renderer()
+        self.assertRaises(NotImplementedError, renderer.visit, testable)
