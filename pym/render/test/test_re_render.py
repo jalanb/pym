@@ -51,7 +51,7 @@ class ReRenderTest(TestCase):
         self.assertTrue('test_read_source' in source_text)
 
     def test_re_render(self):
-        # pylint: disable=W0612,R0201
+        # pylint: disable=unused-variable,no-self-use
         python_path = write_extension(__file__, 'py')
         expected = re_render.read_source(python_path)
         actual = re_render.re_render(python_path)
