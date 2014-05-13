@@ -83,6 +83,7 @@ Other stuff I need to read
 * `Recognition can be harder than parsing <http://www.academia.edu/798690/Recognition_can_be_harder_than_parsing>`_.
 * KOD has an interesting `approach to text syntax trees (TST) <https://github.com/rsms/kod/wiki/Text-parser-2>`_.
 * The Program Transformation `Wiki <http://www.program-transformation.org/>`_.
+* The `AST Tool Box <https://github.com/chick/ast_tool_box>`_ looks like it is under active development
 
 Version 2.0 +
 -------------
