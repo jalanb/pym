@@ -15,10 +15,6 @@ class MockTransformer(PymTransformer):
             return None
         return node
 
-    def visit_Num(self, node):
-        node.i = 9
-        return node
-
 
 class PymTransformerTest(TestCase):
 
@@ -35,5 +31,4 @@ class PymTransformerTest(TestCase):
         transformer = MockTransformer()
         ast = transformer.visit(self.ast)
         actual = render.render(ast)
-        self.assertIn('i = 9', actual)
         self.assertNotIn('i = 1', actual)
