@@ -38,9 +38,9 @@ class PymTransformer(ast.NodeTransformer):
                 return
             self.add_new_value(new_values, new_value)
 
-    def handle_list(self, old_value):
+    def handle_old_values(self, old_values):
         new_values = []
-        for old_value in old_value:
+        for old_value in old_values:
             self.handle_old_value(new_values, old_value)
         return new_values
 
@@ -52,9 +52,10 @@ class PymTransformer(ast.NodeTransformer):
             setattr(node, field, new_node)
 
     def generic_visit(self, node):
-        for field, old_value in ast.iter_fields(node):
-            if isinstance(old_value, list):
-                old_value[:] = self.handle_list(old_value)
-            elif isinstance(old_value, ast.AST):
-                self.handle_item(field, node, old_value)
+        for field, value in ast.iter_fields(node):
+            self.field = field
+            if isinstance(value, list):
+                value[:] = self.handle_old_values(value)
+            elif isinstance(value, ast.AST):
+                self.handle_item(field, node, value)
         return node
