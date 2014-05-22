@@ -8,6 +8,7 @@ from unittest import TestCase
 
 
 from pym.render import render
+from pym.ast.parse import parse
 
 
 def get_source_here(source):
@@ -15,6 +16,7 @@ def get_source_here(source):
     path = os.path.join(path, source)
     with open(path) as stream:
         return path, stream.read()
+
 
 class TestRender(TestCase):
 
@@ -24,21 +26,21 @@ class TestRender(TestCase):
         path = '%s.py' % stem
         with open(path) as stream:
             source = stream.read()
-            parsed = render.parse(source, path)
+            parsed = parse(source, path)
             self.assertTrue(isinstance(parsed, ast.AST))
 
     def test_parse_string(self):
         source = 'i = 0\ni += 1'
-        parsed = render.parse(source)
+        parsed = parse(source)
         self.assertTrue(isinstance(parsed, ast.AST))
 
     def test_syntax_error(self):
         source = 'i = 0\n    i += 1'
-        self.assertRaises(SyntaxError, render.parse, source)
+        self.assertRaises(SyntaxError, parse, source)
 
     def test_render(self):
         expected = 'i = 0\ni += 1'
-        node = render.parse(expected)
+        node = parse(expected)
         actual = render.render(node)
         self.assertEqual(actual, expected)
 
