@@ -1,15 +1,9 @@
 """module to render python asts to text"""
 
-import ast
-
 from .renderer import Renderer
+from ..ast.parse import parse
 from ..ast.transform.commenter import add_comments
 from ..ast.transform.docstringer import recast_docstrings
-
-
-def parse(source, path=None):
-    path = path if path else '<unknown>'
-    return ast.parse(source, path)
 
 
 def render(node):
