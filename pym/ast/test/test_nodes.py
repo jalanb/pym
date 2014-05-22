@@ -5,7 +5,7 @@
 from unittest import TestCase
 
 
-from pym.render import nodes
+from pym.ast import nodes
 
 
 class MockAttributes(object):

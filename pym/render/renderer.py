@@ -1,4 +1,4 @@
-"""Visiting nodes of ASTs"""
+from ..ast.visit.visitors import Visitor
 
 
 import ast
@@ -6,7 +6,7 @@ import sys
 
 
 from indent import Indenter
-from nodes import Comment
+from ..ast.nodes import Comment
 
 
 class Punctuator(object):
@@ -53,14 +53,6 @@ def infinity_string():
     Unparse them here
     """
     return '1e' + repr(sys.float_info.max_10_exp + 1)
-
-
-class Visitor(ast.NodeVisitor):
-    def __init__(self):
-        ast.NodeVisitor.__init__(self)
-
-    def generic_visit(self, node):
-        raise NotImplementedError('Cannot visit %s' % node.__class__.__name__)
 
 
 class Renderer(Visitor):
