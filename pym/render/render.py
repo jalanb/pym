@@ -2,7 +2,7 @@
 
 import ast
 
-from visitors import Renderer
+from .visitors import Renderer
 from .commenter import add_comments
 from .docstringer import recast_docstrings
 
