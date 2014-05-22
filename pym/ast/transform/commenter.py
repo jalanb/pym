@@ -4,8 +4,8 @@ import ast
 
 
 from .transformers import PymTransformer
-from ..render.tokens import get_comments
-from ..render.nodes import Comment, NoComment
+from pym.ast.tokens import get_comments
+from pym.ast.nodes import Comment, NoComment
 
 
 def statement_precedes_comment(value, comment):

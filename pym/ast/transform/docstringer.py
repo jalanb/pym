@@ -3,7 +3,7 @@
 import ast
 
 
-from ..render.nodes import DocString
+from pym.ast.nodes import DocString
 from .transformers import PymTransformer
 
 
