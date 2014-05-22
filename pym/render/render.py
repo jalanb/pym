@@ -3,8 +3,8 @@
 import ast
 
 from .visitors import Renderer
-from .commenter import add_comments
-from .docstringer import recast_docstrings
+from ..transform.commenter import add_comments
+from ..transform.docstringer import recast_docstrings
 
 
 def parse(source, path=None):

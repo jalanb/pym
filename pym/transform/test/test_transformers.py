@@ -4,7 +4,7 @@
 from unittest import TestCase
 
 
-from pym.render.transformers import PymTransformer
+from pym.transform.transformers import PymTransformer
 from pym.render import render
 
 
