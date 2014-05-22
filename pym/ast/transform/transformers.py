@@ -52,10 +52,13 @@ class PymTransformer(ast.NodeTransformer):
             setattr(node, field, new_node)
 
     def generic_visit(self, node):
+        self.node = node
         for field, value in ast.iter_fields(node):
             self.field = field
             if isinstance(value, list):
-                value[:] = self.handle_old_values(value)
+                new_value = self.handle_old_values(value)
+                if new_value is not None:
+                    value[:] = new_value
             elif isinstance(value, ast.AST):
                 self.handle_item(field, node, value)
         return node
