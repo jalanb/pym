@@ -12,11 +12,11 @@ class Sectioner(PymTransformer):
     def __init__(self):
         PymTransformer.__init__(self)
 
-    def handle_old_values(self, old_value):
+    def handle_old_values(self, old_values):
         if not isinstance(self.node, ast.Module):
             return None
         new_values = []
-        for old_value in old_value:
+        for old_value in old_values:
             self.handle_old_value(new_values, old_value)
         return new_values
 
