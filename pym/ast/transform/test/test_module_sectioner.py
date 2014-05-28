@@ -34,6 +34,8 @@ class TestSectioner(TestCase):
 
     def test_add_blank_lines(self):
         expected = '''"""This is a docstring"""
+
+
 import os'''
         actual = re_render(expected)
         self.assertEqual(expected, actual)
