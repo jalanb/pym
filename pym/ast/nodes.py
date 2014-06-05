@@ -2,6 +2,8 @@
 
 import ast
 
+class BlankLine(ast.stmt):
+    pass
 
 class DocString(ast.Str):
     def __init__(self, node, string):

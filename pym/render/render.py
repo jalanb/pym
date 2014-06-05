@@ -3,6 +3,7 @@
 from .renderer import Renderer
 from ..ast.parse import parse
 from ..ast.transform.commenter import add_comments
+from ..ast.transform.reliner import adjust_lines
 from ..ast.transform.docstringer import recast_docstrings
 
 
@@ -27,6 +28,7 @@ def re_render(string, path=None):
     tree = parse(string, path)
     recast_docstrings(tree)
     add_comments(tree, string)
+    adjust_lines(tree)
     text = render(tree)
     if string and text and string[-1] == '\n' and text[-1] != '\n':
         return '%s\n' % text

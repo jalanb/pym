@@ -1,11 +1,11 @@
-"""Test that sections are added to a module AST"""
+"""Test that lines are added to a module AST"""
 
 
 from unittest import TestCase
 
 
 from pym.ast.parse import parse
-from pym.ast.transform.module_sectioner import Sectioner, add_sections
+from pym.ast.transform.reliner import Liner, adjust_lines
 from pym.render.render import render
 from pym.ast.transform.docstringer import recast_docstrings
 
@@ -13,21 +13,21 @@ from pym.ast.transform.docstringer import recast_docstrings
 def re_render(module_text):
     tree = parse(module_text)
     recast_docstrings(tree)
-    add_sections(tree)
+    adjust_lines(tree)
     return render(tree)
 
 
-class TestSectioner(TestCase):
+class TestLiner(TestCase):
 
     def test_initialisation(self):
-        transformer = Sectioner()
+        transformer = Liner()
         self.assertIsNotNone(transformer)
 
-    def test_add_no_sections_to_nothing(self):
+    def test_add_no_lines_to_nothing(self):
         actual = re_render('')
         self.assertEqual('', actual)
 
-    def test_add_no_sections_to_docstring(self):
+    def test_add_no_lines_to_docstring(self):
         expected = '"""This is a docstring"""'
         actual = re_render(expected)
         self.assertEqual(expected, actual)
@@ -36,6 +36,34 @@ class TestSectioner(TestCase):
         expected = '''"""This is a docstring"""
 
 
-import os'''
+import os
+import sys
+from pprint import pprint
+from mine import yours
+
+
+def method():
+    pass
+
+
+def another():
+    pass
+
+
+class Thing(object):
+    pass
+
+
+result = os.EX_OK
+method = another
+
+
+def main():
+    return result
+
+
+result = not os.EX_OK
+if __name__ == '__main__':
+    sys.exit(main())'''
         actual = re_render(expected)
         self.assertEqual(expected, actual)

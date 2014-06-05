@@ -6,7 +6,7 @@ import sys
 
 
 from indent import Indenter
-from ..ast.nodes import Comment
+from ..ast.nodes import Comment, BlankLine
 
 
 class Punctuator(object):
@@ -132,7 +132,8 @@ class Renderer(Visitor):
     def visit_body(self, node):
         for child in node:
             self.dispatch(child)
-            self.write_line()
+            if not isinstance(child, (ast.ClassDef, ast.FunctionDef, BlankLine)):
+                self.write_line()
 
     def visit_comprehension(self, node):
         self.write(' for ')
@@ -216,6 +217,10 @@ class Renderer(Visitor):
         self.dispatch(node.left)
         self.write(' %s ' % self.binary_operators[operator_name])
         self.dispatch(node.right)
+
+    def visit_BlankLine(self, node):
+        self.write_line('')
+        #pass
 
     def visit_Break(self, _node):
         self.write('break')
