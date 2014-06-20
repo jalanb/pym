@@ -31,7 +31,7 @@ class PymTransformer(ast.NodeTransformer):
         pass
 
     def add_new_value(self, new_values, value):
-        # pylint: disable-msg=no-self-use
+        # pylint: disable=no-self-use
         new_values.append(value)
 
     def generic_visit(self, node):

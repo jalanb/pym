@@ -10,7 +10,7 @@ from pym.render import render
 
 class MockTransformer(PymTransformer):
     def visit_Assign(self, node):
-        # pylint: disable-msg=no-self-use
+        # pylint: disable=no-self-use
         if node.lineno == 2:
             return None
         return node
