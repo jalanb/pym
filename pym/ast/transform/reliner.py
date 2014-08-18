@@ -4,7 +4,7 @@
 import ast
 
 
-from .transformers import PymTransformer
+from .transformers import PymTransformerBase
 from ..nodes import DocString, BlankLine
 
 
@@ -33,15 +33,15 @@ def _add_blank_lines(nodes):
     return result
 
 
-class Liner(PymTransformer):
+class Liner(PymTransformerBase):
     """Add lines into a module AST"""
     def __init__(self):
-        PymTransformer.__init__(self)
+        PymTransformerBase.__init__(self)
 
-    def handle_old_values(self, old_values):
-        if not isinstance(self.node, ast.Module):
+    def handle_old_values(self, node, values):
+        if not isinstance(node, ast.Module):
             return None
-        return _add_blank_lines(old_values)
+        return _add_blank_lines(values)
 
 
 def adjust_lines(tree):

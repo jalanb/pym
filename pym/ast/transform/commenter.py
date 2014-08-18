@@ -3,7 +3,7 @@
 import ast
 
 
-from .transformers import PymTransformer
+from .transformers import TreeChanger
 from pym.ast.tokens import get_comments
 from pym.ast.nodes import Comment, NoComment
 
@@ -12,10 +12,10 @@ def statement_precedes_comment(value, comment):
     return isinstance(value, ast.stmt) and comment.same_line(value)
 
 
-class Commenter(PymTransformer):
+class Commenter(TreeChanger):
     """Add comments into an AST"""
     def __init__(self, comments):
-        PymTransformer.__init__(self)
+        TreeChanger.__init__(self)
         self.comment = NoComment((-1, -1, ''))
         self.comments = comments
         self.next_comment()
