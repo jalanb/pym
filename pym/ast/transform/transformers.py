@@ -1,9 +1,54 @@
-"""Classes which transform ASTs"""
+"""Classes which transform ASTs
+
+Provides a class hierarchy of increasing change:
+    PymTransformerBase makes no changes
+    TreeDecorator adds nodes
+    TreeChanger adds or changes nodes, or changes fields
+    TreeTransformer adds, changes or deletes nodes or fields
+"""
 
 import ast
 
 
-class PymTransformer(ast.NodeTransformer):
+class PymTransformerBase(ast.NodeVisitor):
+    """Base Class for all Pym Transformers
+
+    This class provide generic methods only
+        real work is done in inheritors
+    """
+    def handle_old_values(self, node, values):
+        return None
+
+    def handle_value(self, node, field, value):
+        pass
+
+    def handle_values(self, node, values):
+        new_value = self.handle_old_values(node, values)
+        if new_value is not None:
+            values[:] = new_value
+
+    def generic_visit(self, node):
+        if not isinstance(node, ast.AST):
+            return node
+        for field, value in ast.iter_fields(node):
+            if isinstance(value, list):
+                self.handle_values(node, value)
+            elif isinstance(value, ast.AST):
+                self.handle_value(node, field, value)
+        return node
+
+
+class TreeDecorator(PymTransformerBase):
+    """A decorator is a transformer which only adds
+
+    Nodes or attributes may be added
+    This class provide generic methods only
+        real work is done in inheritors
+    """
+    pass
+
+
+class TreeChanger(TreeDecorator):
     """Transform an AST Node
 
     Based on ast.NodeTransformer which states:
@@ -28,37 +73,31 @@ class PymTransformer(ast.NodeTransformer):
             return True
         return False
 
+    def handle_old_non_ast_value(self, new_values, old_value):
+        self.add_new_value(new_values, old_value)
+
+    def handle_old_ast_value(self, new_values, old_value):
+        self.before_old_ast_value(new_values, old_value)
+        new_value = self.visit(old_value)
+        if self.handle_new_value(new_values, new_value):
+            return
+        self.add_new_value(new_values, new_value)
+
     def handle_old_value(self, new_values, old_value):
         if not isinstance(old_value, ast.AST):
-            self.add_new_value(new_values, old_value)
+            self.handle_old_non_ast_value(new_values, old_value)
         else:
-            self.before_old_ast_value(new_values, old_value)
-            new_value = self.visit(old_value)
-            if self.handle_new_value(new_values, new_value):
-                return
-            self.add_new_value(new_values, new_value)
+            self.handle_old_ast_value(new_values, old_value)
 
-    def handle_old_values(self, old_values):
+    def handle_old_values(self, node, values):
         new_values = []
-        for old_value in old_values:
+        for old_value in values:
             self.handle_old_value(new_values, old_value)
         return new_values
 
-    def handle_item(self, field, node, old_value):
-        new_node = self.visit(old_value)
-        if new_node is None:
+    def handle_value(self, node, field, value):
+        new_value = self.visit(value)
+        if new_value is None:
             delattr(node, field)
         else:
-            setattr(node, field, new_node)
-
-    def generic_visit(self, node):
-        self.node = node
-        for field, value in ast.iter_fields(node):
-            self.field = field
-            if isinstance(value, list):
-                new_value = self.handle_old_values(value)
-                if new_value is not None:
-                    value[:] = new_value
-            elif isinstance(value, ast.AST):
-                self.handle_item(field, node, value)
-        return node
+            setattr(node, field, new_value)

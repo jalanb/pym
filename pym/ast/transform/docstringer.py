@@ -4,7 +4,7 @@ import ast
 
 
 from pym.ast.nodes import DocString
-from .transformers import PymTransformer
+from .transformers import PymTransformerBase
 
 
 def convert_docstring(node):
@@ -23,9 +23,9 @@ def recast_docstrings(tree):
     doc_stringer.visit(tree)
 
 
-class DocStringer(PymTransformer):
+class DocStringer(PymTransformerBase):
     def __init__(self):
-        PymTransformer.__init__(self)
+        PymTransformerBase.__init__(self)
 
     def generic_visit(self, node):
         """Visit a node and convert first string to a docstring"""

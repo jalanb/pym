@@ -23,10 +23,8 @@ def method():  # Am I to understand there's a real frog in here?
         pass  # What sort of frog?
     else:  # A dead frog.
         return False  # Is it cooked?
-
 def with_args(arg1, arg2):
     pass
-
 '''Go on, go on.
 What?
 Do the punchline.

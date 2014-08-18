@@ -78,7 +78,7 @@ class TestRender(TestCase):
             lines = zip(source_lines, actual_lines)
             for i, (expected, actual) in enumerate(lines):
                 name = os.path.basename(example)
-                message = '%s, %s: %r != %r' % (name, i, expected, actual)
+                message = '%s, %s: %r != %r' % (name, i, expected_lines, actual_lines)
                 self.assertEqual(expected, actual, message)
 
     def test_unknown_node(self):

@@ -1,5 +1,7 @@
 """Decorative nodes for ASTs"""
 
+from __future__ import absolute_import
+
 import ast
 
 class BlankLine(ast.stmt):
