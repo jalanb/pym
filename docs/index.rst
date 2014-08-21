@@ -53,9 +53,8 @@ Parsing produces Abstract Syntax Trees, which have a reasonable amount of relate
 Related tools
 ^^^^^^^^^^^^^
 
-Autopep8 is a tool which re-writes Python source code (to increase compliance with PEP8), but does not use ASTs to do so.
-
-  * `autopep8 <https://github.com/jalanb/autopep8>`_
+* `Autopep8 <https://github.com/jalanb/autopep8>`_ is a tool which re-writes Python source code (to increase compliance with PEP8), but does not use ASTs to do so.
+* `py.code <http://pylib.readthedocs.org/en/latest/code.html>`_ provides higher level python code and introspection objects.
 
 Miscellaneous
 ^^^^^^^^^^^^^
