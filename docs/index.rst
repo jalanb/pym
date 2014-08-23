@@ -8,93 +8,55 @@
 pym v0.1.3 documentation
 ========================
 
-Parts of the documentation:
-
-.. toctree::
-   :maxdepth: 1
-
-   renderers
-
 What is pym?
 ------------
 
 Python code to edit Python structures.
 
-pym was inspired by vim but it handles structured (not plain) text. At present pym is entirely vapourware, and consists of some ideas based around :ref:`mindful_manipulation` of `Abstract Syntax Trees <http://en.wikipedia.org/wiki/Abstract_syntax_tree>`_, such as those handled by the `ast module <http://docs.python.org/2/library/ast.html?highlight=ast>`_ .
+pym was inspired by vim but it handles structured (not plain) text. At present pym is entirely vapourware, and consists of some ideas based around :ref:`mindful_manipulation` of `Abstract Syntax Trees <http://en.wikipedia.org/wiki/Abstract_syntax_tree>`_, such as those provided by the `ast module <http://docs.python.org/2/library/ast.html?highlight=ast>`_ .
 
-Rendering code
-^^^^^^^^^^^^^^
-
-In order to be more easily read AST trees can pretty printed (`a.k.a. <http://en.wiktionary.org/wiki/AKA#English>`_ rendered). Some other projects which may be helpful in rendering ASTs as plain text are documented in :ref:`renderers`
- 
 Parsing
 ^^^^^^^
 
-Parsing in general is of interest. One reason for delay in starting this project has been the postponing of the choice between using Python's built-in parsing modules, or more general parsing components. Although I have now decided to start with Python's built in parser I remain open to use of other parsers as well. Not much point in having a "structured text editor" which cannot handle structured text such as other langages, marked-up texts, config files, log files, and so on.
+:ref:`parsing` is interesting, as a means of transforming plain to structured text. :ref:`renderers` is the opposite of parsing, and transforms structured to plain text.
 
-Other parsers, written in Python but parsing other structures:
+pym treats parsing and rendering as separate operations, but ideally they should be a single, reversible process. They will provide a "back end" to pym, connecting stored text, which is plain, to structured text which can be edited.
 
-* :ref:`parsley_page`, which follows on from his `Pymeta <http://washort.twistedmatrix.com/2008/03/introducing-pymeta.html>`_, and which he `introduced at Pycon 2013 <http://www.youtube.com/watch?v=t5X3ljCOFSY>`_.
-* Ned Batchelder's `Python parsing tools <http://nedbatchelder.com/text/python-parsers.html>`_ is a page covering many other parsers.
-* Juancarlo Añez' `Grako <https://bitbucket.org/apalala/grako#templates-and-translation>`_  is "a tool that takes grammars in a variation of EBNF as input, and outputs memoizing (Packrat) PEG parsers in Python".
+Editing
+^^^^^^^
 
+Editing is the heart of pym, a means of transforming ideas into structured text.
 
-Parsing produces Abstract Syntax Trees, which have a reasonable amount of related documentation. Green Tree Snakes was a proximate spur to this project, and the other links in this section were found thence.
+Structured text is ever a snapshot from a flow of ideas the coder has about the program being created. On a good day the ideas flow toward some runnable tree which works, but on a bad day they `chase around random forests <https://en.wikipedia.org/wiki/Mind_monkey>`_, crashing blindly into `insects <https://en.wikipedia.org/wiki/Software_bug>`_. It is important to store correct program text, more important to grasp ideas behind that text, and most important to grok the flow.
 
-* `Green Tree Snakes - the missing Python AST docs <http://greentreesnakes.readthedocs.org/en/latest/>`_ (and some `Reddit comments <http://www.reddit.com/r/Python/comments/13kbyg/green_tree_snakes_a_new_guide_to_using_abstract/>`_ on them).
-* The `Design of CPython's Compiler <http://docs.python.org/devguide/compiler.html>`_ lays out rationales behind some choices in the design of the compiler, and introduces a developer to the code supporting it. For pym it is particularly relevant in introducing `ASDL <http://www.cs.princeton.edu/research/techreps/TR-554-97>`_ and `SPARK <http://pages.cpsc.ucalgary.ca/~aycock/spark/>`_.
-* `Python internals: Working with Python ASTs <http://eli.thegreenplace.net/2009/11/28/python-internals-working-with-python-asts/>`_
-* `AST Transformation Hooks for Domain Specific Languages <http://mail.python.org/pipermail/python-ideas/2011-April/009765.html>`_
-* `possible meta coding in Python <https://github.com/albertz/CPython/blob/astcompile_patch/test_co_ast.py>`_
-* `Reddit on pydit <http://www.reddit.com/r/Python/comments/bfnn8/pydit_im_trying_to_find_the_most_elegant_way_to/>`_
-* `Reddit on ASTs (in /r/python) <http://www.reddit.com/r/Python/search?q=ast&restrict_sr=on>`_
-* `NuPIC <http://numenta.org/>`_ implements cortical algorithms
+An editor should be the first step of a `REPL <https://en.wikipedia.org/wiki/REPL>`_: reading ideas from the coder and passing them on to an evaluator, and incidentally to a disk. It is rarely an end in itself, and should not get in the way of the larger cycle. Hence an editor should be quick, and more efficient of the coder's time than other factors. pym should look for the flow of ideas in the iterations of the REPL, noting steps such as when tests start to pass, and so development moves on.
 
-Related tools
-^^^^^^^^^^^^^
+pym should be editable by itself. This is a high priority - I do not have a lot of time for coding personal projects such as pym, the sooner it is "good enough" to be usable daily for editing other programs, but *quickly* fixable, then the more development it will actually get.
 
-* `Autopep8 <https://github.com/jalanb/autopep8>`_ is a tool which re-writes Python source code (to increase compliance with PEP8), but does not use ASTs to do so.
-* `py.code <http://pylib.readthedocs.org/en/latest/code.html>`_ provides higher level python code and introspection objects.
+pym is inherently a modal editor, as one is not directly editing plain text. Some parts of the program will look more like plain text than others, e.g. names. But each structure in the tree uses its own specialised sub-editor, e.g. there is a different editor for an else branch than for a function definition than for a function. pym should transition between such editors unnoticeably to the user, not needing any "start loop here" instructions, although they could be explicitly given. Command/insert mode might toggle on the CAPS LOCK key.
 
-Miscellaneous
-^^^^^^^^^^^^^
+pym is UI agnostic, capable of presentation between pipes, on a console, GUI, web page, or directly from Python. Development shall concentrate on Python first, console second, with others trailing. Full use should be made of available visual cues, such as colour, position, movement, ...
 
-Other stuff I have read recently
+The user should be presented with program objects (e.g. operators, methods, projects) first and incidentals (e.g. files) second, if at all.
 
-* In `Invertible Syntax Descriptions: Unifying Parsing and Pretty Printing (pdf) <http://www.informatik.uni-marburg.de/~rendel/unparse/rendel10invertible.pdf>`_ Tillmann Rendel & Klaus Ostermann propose a method for writing parsers such that pretty printers can be written in the same manner. I do not have enough knowledge of their academic context to appreciate it; but the idea of "invertible syntax" descriptions strikes a chord. It does seem reasonable that if one can parse from "A" into "B", then one should be able to render from "B" to "A".
-* `LL and LR in Context: Why Parsing Tools Are Hard <http://blog.reverberate.org/2013/09/ll-and-lr-in-context-why-parsing-tools.html>`_ introduced me to the notion of undecidably ambiguous grammars and the common strategies for getting around them.
-* Martin Fowler distinguishes between Concrete and Abstract syntax trees when discussing `language workbenches <http://martinfowler.com/articles/languageWorkbench.html>`_.
-* Laurence Tratt rememebers that SDEs are Syntax directed editing tools and that `when seasoned programmers were asked to use SDE tools, they revolted against the huge decline in their productivity <http://tratt.net/laurie/blog/entries/an_editor_for_composed_programs>`_, but that does not discouarge him from introducing `Eco, an editor for language composition <https://bitbucket.org/softdevteam/eco>`_. (I liked `/u/chrisdoner's <http://www.reddit.com/user/chrisdoner>`_ `contribution <http://www.reddit.com/r/programming/comments/2e2hfo/an_editor_for_composed_programs/cjvyx5l>`_ to the reddit `discussion <http://www.reddit.com/r/programming/comments/2e2hfo/an_editor_for_composed_programs/>`_).
+Programs
+--------
 
+A program is a history of a flow of ideas into a structured text representing a working algorithm.
 
-Other stuff I need to read
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-* C parser and AST generator written in Python: `pycparser <http://code.google.com/p/pycparser/>`_.
-* `PyPlus <http://www.reddit.com/r/Python/comments/wv6qn/plyplus_a_friendly_yet_powerful_lrparser_written/>`_.
-* `CodeTalker <http://pypi.python.org/pypi/CodeTalker>`_.
-* Reddit always has much to say, so `/r/parsing will too <http://www.reddit.com/r/parsing/>`_.
-* Python uses `Zephyr Abstract Syntax Description Language <http://www.cs.princeton.edu/research/techreps/TR-554-97>`_ to specify ASTs.
-* :ref:`parsley_page` uses `TermL <http://www.erights.org/data/terml/terml-spec.html>`_ to specify ASTs.
-* Python uses `SPARK <http://pages.cpsc.ucalgary.ca/~aycock/spark/>`_, which is a Scanning, Parsing, and Rewriting Kit.
-* There is a version of `Ometa in Javascript <http://b-studios.github.io/ometa-js/>`_.
-* `Static Modification of Python With Python: The AST Module <http://blueprintforge.com/blog/2012/02/27/static-modification-of-python-with-python-the-ast-module/>`_.
-* Sounds like fun: `Coding in a debugger <http://msinilo.pl/blog/?p=965>`_.
-* `Ira Baxter <http://www.semanticdesigns.com/Company/People/idbaxter/index.html>`_ often turns up on forums I read, usually claiming that this is going to be `harder <http://stackoverflow.com/a/3460977/500942>`_ than I think. He may have `a point <http://www.semanticdesigns.com/Products/DMS/LifeAfterParsing.html>`_! (Alternatively, as an actress asked: `Have you ever noticed how "What the hell!" is always the right decision to make? <http://www.imdb.com/title/tt0089343/quotes?item=qt2146968>`_)
-* `Recognition can be harder than parsing <http://www.academia.edu/798690/Recognition_can_be_harder_than_parsing>`_.
-* KOD has an interesting `approach to text syntax trees (TST) <https://github.com/rsms/kod/wiki/Text-parser-2>`_.
-* The Program Transformation `Wiki <http://www.program-transformation.org/>`_.
-* The `AST Tool Box <https://github.com/chick/ast_tool_box>`_ looks like it is under active development
-
-Version 2.0 +
--------------
-
-* ACE was `A Cliche-based Program Structure Editor (pdf) <http://dspace.mit.edu/bitstream/handle/1721.1/41181/AI_WP_294.pdf>`_. Clichés are higher branches of the (AS) tree, or collections of branches, and are closer to what editors are actually thinking about. Ultimately one would prefer to "replace the switch with inheritance", not twiddle about with nodes and branches.
-* One should be prepared to move beyond the standard flat represenation of text, to `3D Treemaps (pdf) <http://www.sm.luth.se/csee/csn/publications/APCHI04Web.pdf>`_, especially `Interactive Rendering of 3D Treemaps (pdf) <http://www.hpi.uni-potsdam.de/fileadmin/hpi/FG_Doellner/publications/2013/TSD2013/TreeMap.pdf>`_.
-* (Like many others) I think Bret Victor is right about `Learnable Programming <http://worrydream.com/LearnableProgramming/>`_.
+Those ideas are *intentions* - what the coder wants to happen at run time.
 
 Indices and tables
 ==================
+
+Parts of the documentation:
+
+.. toctree::
+   :maxdepth: 2
+
+   parsing
+   renderers
+   miscellaneous
 
 * :ref:`genindex`
 * :ref:`search`

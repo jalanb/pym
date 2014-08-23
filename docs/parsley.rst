@@ -4,7 +4,7 @@
 .. _parsley_page:
 
 Allen Shorts' parsley
-====================
+=====================
 
 Allen Shorts's `Parsley <http://parsley.readthedocs.org/en/latest/>`_ "is a pattern matching and parsing tool for Python programmers".
 
