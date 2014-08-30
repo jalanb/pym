@@ -11,7 +11,7 @@ pym v0.1.4 documentation
 What is pym?
 ------------
 
-Python code to edit structures.
+Python code to code structures.
 
 pym was inspired by vim but it handles structured (not plain) text. At present pym is entirely vapourware, and consists of some ideas based around :ref:`mindful_manipulation` of `Abstract Syntax Trees <http://en.wikipedia.org/wiki/Abstract_syntax_tree>`_, such as those provided by the `ast module <http://docs.python.org/2/library/ast.html?highlight=ast>`_ .
 
