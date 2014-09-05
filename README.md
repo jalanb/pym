@@ -8,7 +8,7 @@ Documentation
 
 pym remains entirely vapourware at present, but the ideas behind it are being curated over at [ReadTheDocs](https://pym.readthedocs.org). There is some code in the src directory, but just for concept-exploration.
 
-One concept being explored is presenting the user with program objects (e.g. projects, methods, operators) first and incidentals (e.g. files) second, if at all
+One such concept is that the user wants to edit structural entitites (e.g. modules, methods, mocks), not incidentals (e.g. text, files).
 
 Sourcegraph
 -----------
