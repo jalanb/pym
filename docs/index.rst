@@ -27,7 +27,7 @@ Editing
 
 Editing is the heart of pym, a means of transforming ideas into structured text.
 
-Structured text is ever a snapshot from a flow of ideas the coder has about the program being created. On a good day the ideas flow toward some runnable tree which works, but on a bad day they `chase around random forests <https://en.wikipedia.org/wiki/Mind_monkey>`_, crashing blindly into `insects <https://en.wikipedia.org/wiki/Software_bug>`_. It is important to store correct program text, more important to grasp ideas behind that text, and most important to grok the flow.
+Structured text is ever a snapshot from a flow of ideas the coder has about the program being created. On a good day the ideas flow toward some runnable tree which works, but on a bad day they `chase around random forests <https://en.wikipedia.org/wiki/Mind_monkey>`_, crashing blindly into `insects <https://en.wikipedia.org/wiki/Software_bug>`_. It is important to store correct program text, more important to grasp ideas in that text, and most important to grok the flow.
 
 An editor should be the first step of a `REPL <https://en.wikipedia.org/wiki/REPL>`_: reading ideas from the coder and passing them on to an evaluator, and incidentally to a disk. It is rarely an end in itself, and should not get in the way of the larger cycle. Hence an editor should be quick, and more efficient of the coder's time than other factors. pym should look for the flow of ideas in the iterations of the REPL, noting steps such as when tests start to pass, and so development moves on.
 
