@@ -32,8 +32,7 @@ def parse_args():
                         help='items to be editted')
     parser.add_argument('-v', '--hjkl',
                         help='act like vim for a string of hjkl keys',
-                        nargs='+',
-                        action="append",
+                        action='store',
                         default=list(),
                         type=str)
     parser.add_argument('-U', '--Use_debugger', action='store_true',
@@ -52,10 +51,10 @@ def main():
     """Run the script"""
     try:
         args = parse_args()
-        i = Index(args.items, highlight)
+        i = Index(args.items)
         keys = args.hjkl if args.hjkl else yield_asciis
-        args = i.edit(keys)
-        print args
+        args = i.edit(keys, highlight)
+        print repr(args)
     except (SystemExit, BdbQuit):
         pass
     #except Exception, e:

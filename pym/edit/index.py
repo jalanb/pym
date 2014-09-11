@@ -9,35 +9,45 @@ class Index(object):
 
     Accepts messages like "left", "down", ... from some keys
     """
-    def __init__(self, tree, highlight):
+    def __init__(self, tree):
         self.i = 0
         self.items = tree
         self.length = len(self.items)
         self.keys = ['k']  # up from the root gets you out, allegedly
+
+    def edit(self, keys, highlight):
+        editor = IndexChanger(self, highlight)
+        return editor.edit(keys)
+
+
+class IndexChanger(object):
+    """Something which can change an index"""
+    def __init__(self, index, highlight):
+        self.index = index
         self.highlight = highlight
 
     def _move(self, change, more, ok=None):
-        self.i = change(self.i)
-        if not more(self.i):
+        self.index.i = change(self.index.i)
+        if not more(self.index.i):
             raise StopIteration
         if ok:
-            ok(self.i)
-        return self.i
+            ok(self.index.i)
+        return self.index.i
 
     @property
     def _item(self):
-        return self.items[self.i]
+        return self.index.items[self.index.i]
 
     @_item.setter
     def _item(self, i):
-        self.i = i
+        self.index.items[self.index.i] = i
 
     def left(self):
         return self._move(lambda x: x - 1, lambda x: x >= 0)
 
     def down(self):
         def ok(i):
-            self.items[i] = self.edit()
+            self.index.items[i] = self.edit()
 
         return self._move(lambda x: x, lambda x: ',' in self._item, ok)
 
@@ -46,7 +56,7 @@ class Index(object):
         raise StopIteration
 
     def right(self):
-        return self._move(lambda x: x + 1, lambda x: x <= self.length)
+        return self._move(lambda x: x + 1, lambda x: x <= self.index.length)
 
     def render(self):
         return self.highlight(self._item)
@@ -55,15 +65,15 @@ class Index(object):
         saved = self._item
         try:
             self._item = self.render()
-            print ' '.join(self.items)
+            print ' '.join(self.index.items)
         finally:
             self._item = saved
 
     def edit(self, keys=None):
         """Read keys to move an index around a tree"""
         if keys:
-            self.keys = keys
+            self.index.keys = keys
         self.show()
-        for key in self.keys:
+        for key in keys:
             vim.call(self, key)
             self.show()
