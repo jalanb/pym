@@ -20,35 +20,17 @@ def start_debugging():
     pdb.set_trace()
 
 
-def parse_args():
-    """Parse out command line arguments"""
-    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument('items', nargs='*',
-                        help='items to be editted')
-    parser.add_argument('-U', '--Use_debugger', action='store_true',
-                        help='Run the script with pdb (or pudb if available)')
-    args = parser.parse_args()
-    if args.Use_debugger:
-        start_debugging()
-    return args
-
-
-def show(items, i):
-    saved = items[i]
-    try:
-        items[i] = colour_text(items[i], 'red')
-        print ' '.join(items)
-    finally:
-        items[i] = saved
-
-
 class Index(object):
-    """An integer to a tree (as lists)"""
-    def __init__(self, items, key_getter):
+    """Map an index to a tree of lists
+
+    Accepts messages like "left", "down", ... from some keys
+    """
+    def __init__(self, tree):
         self.i = 0
-        self.items = items
-        self.length = len(items)
-        self.key_getter = key_getter
+        self.items = tree
+        self.length = len(self.items)
+        self.keys = ['k']  # up from the root gets you out, allegedly
+        self.retreat = False
 
     def _move(self, change, more, ok=None):
         self.i = change(self.i)
@@ -58,40 +40,78 @@ class Index(object):
             ok(self.i)
         return self.i
 
+    @property
+    def _item(self):
+        return self.items[self.i]
+
+    @_item.setter
+    def _item(self, i):
+        self.i = i
+
     def left(self):
         return self._move(lambda x: x - 1, lambda x: x >= 0)
 
     def down(self):
         def ok(i):
-            self.items[i] = edit(items, key_getter)
+            self.items[i] = self.edit()
 
-        return self._move(lambda x: x, lambda x: ',' in items[self.i], ok)
+        return self._move(lambda x: x, lambda x: ',' in self._item, ok)
 
     def up(self):
-        return None
+        # pylint: disable=no-self-use
+        raise StopIteration
 
     def right(self):
-        return self._move(lambda x: x + 1, lambda x: x <= len(items))
+        return self._move(lambda x: x + 1, lambda x: x <= self.length)
+
+    def render(self):
+        return colour_text(self._item, 'red')
+
+    def show(self):
+        saved = self._item
+        try:
+            self._item = self.render()
+            print ' '.join(self.items)
+        finally:
+            self._item = saved
+
+    def edit(self, keys=None):
+        """Read keys to move an index around a tree"""
+        if keys:
+            self.keys = keys
+        self.show()
+        for key in self.keys:
+            vim.call(self, key)
+            self.show()
 
 
-def edit(items, key_getter):
-
-    methods = locals().copy()
-    i = Index(len(items))
-    show(items, i)
-    for key in next(key_getter()):
-        i = vim.call(i, key)
-        show(items, i.i)
-        if i is None:
-            return items
+def parse_args():
+    """Parse out command line arguments"""
+    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument('items', nargs='*',
+                        help='items to be editted')
+    parser.add_argument('-v', '--hjkl',
+                        help='act like vim for a string of hjkl keys',
+                        nargs='+',
+                        action="append",
+                        default=list(),
+                        type=str)
+    parser.add_argument('-U', '--Use_debugger', action='store_true',
+                        help='Run the script with pdb (or pudb if available)')
+    args = parser.parse_args()
+    if args.Use_debugger:
+        start_debugging()
+    return args
 
 
 def main():
     """Run the script"""
     try:
         args = parse_args()
-        items = edit(args.items, yield_asciis)
-        print items
+        i = Index(args.items)
+        keys = args.hjkl if args.hjkl else yield_asciis
+        args = i.edit(keys)
+        print args
     except (SystemExit, BdbQuit):
         pass
     #except Exception, e:
