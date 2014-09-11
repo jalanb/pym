@@ -29,7 +29,7 @@ Editing is the heart of pym, a means of transforming ideas into structured text.
 
 An editor is an interface between a person and structured text. The person has a keyboard and sees a window, hitting keys changes the window. The person first needs to learn which keys lead to which changes on screen.
 
-An editor has an IU. This is like a UI but the other way around: I have a screen, you have a keyboard. I have various wee snippets of code and stuff that I could be after showing you, you have the means to choose between them. Assuming your capacity for choosing is infinite, so I need to get some interesting stuff to show you.
+I have a screen, you have a keyboard. I have code (and stuff) that I could show you, you have the means to choose between them. Assuming your capacity for choosing is infinite, so I need to know which code you'd like to look at. So we'll start with disk structures - trees with directories and files. And some recognisable patterns. Sounds like a similar structure to real code (modules are trees with blocks and lines), but simpler.
 
 Structured text is ever a snapshot from a flow of ideas the coder has about the program being created. On a good day the ideas flow toward some runnable tree which works, but on a bad day they `chase around random forests <https://en.wikipedia.org/wiki/Mind_monkey>`_, crashing blindly into `insects <https://en.wikipedia.org/wiki/Software_bug>`_. It is important to store correct program text, more important to grasp ideas behind that text, and most important to grok the flow.
 
