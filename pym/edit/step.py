@@ -4,7 +4,7 @@ Often in response to a keyboard
 """
 
 
-from pym.edit import vim
+from pym.edit import vim_keys as vim
 
 
 class Keys(object):

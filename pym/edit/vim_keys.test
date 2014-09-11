@@ -1,7 +1,7 @@
 The vim module
 ==============
 
-    >>> import vim
+    >>> from pym.edit import vim_keys as vim
     >>> print vim.__doc__
     Provide keys similar to vim's
 

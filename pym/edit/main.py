@@ -9,6 +9,7 @@ from bdb import BdbQuit
 
 from dotsite.getch import yield_asciis
 from colours import colour_text
+from pym.edit import vim_keys as vim
 
 
 def start_debugging():
@@ -41,42 +42,46 @@ def show(items, i):
         items[i] = saved
 
 
-def edit(items, key_getter):
+class Index(object):
+    """An integer to a tree (as lists)"""
+    def __init__(self, items, key_getter):
+        self.i = 0
+        self.items = items
+        self.length = len(items)
+        self.key_getter = key_getter
 
-    def move(i, change, more, ok=None):
-        i = change(i)
-        if not more(i):
+    def _move(self, change, more, ok=None):
+        self.i = change(self.i)
+        if not more(self.i):
             raise StopIteration
         if ok:
-            ok(i)
-        show(items, i)
-        return i
+            ok(self.i)
+        return self.i
 
-    def left(i):
-        return move(i, lambda x: x - 1, lambda x: x >= 0)
+    def left(self):
+        return self._move(lambda x: x - 1, lambda x: x >= 0)
 
-    def right(i):
-        return move(i, lambda x: x + 1, lambda x: x <= len(items))
-
-    def down(i):
+    def down(self):
         def ok(i):
-            items[i] = edit(items, key_getter)
+            self.items[i] = edit(items, key_getter)
 
-        return move(i, lambda x: x, lambda x: ',' in items[i], ok)
+        return self._move(lambda x: x, lambda x: ',' in items[self.i], ok)
 
-    def up(_i):
+    def up(self):
         return None
 
-    directions = {
-        'h': left,
-        'j': down,
-        'k': up,
-        'l': right,
-    }
-    i = 0
+    def right(self):
+        return self._move(lambda x: x + 1, lambda x: x <= len(items))
+
+
+def edit(items, key_getter):
+
+    methods = locals().copy()
+    i = Index(len(items))
     show(items, i)
     for key in next(key_getter()):
-        i = directions[key](i)
+        i = vim.call(i, key)
+        show(items, i.i)
         if i is None:
             return items
 
