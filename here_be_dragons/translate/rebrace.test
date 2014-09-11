@@ -1,0 +1,74 @@
+reading the lines
+=================
+
+	>>> import rebrace
+
+	>>> def show_spaces(lines):
+	... 	if hasattr(lines,'endswith'):
+	... 		lines = lines.split('\n')
+	... 	for line in lines:
+	...			print line.replace(' ','.').replace('\t','--->').replace('	','___>')
+
+	>>> lines = rebrace.read_lines('text1.txt')
+	>>> show_spaces(lines)
+	--->try.{//.stuff
+	--->--->some.stuff
+	--->}.catch.(i).{
+	--->--->say.hello
+	--->}
+	--->int.fred.().{}
+	--->fred.=.{alan,was,here};.//.htttp://fred
+
+	>>> print rebrace.empty.search('\t fred {alan,was,here}').group(1)
+	alan,was,here
+	>>> lines = rebrace.start(lines)
+	>>> show_spaces(lines)
+	--->try.{
+	--->--->some.stuff
+	--->}.catch.(i).{
+	--->--->say.hello
+	--->}
+	--->int.fred.().{
+	--->}
+	--->fred.=.{
+	--->--->alan,was,here
+	--->};
+
+	>>> lines = rebrace.one(lines)
+	>>> show_spaces(lines)
+	--->try
+	--->{
+	--->--->some.stuff
+	--->}.catch.(i)
+	--->{
+	--->--->say.hello
+	--->}
+	--->int.fred.()
+	--->{
+	--->}
+	--->fred.=
+	--->{
+	--->--->alan,was,here
+	--->};
+
+	>>> lines = rebrace.two(lines)
+	>>> show_spaces(lines)
+	--->try
+	--->{
+	--->--->some.stuff
+	--->}
+	--->.catch.(i)
+	--->{
+	--->--->say.hello
+	--->}
+	--->int.fred.()
+	--->{
+	--->}
+	--->fred.=
+	--->{
+	--->--->alan,was,here
+	--->};
+
+	>>> lines = rebrace.read_lines('../java/com/altobridge/rias/Events/SubscriberData.java')[:15]
+	>>> lines = rebrace.three(rebrace.start(lines))
+	>>> show_spaces(lines)

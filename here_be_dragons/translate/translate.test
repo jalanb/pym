@@ -1,0 +1,2 @@
+	>>> import translate
+	>>> translate.translate_one('Plane')

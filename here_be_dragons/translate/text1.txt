@@ -1,0 +1,7 @@
+	try {// stuff
+		some stuff
+	} catch (i) {
+		say hello
+	}
+	int fred () {}
+	fred = {alan,was,here}; // htttp://fred

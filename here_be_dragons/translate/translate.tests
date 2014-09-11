@@ -1,0 +1,590 @@
+The translate module
+====================
+	>>> import translate
+	>>> source = 'RiasConfiguration configuration;'
+	>>> def to_tree(rule,source):
+	...     result = translate.rias_cpp(source).apply(rule)
+	...     show(result)
+
+	>>> def to_text(rule,source):
+	...     print translate.rias_cpp([source]).apply(rule)
+
+	>>> def tree_text(tree,source,text=None):
+	...     if not text: text = '%s_text' % tree
+	...     ast = translate.rias_cpp(source).apply(tree)
+	...     show(ast)
+	...     print '=== header ==='
+	...     translate.write_file = 'header'
+	...     print translate.rias_cpp([ast]).apply(text)
+	...     print '=== cpp ==='
+	...     translate.write_file = 'cpp'
+	...     print translate.rias_cpp([ast]).apply(text)
+
+	>>> to_tree('number','0')
+	'0'
+	>>> to_tree('word','fred')
+	'fred'
+	>>> to_tree('dotted_name','fred.murphy')
+	['fred', 'murphy']
+	>>> to_tree('dotted_name','fred.murphy.jones')
+	['fred', 'murphy', 'jones']
+	>>> to_tree('new_call', 'new murphy()')
+	['new', ['murphy'], []]
+	>>> to_tree('method_call', 'fred.murphy()')
+	[['fred', 'murphy'], []]
+	>>> to_tree('dynamic_value','fred.murphy();')
+	['', [['fred', 'murphy'], []]]
+	>>> to_tree('method_call', 'fred.murphy(0)')
+	[['fred', 'murphy'], [['', ['0']]]]
+	>>> to_tree('method_call', 'fred.murphy(x.y)')
+	[['fred', 'murphy'], [['', ['x', 'y']]]]
+	>>> to_tree('method_call', 'fred.murphy(0,1)')
+	[['fred', 'murphy'], [['', ['0']], ['', ['1']]]]
+	
+	>>> to_tree('method_call', 'fred.murphy(0, x.y,1,2,3)')
+	[['fred', 'murphy'],
+	 [['', ['0']], ['', ['x', 'y']], ['', ['1']], ['', ['2']], ['', ['3']]]]
+
+	>>> to_tree('method_call','RIASApplication.class.getPackage().getName();''')
+	[['RIASApplication', 'class', ['getPackage', []], 'getName'], []]
+	>>> to_tree('method_call','Logger.getLogger(RIASApplication.class.getPackage().getName());''')
+	[['Logger', 'getLogger'],
+	 [['', [['RIASApplication', 'class', ['getPackage', []], 'getName'], []]]]]
+
+	>>> to_tree('attribute_allocation','     RiasConfiguration configuration;')
+	[[], 'RiasConfiguration', '', 'configuration']
+	>>> to_text('attribute_allocation_text', [[], 'RiasConfiguration', '', 'configuration'])
+	RiasConfiguration* configuration
+	>>> to_tree('attribute_declaration','     RiasConfiguration configuration;')
+	[[[], 'RiasConfiguration', '', 'configuration'], []]
+	>>> to_text('attribute_declaration_text', [[[], 'RiasConfiguration', '', 'configuration'], []])
+	RiasConfiguration* configuration;
+	>>> to_tree('attribute_initialisation', ' = 0')
+	['=', ['', ['0']]]
+	>>> to_tree('attribute_declaration','     RiasConfiguration configuration = 10;')
+	[[[], 'RiasConfiguration', '', 'configuration'], ['=', ['', ['10']]]]
+	>>> to_text('attribute_declaration_text', [[[], 'RiasConfiguration', '', 'configuration'], ['=', ['', ['10']]]])
+	RiasConfiguration* configuration;
+	>>> to_tree('attribute_declaration','     private RiasConfiguration configuration = 100;')
+	[[['private'], 'RiasConfiguration', '', 'configuration'], ['=', ['', ['100']]]]
+	>>> to_tree('attribute_declaration','     private const RiasConfiguration configuration = 1000;')
+	[[['private', 'const'], 'RiasConfiguration', '', 'configuration'],
+	 ['=', ['', ['1000']]]]
+
+	>>> to_tree('attribute_declaration','     private const RiasConfiguration configuration = fred;')
+	[[['private', 'const'], 'RiasConfiguration', '', 'configuration'],
+	 ['=', ['', ['fred']]]]
+
+	>>> to_tree('attribute_declaration','	private const RiasConfiguration configuration = fred.murphy;')
+	[[['private', 'const'], 'RiasConfiguration', '', 'configuration'],
+	 ['=', ['', ['fred', 'murphy']]]]
+
+	>>> to_tree('attribute_declaration','	private const RiasConfiguration configuration = fred.murphy();')
+	[[['private', 'const'], 'RiasConfiguration', '', 'configuration'],
+	 ['=', ['', [['fred', 'murphy'], []]]]]
+
+	>>> to_tree('attribute_declaration',' private const RiasConfiguration configuration = RiasConfiguration.getInstance();''')
+	[[['private', 'const'], 'RiasConfiguration', '', 'configuration'],
+	 ['=', ['', [['RiasConfiguration', 'getInstance'], []]]]]
+
+	>>> to_tree('add_expression','CHANGE_ADMIN_STATE_POSITION + 6')
+	['CHANGE_ADMIN_STATE_POSITION + 6']
+	>>> to_tree('simple_dynamic_value','CHANGE_ADMIN_STATE_POSITION + 6')
+	['CHANGE_ADMIN_STATE_POSITION + 6']
+	>>> to_tree('dynamic_value','CHANGE_ADMIN_STATE_POSITION + 6')
+	['', ['CHANGE_ADMIN_STATE_POSITION + 6']]
+
+	>>> to_tree('attribute_allocation',' private static const int  ADMIN_STATE_POSITION')
+	[['private', 'static', 'const'], 'int', '', 'ADMIN_STATE_POSITION']
+	>>> to_tree('attribute_initialisation', ' = CHANGE_ADMIN_STATE_POSITION + 6')
+	['=', ['', ['CHANGE_ADMIN_STATE_POSITION + 6']]]
+
+	>>> to_tree('attribute_initialisation', ' = 0.3048')
+	['=', ['', ['0.3048']]]
+
+	>>> to_tree('attribute_declaration',' private static const int  ADMIN_STATE_POSITION = CHANGE_ADMIN_STATE_POSITION + 6;')
+	[[['private', 'static', 'const'], 'int', '', 'ADMIN_STATE_POSITION'],
+	 ['=', ['', ['CHANGE_ADMIN_STATE_POSITION + 6']]]]
+
+	>>> to_text('attribute_declaration_text', [[['private', 'static', 'const'], 'int', '', 'ADMIN_STATE_POSITION'], ['=', ['', ['CHANGE_ADMIN_STATE_POSITION + 6']]]])
+	private: static const int ADMIN_STATE_POSITION;
+
+	>>> to_tree('attribute_declaration',' private static const Logger logger = Logger.getLogger(RIASApplication.class.getPackage().getName());''')
+	[[['private', 'static', 'const'], 'Logger', '', 'logger'],
+	 ['=',
+	  ['',
+	   [['Logger', 'getLogger'],
+	    [['',
+	      [['RIASApplication', 'class', ['getPackage', []], 'getName'], []]]]]]]]
+	>>> to_tree('attribute_source','''// Processes we expect to send events to
+	...         public const static String GATEWAY_EVENT_SUBSCRIBER = "RGW";
+	... ''')
+	[[' Processes we expect to send events to'],
+	 [[['public', 'const', 'static'], 'String', '', 'GATEWAY_EVENT_SUBSCRIBER'],
+	  ['=', ['', ['"RGW"']]]]]
+
+	>>> to_tree('attribute_source','''  public const static int TIMEOUT = 2000; //port number opened for SerialPort''')
+	[['port number opened for SerialPort'],
+	 [[['public', 'const', 'static'], 'int', '', 'TIMEOUT'],
+	  ['=', ['', ['2000']]]]]
+	>>> to_text('attribute_text',[['port number opened for SerialPort'], [[['public', 'const', 'static'], 'int', '', 'TIMEOUT'], ['=', ['', ['2000']]]]])
+	/**
+	* port number opened for SerialPort
+	*/
+		public: const static int TIMEOUT;
+
+	>>> to_tree('attribute_initialisation','''  = -9.66827''')
+	['=', ['', ['-9.66827']]]
+	>>> to_tree('attribute_source','''       public final static double RIAS_TREST_LONGITUDE = -9.66827;''')
+	[[],
+	 [[['public', 'final', 'static'], 'double', '', 'RIAS_TREST_LONGITUDE'],
+	  ['=', ['', ['-9.66827']]]]]
+	>>> to_tree('attribute_source','''  public const static double METRES_PER_FOOT = 0.3048; // http://www.google.ie/search?q=1+foot+in+metres
+	... ''')
+	[[' http://www.google.ie/search?q=1+foot+in+metres'],
+	 [[['public', 'const', 'static'], 'double', '', 'METRES_PER_FOOT'],
+	  ['=', ['', ['0.3048']]]]]
+
+	>>> to_tree('attributes','''	public const static int TIMEOUT = 2000; //port number opened for SerialPort
+	... 	public const static double METRES_PER_FOOT = 0.3048; // http://www.google.ie/search?q=1+foot+in+metres
+	... ''')
+	[[['port number opened for SerialPort'],
+	  [[['public', 'const', 'static'], 'int', '', 'TIMEOUT'], ['=', ['', ['2000']]]]],
+	 [[' http://www.google.ie/search?q=1+foot+in+metres'],
+	  [[['public', 'const', 'static'], 'double', '', 'METRES_PER_FOOT'],
+	   ['=', ['', ['0.3048']]]]]]
+	>>> to_text('attributes_text', [[['port number opened for SerialPort'], [[['public', 'const', 'static'], 'int', '', 'TIMEOUT'], ['=', ['', ['2000']]]]], [[' http://www.google.ie/search?q=1+foot+in+metres'], [[['public', 'const', 'static'], 'double', '', 'METRES_PER_FOOT'], ['=', ['', ['0.3048']]]]]])
+		/**
+		* port number opened for SerialPort
+		*/
+		public: const static int TIMEOUT;
+		/**
+		*  http://www.google.ie/search?q=1+foot+in+metres
+		*/
+		public: const static double METRES_PER_FOOT;
+
+	>>> to_tree('attribute_source','''	/**
+	... 	* All configuration data for RIAS
+	... 	*/
+	... 	private const RiasConfiguration configuration = RiasConfiguration.getInstance();
+	... 	''')
+	[['All configuration data for RIAS'],
+	 [[['private', 'const'], 'RiasConfiguration', '', 'configuration'],
+	  ['=', ['', [['RiasConfiguration', 'getInstance'], []]]]]]
+
+	>>> to_tree('attributes','''
+	...     //Serial port
+	...     //public final static String SERIAL_PORT = "/dev/ttyS0";
+	... 
+	...     //used in RIASTest class
+	...     public final static double RIAS_TEST_LATITUDE = 52.28736;
+	...     public final static double RIAS_TREST_LONGITUDE = -9.66827;
+	... ''')
+	[[['Serial port',
+	   'public final static String SERIAL_PORT = "/dev/ttyS0";',
+	   'used in RIASTest class'],
+	  [[['public', 'final', 'static'], 'double', '', 'RIAS_TEST_LATITUDE'],
+	   ['=', ['', ['52.28736']]]]],
+	 [[],
+	  [[['public', 'final', 'static'], 'double', '', 'RIAS_TREST_LONGITUDE'],
+	   ['=', ['', ['-9.66827']]]]]]
+	>>> to_text('attributes_text', [[['Serial port', 'public final static String SERIAL_PORT = "/dev/ttyS0";', 'used in RIASTest class'], [[['public', 'final', 'static'], 'double', '', 'RIAS_TEST_LATITUDE'], ['=', ['', ['52.28736']]]]], [[], [[['public', 'final', 'static'], 'double', '', 'RIAS_TREST_LONGITUDE'], ['=', ['', ['-9.66827']]]]]])
+		/**
+		* Serial port
+		* public final static String SERIAL_PORT = "/dev/ttyS0";
+		* used in RIASTest class
+		*/
+		public: const static double RIAS_TEST_LATITUDE;
+	<BLANKLINE>
+		public: const static double RIAS_TREST_LONGITUDE;
+
+	>>> to_text('identifier_text',  'getInstance')
+	getInstance
+	>>> to_text('dot_text', 'RiasConfiguration')
+	RiasConfiguration
+	>>> to_text('dotted_text', ['RiasConfiguration', 'getInstance'])
+	RiasConfiguration.getInstance
+	>>> to_text('call_text', [['RiasConfiguration', 'getInstance'], []])
+	RiasConfiguration.getInstance()
+	>>> to_tree('dynamic_value', 'RiasConfiguration.getInstance()')
+	['', [['RiasConfiguration', 'getInstance'], []]]
+	>>> to_text('dynamic_text', ['', [['RiasConfiguration', 'getInstance'], []]])
+	RiasConfiguration.getInstance()
+	>>> to_tree('attribute_initialisation', ' = RiasConfiguration.getInstance()')
+	['=', ['', [['RiasConfiguration', 'getInstance'], []]]]
+	>>> to_text('attribute_initialization_text', ['=', ['', [['RiasConfiguration', 'getInstance'], []]]])
+	= RiasConfiguration.getInstance()
+	>>> translate.write_file = 'header'
+	>>> to_text('attribute_text', [['All configuration data for RIAS'], [[['private', 'const'], 'RiasConfiguration', '', 'configuration'], ['=', ['', [['RiasConfiguration', 'getInstance'], []]]]]])
+	/**
+	 * All configuration data for RIAS
+	 */
+	private: const RiasConfiguration* configuration;
+
+	>>> to_text('dotted_text',['RIASApplication', 'class', 'getPackage', 'getName'] )
+	RIASApplication.class.getPackage.getName
+	>>> to_text('dotted_text',['RIASApplication', 'class', ['getPackage', []], 'getName'] )
+	RIASApplication.class.getPackage().getName
+
+	>>> translate.write_file = 'cpp'
+	>>> to_tree('return_declaration','void ')
+	[[], 'void']
+	>>> to_tree('return_declaration','public void ')
+	[['public'], 'void']
+	>>> to_tree('return_declaration','public static void ')
+	[['public', 'static'], 'void']
+
+	>>> to_tree('formal_argument','String args')
+	['String', '', 'args']
+	>>> to_tree('formal_argument','String[] args')
+	['String', '[]', 'args']
+	>>> to_tree('formal_argument','String[] args')
+	['String', '[]', 'args']
+
+	>>> to_tree('declaration_signature','(String[] args)')
+	[['String', '[]', 'args']]
+	>>> to_tree('declaration_signature','(String[] args,int i)')
+	[['String', '[]', 'args'], ['int', '', 'i']]
+	>>> to_tree('declaration_signature','( String[] args, int i )')
+	[['String', '[]', 'args'], ['int', '', 'i']]
+
+	>>> to_tree('throws_declaration',' throws Exception')
+	['Exception']
+	>>> to_tree('throws_declaration',' throws Exception,IOException')
+	['Exception', 'IOException']
+	>>> to_tree('throws_declaration',' throws Exception, IOException')
+	['Exception', 'IOException']
+
+	>>> to_tree('empty_block','{}')
+	[]
+	>>> to_tree('start_block',''' {
+	... ''')
+	'\n'
+	>>> to_tree('start_block','''
+	... 	{
+	... ''')
+	'\n'
+	>>> to_tree('end_block', ''' }
+	... 
+	... ''')
+	'\n'
+	>>> to_tree('indented_block',''' {
+	...	 int i = 0;
+	...  }
+	...  
+	... ''')
+	['block', ['int i = 0;']]
+	>>> to_tree('indented_block',''' {
+	...	 int i = 0;
+	... 	i = 8;
+	...  }
+	...  
+	... ''')
+	['block', ['int i = 0;', 'i = 8;']]
+	>>> to_tree('indented_block','''  {
+	... 	int i = 0;
+	... 	try
+	...     {
+	... 		i = 8;
+	... 	}
+	...     catch
+	...     {
+	... 		i = 7;
+	... 	}
+	... }
+	...  
+	... ''')
+	['block',
+	 ['int i = 0;', 'try', ['block', ['i = 8;']], 'catch', ['block', ['i = 7;']]]]
+
+	>>> to_tree('method_source','''     public static const void main(String[] args, int i) throws Exception, IOException 
+	... {
+	... 	int i = 0;
+	... 	i = 8;
+	... }
+	...  
+	... ''')
+	[[[['public', 'static', 'const'], 'void'],
+	  'main',
+	  [['String', '[]', 'args'], ['int', '', 'i']],
+	  ['Exception', 'IOException']],
+	 ['block', ['int i = 0;', 'i = 8;']]]
+
+	>>> to_tree('method_source','''     public static const void main(String[] args, int i) throws Exception, IOException 
+	... {
+	... 	int i = 0;
+	... 	try
+	...     {
+	... 		i = 8;
+	... 	}
+	... 	catch
+	... 	{
+	... 		i = 7;
+	... 	}
+	... }
+	...  
+	... ''')
+	[[[['public', 'static', 'const'], 'void'],
+	  'main',
+	  [['String', '[]', 'args'], ['int', '', 'i']],
+	  ['Exception', 'IOException']],
+	 ['block',
+	  ['int i = 0;',
+	   'try',
+	   ['block', ['i = 8;']],
+	   'catch',
+	   ['block', ['i = 7;']]]]]
+	>>> to_tree('indented_block','''
+	...     	{
+	...     		loadConfiguration(pathToConfig, pathToData, pathToBackup);
+	...     		loadEventChecker();
+	...     		logger.info("\n\n\t\tData loaded successfully\n\n");
+	...     	}
+	... ''')
+	['block',
+	 ['loadConfiguration(pathToConfig, pathToData, pathToBackup);',
+	  'loadEventChecker();',
+	  'logger.info("',
+	  '\n\t\tData loaded successfully',
+	  '\n");']]
+
+	>>> to_tree('method','''
+	...     	public RIASApplication(String pathToConfig, String pathToData, String pathToBackup) throws RiasException
+	...     	{
+	...     		loadConfiguration(pathToConfig, pathToData, pathToBackup);
+	...     		loadEventChecker();
+	...     		logger.info("\n\n\t\tData loaded successfully\n\n");
+	...     	}
+	... 
+	... ''')
+	[[],
+	 [[[['public'], ''],
+	   'RIASApplication',
+	   [['String', '', 'pathToConfig'],
+	    ['String', '', 'pathToData'],
+	    ['String', '', 'pathToBackup']],
+	   ['RiasException']],
+	  ['block',
+	   ['loadConfiguration(pathToConfig, pathToData, pathToBackup);',
+	    'loadEventChecker();',
+	    'logger.info("',
+	    '\n\t\tData loaded successfully',
+	    '\n");']]]]
+	>>> to_tree('method','''
+	...     	private void loadConfiguration(String pathToConfig, String pathToData, String pathToBackup) throws RiasException
+	...     	{
+	...     		configuration.loadFromDirectory(pathToConfig);
+	...     		configuration.setBackupDirectory(pathToBackup);
+	...     		try
+	...				{
+	...     			configuration.setDataDirectory(pathToData);
+	...     		}
+	...             catch ( BadDataException e )
+	...             {
+	...     			logger.severe(e.getLocalizedMessage());
+	...     			configuration.switchToBackupData();
+	...     		}
+	...     	}
+	... 
+	... ''')
+	[[],
+	 [[[['private'], 'void'],
+	   'loadConfiguration',
+	   [['String', '', 'pathToConfig'],
+	    ['String', '', 'pathToData'],
+	    ['String', '', 'pathToBackup']],
+	   ['RiasException']],
+	  ['block',
+	   ['configuration.loadFromDirectory(pathToConfig);',
+	    'configuration.setBackupDirectory(pathToBackup);',
+	    'try',
+	    ['block', ['configuration.setDataDirectory(pathToData);']],
+	    'catch ( BadDataException e )',
+	    ['block',
+	     ['logger.severe(e.getLocalizedMessage());',
+	      'configuration.switchToBackupData();']]]]]]
+	>>> to_tree('methods','''
+	...     	public RIASApplication(String pathToConfig, String pathToData, String pathToBackup) throws RiasException
+	...     	{
+	...     		loadConfiguration(pathToConfig, pathToData, pathToBackup);
+	...     		loadEventChecker();
+	...     		logger.info("\n\n\t\tData loaded successfully\n\n");
+	...     	}
+	... 
+	...     	private void loadConfiguration(String pathToConfig, String pathToData, String pathToBackup) throws RiasException
+	...     	{
+	...     		configuration.loadFromDirectory(pathToConfig);
+	...     		configuration.setBackupDirectory(pathToBackup);
+	...     		try
+	...             {
+	...     			configuration.setDataDirectory(pathToData);
+	...     		}
+	...             catch ( BadDataException e )
+	...             {
+	...     			logger.severe(e.getLocalizedMessage());
+	...     			configuration.switchToBackupData();
+	...     		}
+	...     	}
+	... 
+	... ''')
+	[[[],
+	  [[[['public'], ''],
+	    'RIASApplication',
+	    [['String', '', 'pathToConfig'],
+	     ['String', '', 'pathToData'],
+	     ['String', '', 'pathToBackup']],
+	    ['RiasException']],
+	   ['block',
+	    ['loadConfiguration(pathToConfig, pathToData, pathToBackup);',
+	     'loadEventChecker();',
+	     'logger.info("',
+	     '\n\t\tData loaded successfully',
+	     '\n");']]]],
+	 [[],
+	  [[[['private'], 'void'],
+	    'loadConfiguration',
+	    [['String', '', 'pathToConfig'],
+	     ['String', '', 'pathToData'],
+	     ['String', '', 'pathToBackup']],
+	    ['RiasException']],
+	   ['block',
+	    ['configuration.loadFromDirectory(pathToConfig);',
+	     'configuration.setBackupDirectory(pathToBackup);',
+	     'try',
+	     ['block', ['configuration.setDataDirectory(pathToData);']],
+	     'catch ( BadDataException e )',
+	     ['block',
+	      ['logger.severe(e.getLocalizedMessage());',
+	       'configuration.switchToBackupData();']]]]]]]
+
+	>>> import translate
+	>>> print translate.change_type('int')
+	int
+	>>> print translate.change_type('String')
+	ACE_CString
+
+	>>> print translate.rias_cpp('block').apply('block')
+	block
+
+	>>> to_tree('comment_first_line','''   from  <a href="http://www.confluence.org/confluence.php?lat=-90&lon=0">confluenc e.org</a>
+	... ''')
+	'from  <a href="http://www.confluence.org/confluence.php?lat=-90&lon=0">confluenc e.org</a>'
+
+	>>> tree_text('cpp_file','''/**
+	...  * Copyright (c) 2009
+	...  */
+	... /**
+	...  * this class is my exception
+	...  */
+	... public class MyException extends Exception
+	... {
+	...     private int j = 99;
+	...     static private int i = FINAL_SEGMENT + j;
+	... 	/**
+	... 	 * constructor
+	...      */
+	... 	public MyException()
+	... 	{
+	... 		super();
+	... 	}
+	...
+	... 	public MyException(String s)
+	... 	{
+	... 		super(s);
+	... 	}
+	... 	public MyException(byte e)
+	... 	{
+	... 		super(e);
+	... 	}
+	... 	public MyException(Vector<Integer> e)
+	... 	{
+	... 		super(e);
+	...         logger.fine('hello');
+	... 	}
+	... }
+	... ''','cpp_text')
+	[['Copyright (c) 2009'],
+	 [['this class is my exception'],
+	  ['MyException',
+	   [[[[], [[['private'], 'int', '', 'j'], ['=', ['', ['99']]]]],
+	     [[],
+	      [[['static', 'private'], 'int', '', 'i'], ['=', ['', ['3 + j']]]]]],
+	    [[[],
+	      [[[['public'], ''], 'MyException', [], []],
+	       ['block', ['super();']]]],
+	     [[],
+	      [[[['public'], ''], 'MyException', [['String', '', 's']], []],
+	       ['block', ['super(s);']]]],
+	     [[],
+	      [[[['public'], ''], 'MyException', [['byte', '', 'e']], []],
+	       ['block', ['super(e);']]]],
+	     [[],
+	      [[[['public'], ''],
+	        'MyException',
+	        [['Vector<Integer>', '', 'e']],
+	        []],
+	       ['block', ['super(e);', "logger.fine('hello');"]]]]]],
+	   'Exception']]]
+	=== header ===
+		/**
+		* Copyright (c) 2009
+		*/
+	# include <vector>
+	# include "Exception.h"
+	# include "ace/SString.h"
+	# include "byte.h"
+		/**
+		* this class is my exception
+		*/
+	class MyException : public Exception 
+	{
+		private: int j;
+	<BLANKLINE>
+		private: static int i;
+	<BLANKLINE>
+		public:  MyException (  );
+	<BLANKLINE>
+		public:  MyException ( ACE_CString s );
+	<BLANKLINE>
+		public:  MyException ( byte* e );
+	<BLANKLINE>
+		public:  MyException ( std::vector<int>* e );
+	<BLANKLINE>
+	};
+	=== cpp ===
+	/**
+	* Copyright (c) 2009
+	*/
+	# include "MyException.h"
+	/**
+	* this class is my exception
+	*/
+	int MyException::i = 3 + j;
+	<BLANKLINE>
+	<BLANKLINE>
+	<BLANKLINE>
+	 MyException::MyException (  ) :
+		j( 99 )
+		:Exception()
+	{
+	}
+	<BLANKLINE>
+	 MyException::MyException ( ACE_CString s ) :
+		j( 99 )
+		:Exception(s)
+	{
+	}
+	<BLANKLINE>
+	 MyException::MyException ( byte* e ) :
+		j( 99 )
+		:Exception(e)
+	{
+	}
+	<BLANKLINE>
+	 MyException::MyException ( std::vector<int>* e ) :
+		j( 99 )
+		:Exception(e)
+	{
+		logger.fine('hello');
+	}
+	;
