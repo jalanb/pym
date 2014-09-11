@@ -11,3 +11,10 @@ The vim module
     True
     >>> vim.keys['h'] == 'up'
     False
+
+    >>> class Fred(object):
+    ...     def up(self):
+    ...         print 'Hello World'
+
+    >>> vim.call(Fred(),'k')
+    Hello World

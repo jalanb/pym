@@ -1,12 +1,6 @@
 """Provides an index to a tree which can be driven by keys"""
 
 
-try:
-    from colours import colour_text
-except ImportError:
-    colour_text = lambda x: x
-
-
 from pym.edit import vim_keys as vim
 
 
@@ -15,12 +9,12 @@ class Index(object):
 
     Accepts messages like "left", "down", ... from some keys
     """
-    def __init__(self, tree):
+    def __init__(self, tree, highlight):
         self.i = 0
         self.items = tree
         self.length = len(self.items)
         self.keys = ['k']  # up from the root gets you out, allegedly
-        self.retreat = False
+        self.highlight = highlight
 
     def _move(self, change, more, ok=None):
         self.i = change(self.i)
@@ -55,7 +49,7 @@ class Index(object):
         return self._move(lambda x: x + 1, lambda x: x <= self.length)
 
     def render(self):
-        return colour_text(self._item, 'red')
+        return self.highlight(self._item)
 
     def show(self):
         saved = self._item
