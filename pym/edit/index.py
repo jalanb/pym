@@ -19,6 +19,14 @@ class Index(object):
         editor = IndexChanger(self, highlight)
         return editor.edit(keys)
 
+    @property
+    def item(self):
+        return self.items[self.i]
+
+    @item.setter
+    def item(self, i):
+        self.items[self.i] = i
+
 
 class IndexChanger(object):
     """Something which can change an index"""
@@ -34,22 +42,18 @@ class IndexChanger(object):
             ok(self.index.i)
         return self.index.i
 
-    @property
-    def _item(self):
-        return self.index.items[self.index.i]
-
-    @_item.setter
-    def _item(self, i):
-        self.index.items[self.index.i] = i
-
     def left(self):
         return self._move(lambda x: x - 1, lambda x: x >= 0)
 
     def down(self):
-        def ok(i):
-            self.index.items[i] = self.edit()
+        def ok(_i):
+            self.index.item = self.edit(self.index.item.split(separator))
 
-        return self._move(lambda x: x, lambda x: ',' in self._item, ok)
+        separator = ','
+        return self._move(
+            lambda x: x,
+            lambda x: separator in self.index.item,
+            ok)
 
     def up(self):
         # pylint: disable=no-self-use
@@ -59,15 +63,15 @@ class IndexChanger(object):
         return self._move(lambda x: x + 1, lambda x: x <= self.index.length)
 
     def render(self):
-        return self.highlight(self._item)
+        return self.highlight(self.index.item)
 
     def show(self):
-        saved = self._item
+        saved = self.index.item
         try:
-            self._item = self.render()
+            self.index.item = self.render()
             print ' '.join(self.index.items)
         finally:
-            self._item = saved
+            self.index.item = saved
 
     def edit(self, keys=None):
         """Read keys to move an index around a tree"""

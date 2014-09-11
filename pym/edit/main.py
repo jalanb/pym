@@ -30,11 +30,13 @@ def parse_args():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument('items', nargs='*',
                         help='items to be editted')
-    parser.add_argument('-v', '--hjkl',
-                        help='act like vim for a string of hjkl keys',
+    parser.add_argument('-c', '--command',
+                        help='act like vim for a string of hjkl commands',
                         action='store',
                         default=list(),
                         type=str)
+    parser.add_argument('-q', '--quiet', action='store_true',
+                        help='Show less output')
     parser.add_argument('-U', '--Use_debugger', action='store_true',
                         help='Run the script with pdb (or pudb if available)')
     args = parser.parse_args()
@@ -52,7 +54,7 @@ def main():
     try:
         args = parse_args()
         i = Index(args.items)
-        keys = args.hjkl if args.hjkl else yield_asciis
+        keys = args.command if args.command else yield_asciis
         args = i.edit(keys, highlight)
         print repr(args)
     except (SystemExit, BdbQuit):
