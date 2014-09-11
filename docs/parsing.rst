@@ -35,6 +35,23 @@ Other parsers, written in Python but parsing other structures:
 * Juancarlo Añez' `Grako <https://bitbucket.org/apalala/grako#templates-and-translation>`_  is "a tool that takes grammars in a variation of EBNF as input, and outputs memoizing (Packrat) PEG parsers in Python".
 
 
+Meta-Compiling
+--------------
+
+`HackerNews <https://news.ycombinator.com/item?id=8297996>`_ told me about `META II <http://www.bayfronttechnologies.com/mc_tutorial.html>`_, which is able to "reproduce its own code from a description":
+
+At the end of these steps you should be able to:
+
+1. Define a compiler description that ejects your favorite language code
+2. Paste it into the Input window
+3. Have one of the compilers on these web pages generate the translation to your favorite language
+4. Cut the code generated in your favorite language from the Output window
+5. Continue compiler and metacompiler development in your favorite language
+
+Unfortunately I have other work to get back to now, but the tutorial is well-written, enthusiastic about the meta-compiler, and when the tutorials don't work, it's because they are meant not to, in the next paragraph.
+
+Excellent site, I hope to get more time on that tool.
+
 ASTs
 ----
 

@@ -22,13 +22,6 @@ Parsing
 
 pym treats parsing and rendering as separate operations, but ideally they should be a single, reversible process. They will provide a "back end" to pym, connecting stored text, which is plain, to structured text which can be edited.
 
-Meta-Compiling
-^^^^^^^^^^^^^^
-
-Excuse me butting in to the flow like this, but I just found `META II <http://www.bayfronttechnologies.com/mc_tutorial.html>`_, which looks real, yet claims to be able to "reproduce its own code from a description".
-
-If that's not required reading for pym, nothing is. And me in the middle of holidays too!
-
 Editing
 ^^^^^^^
 
