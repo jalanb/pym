@@ -8,7 +8,7 @@ from bdb import BdbQuit
 
 
 from dotsite.getch import yield_asciis
-from pym.edit.index import Index
+from pym.edit.index import Items
 
 
 try:
@@ -53,8 +53,8 @@ def main():
     """Run the script"""
     try:
         args = parse_args()
-        i = Index(args.items)
         keys = args.command if args.command else yield_asciis
+        i = Items(args.items)
         args = i.edit(keys, highlight)
         print repr(args)
     except (SystemExit, BdbQuit):
