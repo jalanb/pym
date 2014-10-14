@@ -8,7 +8,10 @@ from bdb import BdbQuit
 
 
 from dotsite.getch import yield_asciis
-from pym.edit.index import Items
+from pym.edit.tree import TreeEditor
+from pym.edit import vim_keys
+
+
 
 
 try:
@@ -53,10 +56,10 @@ def main():
     """Run the script"""
     try:
         args = parse_args()
+        edit3 = TreeEditor(args.items)
         keys = args.command if args.command else yield_asciis
-        i = Items(args.items)
-        args = i.edit(keys, highlight)
-        print repr(args)
+        items = edit3.edit(keys, vim_keys)
+        print repr(items)
     except (SystemExit, BdbQuit):
         pass
     #except Exception, e:

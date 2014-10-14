@@ -9,7 +9,9 @@ keys = {
 }
 
 
-def call(index, key):
+def call(methods, key):
     if key in keys:
-        method = getattr(index, keys[key])
+        method = methods[keys[key]]
         return method()
+
+move = call
