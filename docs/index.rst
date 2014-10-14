@@ -5,7 +5,7 @@
 
 .. _pym_index:
 
-pym v0.1.5 documentation
+pym v0.1.6 documentation
 ========================
 
 What is pym?
