@@ -81,10 +81,6 @@ class Climber(Brancher):
         except AttributeError:
             return indices
 
-    def edit(self, keys, keyboard):
-        self.keys = chain([self.keys, keys])
-        keyboard.move(self.climber, self.keys.next())
-
 
 def make_tree_editor(tree):
 
