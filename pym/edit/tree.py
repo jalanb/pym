@@ -5,15 +5,16 @@ from itertools import chain
 
 class Tundra(StopIteration):
     """A Tundra is a "treeless mountain tract"
-        [Aapala, Kirsti. "Tunturista jängälle". Kieli-ikkunat](http://www.kotus.fi/julkaisut/ikkunat/1999/kielii1999_19.shtml)
+        [Aapala, Kirsti. "Tunturista jangalle". Kieli-ikkunat](http://www.kotus.fi/julkaisut/ikkunat/1999/kielii1999_19.shtml)  # noqa
 
-    No place for a TreeClimber to be.
+    No place for a Climber to be.
     """
     pass
 
 
-def as_list(self, item):
+def as_list(item):
     """Make item a list from types which can index, have items, or can pop"""
+    # pylint: disable=pointless-statement
     try:
         item.index
         return item
@@ -33,11 +34,12 @@ class Brancher(object):
     def __init__(self, thing):
         self._try(0, as_list(thing))
 
-    def _try(self, j, items = None):
+    def _try(self, j, items=None):
         try:
             if items:
                 self.items = items
             assert j >= 0
+            # pylint: disable=pointless-statement
             self.items[j]
         except (AssertionError, TypeError, IndexError):
             raise Tundra
@@ -79,12 +81,16 @@ class Climber(Brancher):
         except AttributeError:
             return indices
 
-
-class TreeEditor(object):
-    def __init__(self, tree):
-        self.climber = Climber(tree)
-        self.keys = []
-
     def edit(self, keys, keyboard):
         self.keys = chain([self.keys, keys])
         keyboard.move(self.climber, self.keys.next())
+
+
+def make_tree_editor(tree):
+
+    def tree_edit(keys, keyboard):
+        keyboard.move(climber, keys.next())
+        return keys, climber
+
+    climber = Climber(tree)
+    return tree_edit
