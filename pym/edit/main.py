@@ -56,16 +56,22 @@ def edit(args):
         otherwise from a (vim-based) keyboard
     """
     editor = tree_editor(args.items, vim_keys)
-    keys = args.command if args.command else yield_asciis
-    keys, cursor = editor(keys)
-    print repr(cursor.items)
+    keys = []
+    keys[0] = [args.command if args.command else yield_asciis]
+
+    def print_editor():
+        keys[0], cursor = editor(keys[0])
+        print repr(cursor.items)
+    return print_editor
 
 
 def main():
     """Run the script"""
     try:
         args = parse_args()
-        edit(args)
+        editor = edit(args)
+        while True:
+            editor()
     except (SystemExit, BdbQuit):
         pass
     #except Exception, e:
