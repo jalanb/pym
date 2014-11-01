@@ -55,9 +55,9 @@ def edit(args):
     If a args include a command, take keys from that
         otherwise from a (vim-based) keyboard
     """
-    editor = tree_editor(args.items)
+    editor = tree_editor(args.items, vim_keys)
     keys = args.command if args.command else yield_asciis
-    keys, cursor = editor(keys, vim_keys)
+    keys, cursor = editor(keys)
     print repr(cursor.items)
 
 

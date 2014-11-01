@@ -79,9 +79,9 @@ class Climber(Brancher):
             return indices
 
 
-def tree_editor(tree):
+def tree_editor(tree, keyboard):
 
-    def tree_edit(keys, keyboard):
+    def tree_edit(keys):
         keyboard.move(climber, keys.next())
         return keys, climber
 
