@@ -1,8 +1,5 @@
 
 
-from itertools import chain
-
-
 class Tundra(StopIteration):
     """A Tundra is a "treeless mountain tract"
         [Aapala, Kirsti. "Tunturista jangalle". Kieli-ikkunat](http://www.kotus.fi/julkaisut/ikkunat/1999/kielii1999_19.shtml)  # noqa
@@ -82,7 +79,7 @@ class Climber(Brancher):
             return indices
 
 
-def make_tree_editor(tree):
+def tree_editor(tree):
 
     def tree_edit(keys, keyboard):
         keyboard.move(climber, keys.next())

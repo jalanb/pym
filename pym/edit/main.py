@@ -8,7 +8,7 @@ from bdb import BdbQuit
 
 
 from dotsite.getch import yield_asciis
-from pym.edit.tree import make_tree_editor
+from pym.edit.tree import tree_editor
 from pym.edit import vim_keys
 
 try:
@@ -55,7 +55,7 @@ def edit(args):
     If a args include a command, take keys from that
         otherwise from a (vim-based) keyboard
     """
-    tree_edit = make_tree_editor(args.items)
+    tree_edit = tree_editor(args.items)
     keys = args.command if args.command else yield_asciis
     keys, cursor = tree_edit(keys, vim_keys)
     print repr(cursor.items)
