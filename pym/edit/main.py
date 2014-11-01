@@ -49,14 +49,23 @@ def highlight(item):
     return colour_text(item, 'red')
 
 
+def edit(args):
+    """Use a keys to edit the args
+
+    If a args include a command, take keys from that
+        otherwise from a (vim-based) keyboard
+    """
+    tree_edit = make_tree_editor(args.items)
+    keys = args.command if args.command else yield_asciis
+    keys, cursor = tree_edit(keys, vim_keys)
+    print repr(cursor.items)
+
+
 def main():
     """Run the script"""
     try:
         args = parse_args()
-        tree_edit = make_tree_editor(args.items)
-        keys = args.command if args.command else yield_asciis
-        keys, cursor = tree_edit(keys, vim_keys)
-        print repr(cursor.items)
+        edit(args)
     except (SystemExit, BdbQuit):
         pass
     #except Exception, e:
