@@ -57,6 +57,12 @@ class Brancher(object):
     def left(self):
         self._try(self.i - 1)
 
+    def home(self):
+        self._try(0)
+
+    def end(self):
+        self._try(len(self.items) - 1)
+
 
 class Climber(Brancher):
     """Climbs up / down a list of lists"""
