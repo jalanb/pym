@@ -29,7 +29,7 @@ HOME_row = {
     'J': 'downer',
     'K': 'upper',
     'L': 'end',
-    ':': 'command',
+    ':': 'command',  # TODO: ensure that <CAPS-;> == <:>
 }
 
 keys = {}
