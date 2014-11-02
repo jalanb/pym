@@ -26,7 +26,7 @@ def parse_args():
     pa = parser.add_argument
     pa('items', nargs='*', help='items to be editted')
     pa('-c', '--command', action='store', default=list(), type=str,
-       help='act like vim for a string of hjkl commands',)
+       help='keys to use for editting',)
     pa('-q', '--quiet', action='store_true', help='Show less output')
     pa('-U', '--Use_debugger', action='store_true',
        help='Run the script with pdb (or pudb if available)')
