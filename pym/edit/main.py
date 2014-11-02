@@ -49,15 +49,15 @@ def highlight(item):
     return colour_text(item, 'red')
 
 
-def edit(args):
-    """Use a keys to edit the args
+def edit(items, command):
+    """Use keys to edit the items
 
-    If a args include a command, take keys from that
-        otherwise from a (vim-based) keyboard
+    If the command yields chars, take keys from that
+        otherwise from a keyboard
     """
-    editor = tree_editor(args.items, keyboard)
+    editor = tree_editor(items, keyboard)
     keys = []
-    keys[0] = [args.command if args.command else yield_asciis]
+    keys[0] = [command if command else yield_asciis]
 
     def print_editor():
         keys[0], cursor = editor(keys[0])
@@ -69,7 +69,7 @@ def main():
     """Run the script"""
     try:
         args = parse_args()
-        editor = edit(args)
+        editor = edit(args.items, args.command)
         while True:
             editor()
     except (SystemExit, BdbQuit):
