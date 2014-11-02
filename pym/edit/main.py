@@ -27,7 +27,6 @@ def parse_args():
     pa('items', nargs='*', help='items to be editted')
     pa('-c', '--command', action='store', default=list(), type=str,
        help='keys to use for editting',)
-    pa('-q', '--quiet', action='store_true', help='Show less output')
     pa('-U', '--Use_debugger', action='store_true',
        help='Run the script with pdb (or pudb if available)')
     args = parser.parse_args()
