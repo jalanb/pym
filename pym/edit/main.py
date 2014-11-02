@@ -9,7 +9,7 @@ from bdb import BdbQuit
 
 from dotsite.getch import yield_asciis
 from pym.edit.tree import tree_editor
-from pym.edit import vim_keys
+from pym.edit import keyboard
 
 try:
     from colours import colour_text
@@ -55,7 +55,7 @@ def edit(args):
     If a args include a command, take keys from that
         otherwise from a (vim-based) keyboard
     """
-    editor = tree_editor(args.items, vim_keys)
+    editor = tree_editor(args.items, keyboard)
     keys = []
     keys[0] = [args.command if args.command else yield_asciis]
 
