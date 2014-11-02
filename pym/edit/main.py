@@ -11,11 +11,6 @@ from dotsite.getch import yield_asciis
 from pym.edit.tree import tree_editor
 from pym.edit import keyboard
 
-try:
-    from colours import colour_text
-except ImportError:
-    colour_text = lambda x: x
-
 
 def start_debugging():
     try:
@@ -43,10 +38,6 @@ def parse_args():
     if args.Use_debugger:
         start_debugging()
     return args
-
-
-def highlight(item):
-    return colour_text(item, 'red')
 
 
 def edit(items, command):
