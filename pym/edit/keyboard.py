@@ -1,4 +1,4 @@
-"""Provide keys similar to vim's"""
+"""Provide keys based on vim's"""
 
 
 vim_keys = {
