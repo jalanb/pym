@@ -41,7 +41,8 @@ def main():
     """Run the script"""
     try:
         args = parse_args()
-        edit3 = TreeEditor(args.items)
+        items = eval(' '.join(args.items))
+        edit3 = TreeEditor(items)
         keys = iter(args.command) if args.command else yield_asciis()
         for key in keys:
             try:
