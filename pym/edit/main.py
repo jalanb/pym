@@ -45,7 +45,7 @@ def main():
         keys = iter(args.command) if args.command else yield_asciis()
         for key in keys:
             try:
-                items = edit3.edit(key, vim_keys)
+                edit3.edit(key, keyboard)
             except Tundra:
                 print >> sys.stderr, "Don't go there"
                 continue
