@@ -8,7 +8,8 @@ from bdb import BdbQuit
 
 
 from dotsite.getch import yield_asciis
-from pym.edit.tree import tree_editor
+from pym.edit.tree import TreeEditor
+from pym.edit.tree import Tundra
 from pym.edit import keyboard
 
 
@@ -26,7 +27,8 @@ def parse_args():
     pa = parser.add_argument
     pa('items', nargs='*', help='items to be editted')
     pa('-c', '--command', action='store', default=list(), type=str,
-       help='keys to use for editting',)
+       help='act like vim for a string of hjkl commands',)
+    pa('-q', '--quiet', action='store_true', help='Show less output')
     pa('-U', '--Use_debugger', action='store_true',
        help='Run the script with pdb (or pudb if available)')
     args = parser.parse_args()
@@ -35,29 +37,19 @@ def parse_args():
     return args
 
 
-def edit(items, command):
-    """Use keys to edit the items
-
-    If the command yields chars, take keys from that
-        otherwise from a keyboard
-    """
-    editor = tree_editor(items, keyboard)
-    keys = []
-    keys[0] = [command if command else yield_asciis]
-
-    def print_editor():
-        keys[0], cursor = editor(keys[0])
-        print repr(cursor.items)
-    return print_editor
-
-
 def main():
     """Run the script"""
     try:
         args = parse_args()
-        editor = edit(args.items, args.command)
-        while True:
-            editor()
+        edit3 = TreeEditor(args.items)
+        keys = iter(args.command) if args.command else yield_asciis()
+        for key in keys:
+            try:
+                items = edit3.edit(key, vim_keys)
+            except Tundra:
+                print >> sys.stderr, "Don't go there"
+                continue
+            print repr(edit3.climber.item())
     except (SystemExit, BdbQuit):
         pass
     #except Exception, e:

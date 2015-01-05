@@ -1,8 +1,12 @@
 
 
+import re
+
+
 class Tundra(StopIteration):
     """A Tundra is a "treeless mountain tract"
-        [Aapala, Kirsti. "Tunturista jangalle". Kieli-ikkunat](http://www.kotus.fi/julkaisut/ikkunat/1999/kielii1999_19.shtml)  # noqa
+        Aapala, Kirsti. "Tunturista jangalle". Kieli-ikkunat
+        http://www.kotus.fi/julkaisut/ikkunat/1999/kielii1999_19.shtml
 
     No place for a Climber to be.
     """
@@ -67,29 +71,38 @@ class Brancher(object):
 class Climber(Brancher):
     """Climbs up / down a list of lists"""
 
+    def __init__(self, thing, parent=None):
+        self.parent = parent
+        super(Climber, self).__init__(thing)
+
     def up(self):
-        self.older = self.climber
-        del self.climber
+        if not self.parent:
+            raise Tundra
+        return self.parent
 
     def down(self):
+        item = self.item()
         try:
-            self.climber = self.older
-        except AttributeError:
-            self.climber = Climber(self.item())
+            if re.match('^.$', item):
+                raise Tundra
+        except TypeError:
+            pass
+        return Climber(self.item(), self)
 
     def indices(self):
-        indices = super(Climber. self).indices()
+        indices = super(Climber, self).indices()
         try:
             return indices + self.climber.indices()
         except AttributeError:
             return indices
 
 
-def tree_editor(tree, keyboard):
+class TreeEditor(object):
+    def __init__(self, tree):
+        self.climber = Climber(tree)
 
-    def tree_edit(keys):
-        keyboard.move(climber, keys.next())
-        return keys, climber
-
-    climber = Climber(tree)
-    return tree_edit
+    def edit(self, key, keyboard):
+        climber = keyboard.move(self.climber, key)
+        if climber:
+            self.climber = climber
+        return self.climber.item()
