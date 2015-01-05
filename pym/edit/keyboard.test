@@ -1,0 +1,20 @@
+The keyboard module
+===================
+
+    >>> from pym.edit import keyboard
+    >>> print keyboard.__doc__
+    Provide keys based on vim's
+
+    >>> keyboard.keys['j'] == 'down'
+    True
+    >>> keyboard.keys['k'] == 'up'
+    True
+    >>> keyboard.keys['h'] == 'up'
+    False
+
+    >>> class Fred(object):
+    ...     def up(self):
+    ...         print 'Hello World'
+
+    >>> keyboard.move(Fred(),'k')
+    Hello World
