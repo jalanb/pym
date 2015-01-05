@@ -36,9 +36,9 @@ keys = {}
 _ = map(keys.update, [home_row, HOME_row])
 
 
-def call(methods, key):
+def call(instance, key):
     if key in keys:
-        method = methods[keys[key]]
-        return method()
-
 move = call
+        method = getattr(instance, keys[key], None)
+        if method:
+            return method()
