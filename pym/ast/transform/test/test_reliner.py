@@ -17,11 +17,10 @@ def re_render(module_text):
     return render(tree)
 
 
-class TestLiner(TestCase):
+class TestLineariness(TestCase):
 
     def test_initialisation(self):
-        transformer = Liner()
-        self.assertIsNotNone(transformer)
+        self.assertIsNotNone(Liner())
 
     def test_add_no_lines_to_nothing(self):
         actual = re_render('')
