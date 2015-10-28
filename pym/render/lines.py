@@ -8,3 +8,6 @@ def remove_empty_tail(items):
         if item:
             return items[:-i]
     return items
+
+
+
