@@ -4,3 +4,6 @@ ignore-paths:
 pylint:
     options:
         dummy-variables-rgx: _
+
+pyflakes:
+    disable: F841
