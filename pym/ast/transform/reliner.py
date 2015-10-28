@@ -25,7 +25,7 @@ def _add_blank_lines(nodes):
     result = []
     for node in nodes:
         group_id = module_node_group_id(node)
-        if group_id != previous_id and previous_id != None:
+        if previous_id and group_id != previous_id:
             result.append(BlankLine())
             result.append(BlankLine())
             previous_id = group_id
