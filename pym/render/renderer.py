@@ -130,9 +130,10 @@ class Renderer(Visitor):
             self.dispatch(node.kwarg)
 
     def visit_body(self, node):
+        no_lines = (ast.ClassDef, ast.FunctionDef, BlankLine)
         for child in node:
             self.dispatch(child)
-            if not isinstance(child, (ast.ClassDef, ast.FunctionDef, BlankLine)):
+            if not isinstance(child, no_lines):
                 self.write_line()
 
     def visit_comprehension(self, node):
@@ -218,9 +219,8 @@ class Renderer(Visitor):
         self.write(' %s ' % self.binary_operators[operator_name])
         self.dispatch(node.right)
 
-    def visit_BlankLine(self, node):
+    def visit_BlankLine(self, _node):
         self.write_line('')
-        #pass
 
     def visit_Break(self, _node):
         self.write('break')

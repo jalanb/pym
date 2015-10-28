@@ -1,2 +1,6 @@
 ignore-paths:
     - here_be_dragons
+
+pylint:
+    options:
+        dummy-variables-rgx: _

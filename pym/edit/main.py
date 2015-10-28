@@ -41,7 +41,7 @@ def main():
     """Run the script"""
     try:
         args = parse_args()
-        items = eval(' '.join(args.items))
+        items = eval(' '.join(args.items))  # pylint: disable=eval-used
         edit3 = TreeEditor(items)
         keys = iter(args.command) if args.command else yield_asciis()
         for key in keys:

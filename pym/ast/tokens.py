@@ -10,8 +10,8 @@ def get_comments(string):
     stream = StringIO(string)
     tokens = list(tokenize.generate_tokens(stream.readline))
     comments = [
-        (start_line, start_column, string)
-        for type_, string, (start_line, start_column), _, _,
+        (start_line, start_column, comment)
+        for type_, comment, (start_line, start_column), _, _,
         in tokens
         if type_ == tokenize.COMMENT
     ]
