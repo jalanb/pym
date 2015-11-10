@@ -1,0 +1,10 @@
+The JSON License
+
+Quick Summary
+
+This is a copy of the MIT License with one important addition: "THE SOFTWARE SHALL BE USED FOR GOOD, NOT evil."
+
+This has caused companies issues when using JSON, Douglas Crockford, the author of the JSON specification refuses to change this part of the license.jj
+The Free Software Foundation consider this license as non-free for that addition, but IBM got an exemption.
+
+See the TLDR at https://tldrlegal.com/license/the-json-license
