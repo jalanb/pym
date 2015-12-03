@@ -11,6 +11,7 @@ from dotsite.getch import yield_asciis
 from pym.edit.tree import TreeEditor
 from pym.edit.tree import Tundra
 from pym.edit import keyboard
+from pym.render import render
 
 
 def start_debugging():
@@ -50,7 +51,7 @@ def main():
             except Tundra:
                 print >> sys.stderr, "Don't go there"
                 continue
-            print repr(edit3.climber.item())
+            print render(edit3.climber.item())
     except (SystemExit, BdbQuit):
         pass
     #except Exception, e:
