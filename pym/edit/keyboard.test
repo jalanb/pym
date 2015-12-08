@@ -5,6 +5,17 @@ The keyboard module
     >>> print keyboard.__doc__
     Provide keys based on vim's
 
+    >>> print '\n'.join([str('%s -> %s' % (k, v)) for k, v in keyboard.vim_keys.items()])
+    h -> left
+    k -> up
+    j -> down
+    l -> right
+
+    >>> print ', '.join([str('%s -> %s' % (k, v)) for k, v in keyboard.home_row.items()][:7])
+    a -> add, d -> delete, g -> go, f -> fix, h -> left, k -> up, j -> down
+    >>> print '. '.join([str('%s -> %s' % (k, v)) for k, v in keyboard.HOME_row.items()][:7])
+    A -> insert. S -> substitute. : -> command. D -> destroy. G -> debug. F -> fuck. H -> home
+
     >>> keyboard.keys['j'] == 'down'
     True
     >>> keyboard.keys['k'] == 'up'
