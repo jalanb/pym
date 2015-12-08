@@ -50,6 +50,25 @@ A program is a history of a flow of ideas into a structured text representing a 
 
 Those ideas are *intentions* - what the coder wants to happen at run time.
 
+Usage
+-----
+
+    $ pym main.py
+
+or 
+
+    $ pym main.sh
+
+
+
+You are shown a line of code in a function. You can move around: (A subset of) vim keys work, with the slight catch the 'j'/'k' moves down/up the call stack, 'h'/'l' moves left/right along the block of statements, and 'g'/';' move out/in (through links to other code, e.g. function calls).
+
+You can edit the code of the function, which will change the availability of run-time data.
+
+Colours:
+
+Errors shown in red, good code shown in green, links shown in blue. Untried code shown in white.
+
 Indices and tables
 ==================
 
