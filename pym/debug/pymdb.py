@@ -11,6 +11,16 @@ def _read_line_from_path(path):
     return read
 
 def _lines_before_at_same_indentation(read, end):
+    """This method could not work on itself
+
+    because it sub-defines other methods within itself
+        and could have indentation in the main body
+        "deeper" than one of the sub-defines
+        so would only give lines back that far
+        not the full block
+
+    Gonna need a parsing solution
+    """
     def extract_match(regexp, string):
         match = regexp.match(string)
         try:
