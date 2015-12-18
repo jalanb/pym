@@ -17,9 +17,9 @@ pym v0.1.8 documentation
 What is pym?
 ------------
 
-Python code to code structures.
+Python code to code Pythonistic languages.
 
-pym was inspired by vim but it handles structured (not plain) text. At present pym is entirely vapourware, and consists of some ideas based around :ref:`mindful_manipulation` of `Abstract Syntax Trees <http://en.wikipedia.org/wiki/Abstract_syntax_tree>`_, such as those provided by the `ast module <http://docs.python.org/2/library/ast.html?highlight=ast>`_ . It would help `my coding <https://github.com/jalanb/dotjab/tree/master/src>` if the parser could `handle bash` too.
+pym was inspired by vim but it handles structured (not plain) text. At present pym is entirely vapourware, and consists of some ideas based around :ref:`mindful_manipulation` of `Abstract Syntax Trees <http://en.wikipedia.org/wiki/Abstract_syntax_tree>`_, such as those provided by the `ast module <http://docs.python.org/2/library/ast.html?highlight=ast>`_ . It would help `my coding <https://github.com/jalanb/dotjab/tree/master/src>`_ if the parser could `handle bash` too.
 
 Parsing
 ^^^^^^^
