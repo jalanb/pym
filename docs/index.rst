@@ -5,11 +5,7 @@
 
 .. _pym_index:
 
-.. raw:: html
-
-    <style> .red {color:red} </style>
-    <style> .blue {color:blue} </style>
-    <style> .green {color:green} </style>
+.. role:: red
 
 pym v0.3.18 documentation
 ========================
