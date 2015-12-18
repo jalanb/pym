@@ -17,9 +17,17 @@ pym v0.1.8 documentation
 What is pym?
 ------------
 
-Python code to code Pythonistic languages.
+pym helps with editing code, not text. No Java neither.
 
-pym was inspired by vim but it handles structured (not plain) text. At present pym is entirely vapourware, and consists of some ideas based around :ref:`mindful_manipulation` of `Abstract Syntax Trees <http://en.wikipedia.org/wiki/Abstract_syntax_tree>`_, such as those provided by the `ast module <http://docs.python.org/2/library/ast.html?highlight=ast>`_ . It would help `my coding <https://github.com/jalanb/dotjab/tree/master/src>`_ if the parser could `handle bash` too.
+pym knows what code is, from a programmer's POV: controlled flow of data through manipulations. Although, preferrably manipulation.
+
+Code is expressed in a language, such as `Python <https://github.com/jalanb/pym/tree/master/pym>`_ or `Bash <https://github.com/jalanb/dotjab/tree/master/src>`_, etc.
+
+Code is parsed to an NST, which is annotated with interesting properties of the code.
+
+An NST is a "Named Syntax Tree", which links known names to known Syntax Trees. A "Syntax Tree" is provided by a (language-specific) parser, and can catch any runtime problems, providing source for each stack frame.
+
+pym was inspired by vim but it handles structured (not plain) text. At present pym is entirely vapourware, and consists of some ideas based around :ref:`mindful_manipulation` of `Abstract Syntax Trees <http://en.wikipedia.org/wiki/Abstract_syntax_tree>`_, such as those provided by the `ast module <http://docs.python.org/2/library/ast.html?highlight=ast>`_ . It would help  if the parser could `handle bash` too.
 
 Parsing
 ^^^^^^^
