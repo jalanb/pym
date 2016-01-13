@@ -1,7 +1,7 @@
 pym
 ===
 
-Python code to edit Python structures
+pym helps with editing code, not text. No Java neither.
 
 Documentation
 =============
