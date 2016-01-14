@@ -23,7 +23,7 @@ pym knows what code is, from a programmer's POV: controlled flow of data through
 
 Code is expressed in a language, such as `Python <https://github.com/jalanb/pym/blob/master/pym/ast/parse.py#L9>`_ or `Bash <https://github.com/jalanb/parsher/blob/master/parsher/__init__.py#L9>`_, etc.
 
-Code is parsed to an `NST <https://github.com/jalanb/pym/blob/master/pym/ast/nodes.py#L5>`, which is annotated with interesting properties of the code.
+Code is parsed to an `NST <https://github.com/jalanb/pym/blob/master/pym/ast/nodes.py#L5>_`, which is annotated with interesting properties of the code.
 
 An NST is a "Named Syntax Tree", which links known names to known Syntax Trees. A "Syntax Tree" is provided by a (language-specific) parser, and can catch any runtime problems, providing source for each stack frame.
 
