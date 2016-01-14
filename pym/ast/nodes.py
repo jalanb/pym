@@ -2,6 +2,10 @@
 
 import ast
 
+class NST(ast.AST):
+    """A "normal" syntax tree"""
+    pass
+
 class BlankLine(ast.stmt):
     pass
 
