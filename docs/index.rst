@@ -45,13 +45,14 @@ An editor is an interface between a person and structured text. The person has a
 
 Screen shows one dir, file or function (aka package, module or function) at a time.
 
-We are stopped on a breakpoint, showing a function, with stopped line underlined in red. If there is an active error (aka Exception) then all (all data leading to) data on this line is marked red. All code which has been run without error is shown in green, and all other data is shown in blue.
+We are stopped on a breakpoint, showing a function, with stopped line underlined in red. If there is an active error (aka Exception) then all (data leading to) data on this line is marked red. All code which has been run without error is shown in green, and all other data is shown in blue.
 
 18 Keys: j/k (up/down (+/- Y)), h/l (backward/forward (-/+ X)), g/; (out/in (-/+ Z))
       u/i (keyboard/screen), y/o (), t/p (take/paste)
       m/, (mark/goto), n/. (type/continue), b// (bookmark/search)
 
 More leftward keys (on a QWERTY keyboard) "more general", "pull", "back"
+
 More rightward keys mean "more specific", "push", "forward
 
 Warning to vim users - some keys may seem the opposite of what you're used to.
