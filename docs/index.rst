@@ -39,13 +39,13 @@ pym treats parsing and rendering as separate operations, but ideally they should
 Editing
 ^^^^^^^
 
-Editing is the heart of pym, a means of transforming ideas into structured text.
+`Editting <https://github.com/jalanb/pym/blob/master/pym/edit/main.py#L41>`_ is the heart of pym, a means of transforming ideas into structured text.
 
-An editor is an interface between a person and structured text. The person has a keyboard and sees a window, tapping keys changes the window. The person first needs to learn which keys lead to which changes on screen. As soon as changes are made the screen shows diff from original.
+An editor is an interface between a person and structured text. The person has a keyboard and sees a window, tapping keys changes the window. The person first needs to learn `which keys lead <https://github.com/jalanb/pym/blob/master/pym/edit/keyboard.py#L35>`_ to which `changes <https://github.com/jalanb/pym/blob/master/pym/edit/tree.py#L104>`_ on screen. As soon as changes are made the screen shows diff from original.
 
 Screen shows one dir, file or function (aka package, module or function) at a time.
 
-We are stopped on a breakpoint, showing a function, with stopped line underlined in :red:`red`. If there is an active error (aka Exception) then all (all data leading to) data on this line is marked :red:`red`. All code which has been run without error is shown :green:`green`, and all other data is shown :blue:`blue`.
+We are stopped on a breakpoint, showing a function, with stopped line underlined in red. If there is an active error (aka Exception) then all (all data leading to) data on this line is marked red. All code which has been run without error is shown in green, and all other data is shown in blue.
 
 18 Keys: j/k (up/down (+/- Y)), h/l (backward/forward (-/+ X)), g/; (out/in (-/+ Z))
       u/i (keyboard/screen), y/o (), t/p (take/paste)
