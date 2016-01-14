@@ -62,7 +62,7 @@ What are we all doing here anyway?
 
 I have a screen, you have a keyboard.
 
-I have codes, etc., that I could show you, you have the means to choose between them. Assuming your capacity for choosing is infinite, I need to know which code you'd like to look at. So we'll start with disk structures - trees with directories and files. And some recognisable patterns. Sounds like a similar structure to real code (modules are trees with blocks and lines), but simpler.
+I have `codes <https://github.com/jalanb/dotjab/tree/master/src>`_, `etc <https://github.com/jalanb/dotjab/tree/master/environ.d>`_., that I could show you, you have the means to choose between them. Assuming your capacity for choosing is infinite, I need to know which code you'd like to look at. So we'll start with disk structures - trees with directories and files. And some recognisable patterns. Sounds like a similar structure to real code (modules are trees with blocks and lines), but simpler.
 
 Structured text is ever a snapshot from a flow of your ideas to the codes being witten. On a good day the ideas flow toward some runnable tree which works, but on a bad day they `chase around random forests <https://en.wikipedia.org/wiki/Mind_monkey>`_, crashing blindly into `insects <https://en.wikipedia.org/wiki/Software_bug>`_. It is important to store correct program text, more important to grasp ideas behind that text, and most important to grok the flow.
 
