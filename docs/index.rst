@@ -72,6 +72,9 @@ pym should look for the flow of ideas in the iterations of the REPL, noting step
 
 pym should be editable by itself. This is a **high priority** - I do not have a lot of time for coding personal projects such as pym, the sooner it is "good enough" to be usable daily for editing other programs, but *quickly* fixable, then the more development it will actually get. (Such has been my experience with `my dot files <https://github.com/jalanb/dotjab/blob/master/functons>`_, in particular since I added `a function to edit functions <https://github.com/jalanb/what/blob/650677f8d0e80bc9aa9552cb5f87c42d34801b30/what.sh#L55>`_).
 
+Modality
+^^^^^^^^
+
 pym is inherently a modal editor, and one is not directly editing plain text. Some parts of the program will look more like plain text than others, e.g. names. But each structure in the tree uses its own specialised sub-editor, e.g. there is a different editor for an else branch than for a function definition than for a function. pym should transition between such editors unnoticeably to the user, not needing any "start loop here" instructions, although they could be explicitly given.
 
 Command/insert mode might toggle on the CAPS LOCK key. pym is UI agnostic, capable of presentation between pipes, on a console, GUI, web page, or directly from Python. Development shall concentrate on Python first, console second, with others trailing. Full use should be made of available visual cues, such as colour, position, movement, ...
