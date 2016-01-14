@@ -32,9 +32,9 @@ pym was inspired by vim but it handles structured (not plain) text. At present p
 Parsing
 ^^^^^^^
 
-:ref:`parsing` is interesting, as a means of transforming plain to structured text. :ref:`renderers` is the opposite of parsing, and transforms structured to plain text.
+`Parsing <https://github.com/jalanb/pym/blob/master/pym/ast/parse.py#L7>`_ should be more boring, but remains interesting, at least as a means of transforming plain to structured text. `renderering <https://github.com/jalanb/pym/tree/master/pym/render>`_ is the opposite.
 
-pym treats parsing and rendering as separate operations, but ideally they should be a single, reversible process. They will provide a "back end" to pym, connecting stored text, which is plain, to structured text which can be edited.
+pym treats parsing and rendering as separate operations, but ideally they should be a single, reversible process. They will provide a "back end" to pym, connecting stored text, which is plain, to structured text which `can be editted <https://github.com/jalanb/pym/blob/master/pym/edit/main.py#L41>`_.
 
 Editing
 ^^^^^^^
