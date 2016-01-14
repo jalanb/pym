@@ -21,7 +21,7 @@ pym helps with editing code, not text. No Java neither.
 
 pym knows what code is, from a programmer's POV: controlled flow of data through manipulations.
 
-Code is expressed in a language, such as `Python <https://github.com/jalanb/pym/blob/master/pym/ast/parse.py#L9>`_ or `Bash <https://github.com/jalanb/parsher/blob/master/parsher/__init__.py#L9>`_, etc.
+Code is expressed in a language, such as `Python <https://github.com/jalanb/pym/blob/master/pym/ast/parse.py#L9>`_ or `Bash <https://github.com/jalanb/parsher/blob/master/parsher/__init__.py#L9>`_, `etc <https://github.com/lsegal/atom-runner`_.
 
 Code is parsed to an `NST <https://github.com/jalanb/pym/blob/master/pym/ast/nst.py#L5>`_, which is annotated with interesting properties of the code.
 
@@ -62,7 +62,7 @@ What are we all doing here anyway?
 
 I have a screen, you have a keyboard.
 
-I have `codes <https://github.com/jalanb/dotjab/tree/master/src>`_, `etc <https://github.com/jalanb/dotjab/tree/master/environ.d>`_., that I could `show <https://github.com/jalanb/pym/blob/master/pym/render/render.py#L19>`_ you, you have the means to `choose between them <https://github.com/jalanb/pym/blob/master/pym/edit/keyboard.py#L39>`_. Assuming your capacity for choosing is infinite, I need to know which `code you'd like to look at <https://github.com/jalanb/pym>`_. So we'll start with `disk structures <https://github.com/jalanb/pym/blob/master/here_be_dragons/pyrception/pyrceive.py#L184>`_- `trees <https://github.com/jalanb/pym/blob/master/pym/ast/nst.py#L5>`_ with directories and files. And some recognisable patterns. Sounds like a similar structure to real code (modules are trees with blocks and lines), but simpler. Or something.
+I have `codes <https://github.com/jalanb/dotjab/tree/master/src>`_, `etc <https://github.com/jalanb/dotjab/tree/master/environ.d>`_., that I could `show <https://github.com/jalanb/pym/blob/master/pym/render/render.py#L19>`_ you, you have the means to `choose between them <https://github.com/jalanb/pym/blob/master/pym/edit/keyboard.py#L39>`_. Assuming your capacity for choosing is infinite, I need to know which `code you'd like to look at <https://github.com/jalanb/pym>`_. So we'll start with `disk structures <https://github.com/jalanb/pym/blob/master/here_be_dragons/pyrception/pyrceive.py#L184>`_- trees `with directories and files <https://github.com/jalanb/pym/blob/master/pym/ast/nst.py#L5>`_. And some `recognisable patterns <http://bfy.tw/3igB>'_. Sounds like a similar structure to real code (modules are trees with blocks and lines), but simpler. Or something.
 
 Anyway, structured text is ever a snapshot from a flow of your ideas to the codes being witten. On a good day the ideas flow toward some runnable tree which works, but on a bad day they `chase around random forests <https://en.wikipedia.org/wiki/Mind_monkey>`_, crashing blindly into `insects <https://en.wikipedia.org/wiki/Software_bug>`_. It is important to store correct program text, more important to grasp ideas behind that text, and most important to grok the flow.
 
