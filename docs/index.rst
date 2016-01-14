@@ -25,9 +25,9 @@ Code is expressed in a language, such as `Python <https://github.com/jalanb/pym/
 
 Code is parsed to an `NST <https://github.com/jalanb/pym/blob/master/pym/ast/nst.py#L5>`_, which is annotated with interesting properties of the code.
 
-An NST is a "Named Syntax Tree", which links known names to known Syntax Trees. A "Syntax Tree" is provided by a (language-specific) parser, and can catch any runtime problems, providing source for each stack frame.
+An NST is a "Normal Syntax Tree", which links known names to known Syntax Trees. A "Syntax Tree" is provided by a (language-specific) parser, and can catch any runtime problems, providing source for each stack frame.
 
-pym was inspired by vim but it handles structured (not plain) text. At present pym is entirely vapourware, and consists of some ideas based around :ref:`mindful_manipulation` of `Abstract Syntax Trees <http://en.wikipedia.org/wiki/Abstract_syntax_tree>`_, such as those provided by the `ast module <http://docs.python.org/2/library/ast.html?highlight=ast>`_ . It would help  if the parser could `handle bash` too.
+pym was inspired by vim but it handles structured (not plain) text. At present pym is entirely vapourware, and consists of some ideas based around mindful manipulation of `Abstract Syntax Trees <http://en.wikipedia.org/wiki/Abstract_syntax_tree>`_, such as those provided by the `ast module <http://docs.python.org/2/library/ast.html?highlight=ast>`_ and `grako <https://pypi.python.org/pypi/grako/3.6.6#abstract-syntax-trees-asts>`_ . It would help  if the parser could handle `bash script <https://github.com/jalanb/parsher/blob/master/parsher/__init__.py#L9>`_ too.
 
 Parsing
 ^^^^^^^
