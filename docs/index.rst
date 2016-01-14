@@ -21,7 +21,7 @@ pym helps with editing code, not text. No Java neither.
 
 pym knows what code is, from a programmer's POV: controlled flow of data through manipulations.
 
-Code is expressed in a language, such as `Python <https://github.com/jalanb/pym/blob/master/pym/ast/parse.py#L9>`_ or `Bash <https://github.com/jalanb/parsher/blob/master/parsher/__init__.py#L9>`_, `etc <https://github.com/lsegal/atom-runner`_.
+Code is expressed in a language, such as `Python <https://github.com/jalanb/pym/blob/master/pym/ast/parse.py#L9>`_ or `Bash <https://github.com/jalanb/parsher/blob/master/parsher/__init__.py#L9>`_, `etc <https://github.com/lsegal/atom-runner>`_.
 
 Code is parsed to an `NST <https://github.com/jalanb/pym/blob/master/pym/ast/nst.py#L5>`_, which is annotated with interesting properties of the code.
 
