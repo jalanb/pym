@@ -1,7 +1,7 @@
 """ "Normal" syntax trees"""
 
 
-from parse import parse, parse_path
+from parse import parse
 
 
 from dotsite import paths
