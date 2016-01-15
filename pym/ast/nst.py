@@ -51,5 +51,5 @@ class PythonNormalSyntaxTree(NormalSyntaxTree, PythonSyntaxTree):
 class PythonFileDiskTree(FileDiskTree, PythonNormalSyntaxTree):
     """Syntax tree in a Python File"""
     def __init__(self):
-        self.tree = parse_path(self)
-
+        super(FileDiskTree, self).__init__(self)
+        super(PythonNormalSyntaxTree, self).__init__(self.text())
