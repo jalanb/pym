@@ -17,7 +17,7 @@ pym v0.2.1 documentation
 What is pym?
 ------------
 
-pym helps with editing code, not text, :ref:`java_rst`.
+pym helps with editing code, not text (:ref:`java_rst`).
 
 pym knows what code is, from a programmer's POV: controlled flow of data through controlled manipulations.
 
