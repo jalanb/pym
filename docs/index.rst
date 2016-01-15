@@ -17,7 +17,9 @@ pym v0.2.1 documentation
 What is pym?
 ------------
 
-pym helps with editing code, not text. No Java neither.
+pym helps with editing code, not text.
+
+(No Java neither.)
 
 pym knows what code is, from a programmer's POV: controlled flow of data through manipulations.
 
