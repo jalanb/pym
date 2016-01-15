@@ -1,7 +1,6 @@
 """ "Normal" syntax trees"""
 
 
-from parse import parse
 
 
 from dotsite import paths
@@ -37,15 +36,29 @@ class JavascriptNormalSyntaxTree(NormalSyntaxTree):
     pass
 
 
-class PythonSyntaxTree():
+class LanguageSyntaxTree(object):
+    def normalize(self):
+        tree = self._parse(self)
+
+    def _parse(self, string):
+        raise NotImplementedError
+
+    def _normal(self, tree):
+        raise NotImplementedError
+
+class PythonSyntaxTree(LanguageSyntaxTree):
     """A Python syntax tree"""
-    def __init__(self):
-        self.tree = parse(self)
+    pass
 
 
 class PythonNormalSyntaxTree(NormalSyntaxTree, PythonSyntaxTree):
     """A Normalised Python syntax tree"""
-    pass
+    def _normal(self, tree):
+        return tree
+
+    def _parse(self, tree):
+        from parse import parse
+        return parse(self))
 
 
 class PythonFileDiskTree(FileDiskTree, PythonNormalSyntaxTree):
@@ -53,3 +66,10 @@ class PythonFileDiskTree(FileDiskTree, PythonNormalSyntaxTree):
     def __init__(self):
         super(FileDiskTree, self).__init__(self)
         super(PythonNormalSyntaxTree, self).__init__(self.text())
+
+def normalize(thing):
+    def normalize_python(ast):
+        return ast
+
+    def noami
+    return normalize_python(thing) if isinstance(ast.AST, thing) else thing
