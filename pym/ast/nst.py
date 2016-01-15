@@ -19,16 +19,21 @@ class DirectoryDiskTree(SyntaxTree, paths.DirectoryPath):
 class NotMyType(ValueError):
     pass
 
-class LanguageFile(SyntaxTree, paths.FilePath):
+class LanguageFile(SyntaxTree, paths.ExtendedFilePath):
     """File (leaf of a disk tree, root of contents)"""
     def __init__(self, s, exts=None):
-        super.__init__(paths.FilePath, s)
-        assert self.extend(self.extension)
+        super.__init__(paths.FilePath, s, exts)
         self._exts = exts if exts else []
 
-    def self.extend(self, ext):
-        if not _known_ext(ext):
-            raise NotMyType(ext)
+    def extended(self, test):
+        for ext in self._exts:
+            if self._extended(ext):
+                return True
+            return False
+        raise NotMyType(ext)
+
+    def _extended(self, test):
+        return self.ext() == test
 
     def _known_ext(self, ext):
         """Files without extensions can be scripts"""
@@ -37,9 +42,31 @@ class LanguageFile(SyntaxTree, paths.FilePath):
         return ext in self._exts
 
 
+
+class ScriptFile(LanguageFile):
+    """Script files have text in a known language
+
+    We expect them to have an extension showing their language
+    Or be a shebang file
+    """
+    def __init__(self, s):
+        super(ScriptFile, self).__init__(self, s)
+        self._shebanged = False
+
+    def _known_ext(self, ext):
+        return super(ScriptFile, self)._known_ext(ext) if ext else self._shebang()
+
+    def _shebang(self):
+        if not self._shebang:
+            self._shebang = self.shebang()
+        self._shebanged = bool(self._shebang)
+        return self._shebanged
+
+
 class LanguageSyntaxTree(object):
     def _parse(self, string):
         raise NotImplementedError
+
 
 class BashSyntaxTree(LanguageSyntaxTree):
     """A BASH syntax tree"""
@@ -89,22 +116,33 @@ class PythonNormalSyntaxTree(NormalSyntaxTree, PythonSyntaxTree):
         raise NotImplementedError
 
 
-class BashFileDiskTree(LanguageFile, BashNormalSyntaxTree):
+class BashScript(ScriptFile, BashNormalSyntaxTree):
     """Syntax tree in a Bash File"""
     def __init__(self):
-        super(LanguageFile, self).__init__(self, exts=['.sh', '.bash'])
+        super(ScriptFile, self).__init__(self, exts=['.sh', '.bash'])
         super(BashNormalSyntaxTree, self).__init__(self.text())
 
+    def _shebang(self):
+        result = super._shebang(self)
+        return self._shebang.endswith('bash') if result else False
 
-class JavascriptFileDiskTree(LanguageFile, JavascriptNormalSyntaxTree):
+class JavascriptScript(ScriptFile, JavascriptNormalSyntaxTree):
     """Syntax tree in a Javascript File"""
     def __init__(self):
-        super(LanguageFile, self).__init__(self, exts=['.js'])
+        super(ScriptFile, self).__init__(self, exts=['.js'])
         super(JavascriptNormalSyntaxTree, self).__init__(self.text())
 
+    def _shebang(self):
+        return False
 
-class PythonFileDiskTree(LanguageFile, PythonNormalSyntaxTree):
+
+class PythonScript(ScriptFile, PythonNormalSyntaxTree):
     """Syntax tree in a Python File"""
     def __init__(self):
-        super(LanguageFile, self).__init__(self, exts=['.py'])
+        super(ScriptFile, self).__init__(self, exts=['.py'])
         super(PythonNormalSyntaxTree, self).__init__(self.text())
+
+    def _shebang(self):
+        result = super._shebang(self)
+        return self._shebang.endswith('py') if result else False
+
