@@ -144,5 +144,5 @@ class PythonScript(ScriptFile, PythonNormalSyntaxTree):
 
     def _shebang(self):
         result = super._shebang(self)
-        return self._shebang.endswith('py') if result else False
+        return self._shebang.endswith('python') if result else False
 
