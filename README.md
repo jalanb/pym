@@ -10,7 +10,7 @@ pym remains entirely vapourware at present, but the ideas behind it are being cu
 
 One such concept is that the coder wants to edit structural entitites (e.g. modules, methods, mocks), not incidentals (e.g. text, files).
 
-Another is that the coder doesn't want to write anything at all, (s)he should only need to choose their favourite cliches, algorithms, functions, packages, ...
+Another is that the coder doesn't want to write anything at all, s/he should only need to choose their favourite cliches, algorithms, functions, packages, ...
 
 Sourcegraph
 -----------
