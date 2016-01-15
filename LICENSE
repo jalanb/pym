@@ -1,6 +1,6 @@
-The MIT License (MIT)
+The PYM License (MIT + NOT commercial)
 
-Copyright © 2013 - 2014 J Alan Brogan <licensing@al-got-rhythm.net>
+Copyright © 2013 - 2016 J Alan Brogan <licensing@al-got-rhythm.net>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the “Software”), to deal
@@ -19,3 +19,5 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+Any conditions at https://pym.readthedocs.org/en/latest/java.html

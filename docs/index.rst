@@ -17,9 +17,7 @@ pym v0.2.1 documentation
 What is pym?
 ------------
 
-pym helps with editing code, not text.
-
-(No Java neither.)
+pym helps with editing code, not text, :ref:`java_rst`.
 
 pym knows what code is, from a programmer's POV: controlled flow of data through controlled manipulations.
 
@@ -34,7 +32,7 @@ pym was inspired by vim but it handles structured (not plain) text. At present p
 Parsing
 ^^^^^^^
 
-`Parsing <https://github.com/jalanb/pym/blob/master/pym/ast/parse.py#L7>`_ should be more boring, but remains interesting, at least as a means of transforming plain to structured text. `Rendering <https://github.com/jalanb/pym/tree/master/pym/render>`_ is ! parsing.
+:ref:`parsing_page` should be more boring, but remains interesting, at least as a means of transforming plain to structured text. `Rendering <https://github.com/jalanb/pym/tree/master/pym/render>`_ is ! parsing.
 
 pym treats parsing and rendering as separate operations, but ideally they should be a single, reversible process. They will provide a "back end" to pym, connecting stored text, which is plain, to structured text which `can be editted <https://github.com/jalanb/pym/blob/master/pym/edit/main.py#L41>`_.
 

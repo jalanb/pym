@@ -1,7 +1,7 @@
 .. pym documentation about parsing text
     created by jalanb on Friday 22nd August 2014
 
-.. _parsing:
+.. _parsing_page:
 
 Parsing structured text
 =======================
