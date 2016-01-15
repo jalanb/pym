@@ -1,17 +1,55 @@
 """ "Normal" syntax trees"""
 
-import ast
+
+from parse import parse, parse_path
+
 
 from dotsite import paths
 
-class NST(ast.AST):
-    """A normal syntax tree"""
+
+class SyntaxTree(object):
+    """Some kind of Syntax Tree"""
     pass
 
-class DST(NST, paths.DirectoryPath):
+
+class DirectoryDiskTree(SyntaxTree, paths.DirectoryPath):
     """Directory tree"""
     pass
 
-class FST(NST, paths.FilePath):
-    """File tree"""
+
+class FileDiskTree(SyntaxTree, paths.FilePath):
+    """File (leaf of a disk tree, root of contents)"""
+    tree = None
+
+
+class NormalSyntaxTree(SyntaxTree):
+    """A normal syntax tree"""
     pass
+
+
+class BashNormalSyntaxTree(NormalSyntaxTree):
+    """A Normalised BASH syntax tree"""
+    pass
+
+
+class JavascriptNormalSyntaxTree(NormalSyntaxTree):
+    """A Normalised JavaScript syntax tree"""
+    pass
+
+
+class PythonSyntaxTree():
+    """A Python syntax tree"""
+    def __init__(self):
+        self.tree = parse(self)
+
+
+class PythonNormalSyntaxTree(NormalSyntaxTree, PythonSyntaxTree):
+    """A Normalised Python syntax tree"""
+    pass
+
+
+class PythonFileDiskTree(FileDiskTree, PythonNormalSyntaxTree):
+    """Syntax tree in a Python File"""
+    def __init__(self):
+        self.tree = parse_path(self)
+
