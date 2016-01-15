@@ -21,7 +21,7 @@ pym helps with editing code, not text.
 
 (No Java neither.)
 
-pym knows what code is, from a programmer's POV: controlled flow of data through manipulations.
+pym knows what code is, from a programmer's POV: flow of data through controlled manipulations.
 
 Code is expressed in a language, such as `Python <https://github.com/jalanb/pym/blob/master/pym/ast/parse.py#L9>`_ or `Bash <https://github.com/jalanb/parsher/blob/master/parsher/__init__.py#L32>`_, `etc <https://pypi.python.org/pypi/grako/3.6.6#abstract-syntax-trees-asts>`_.
 
