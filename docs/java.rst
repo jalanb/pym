@@ -63,6 +63,6 @@ Pull requests will be accepted subject to pusher's licensing
 Consequences
 ============
 
-Pym and derivatives are not Free (nor Open Source) Software.
+Pym and derivatives are `not Free (nor Open Source) <http://www.mail-archive.com/debian-legal%40lists.debian.org/msg40718.html>`_ Software.
 
 But no worries, I expect you'll do good when you're not working.

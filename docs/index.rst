@@ -23,7 +23,7 @@ pym knows what code is, from a programmer's POV: controlled flow of data through
 
 Code is expressed in a language, such as `Python <https://github.com/jalanb/pym/blob/master/pym/ast/parse.py#L9>`_ or `Bash <https://github.com/jalanb/parsher/blob/master/parsher/__init__.py#L32>`_, `etc <https://pypi.python.org/pypi/grako/3.6.6#abstract-syntax-trees-asts>`_.
 
-Code is parsed to an `NST <https://github.com/jalanb/pym/blob/master/pym/ast/nst.py#L5>`_, which is annotated with interesting properties of the code.
+Code is parsed to an `NST <https://github.com/jalanb/pym/blob/master/pym/ast/nst.py#L88>`_, which is annotated with interesting properties of the code.
 
 An NST is a "Normal Syntax Tree", which links known names to known Syntax Trees. A "Syntax Tree" is provided by a (language-specific) parser, and can catch any runtime problems, providing source for each stack frame.
 
@@ -41,7 +41,7 @@ Editing
 
 `Editting <https://github.com/jalanb/pym/blob/master/pym/edit/main.py#L41>`_ is the heart of pym, a means of transforming ideas into structured text.
 
-An editor is an interface between a person and structured text. The person has a keyboard and sees a window, tapping `keys <https://github.com/jalanb/pym/blob/master/pym/edit/keyboard.py#L35>_` `changes <https://github.com/jalanb/pym/blob/master/pym/edit/main.py#L54>`_ the window. The person first needs to learn `which keys lead <https://github.com/jalanb/pym/blob/master/pym/edit/keyboard.py#L35>`_ to which `changes <https://github.com/jalanb/pym/blob/master/pym/edit/tree.py#L104>`_ on screen. As soon as changes are made the screen shows diff from original.
+An editor is an interface between a person and structured text. The person has a keyboard and sees a window, tapping `keys <https://github.com/jalanb/pym/blob/master/pym/edit/keyboard.py#L35>`_ `changes <https://github.com/jalanb/pym/blob/master/pym/edit/main.py#L54>`_ the window. The person first needs to learn `which keys lead <https://github.com/jalanb/pym/blob/master/pym/edit/keyboard.py#L35>`_ to which `changes <https://github.com/jalanb/pym/blob/master/pym/edit/tree.py#L104>`_ on screen. As soon as changes are made the screen shows diff from original.
 
 Screen shows one dir, file or function (aka package, module or function) at a time.
 
