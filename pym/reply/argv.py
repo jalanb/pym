@@ -17,9 +17,17 @@ PYTHONSTARTUP: file executed on interactive startup (no default)
 """
 
 
-def parse(args, doc):
+def parse(args):
+    """Parse the given args
+
+    args are expected to be like sys.argv
+
+    This is adapted from ptpython's arg parsing
+        but we default to vi-mode, not emacs
+    """
 
     def ptparse(args):
+        """Parse the given args, as ptpython did"""
 
         def create_config_directory():
             config_dir = os.path.expanduser(args['--config-dir'] or '~/.pym/')
