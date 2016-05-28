@@ -15,55 +15,55 @@ def tag(name):
 """
 
 def make_import_name_errors(method):
-        import os
-        importable = {'os': os}
-        def import_name_errors(*args, *kwargs):
-                try:
-                        method(*args, **kwargs)
-                except NameError as e:
-                        name = name_error(e)
-                        if not name:
-                                return False
-                        if name in sys.modules:
-                                return False
-                        from importlib import __import__
-                        module = __import__(name)
-                        globals()[name] = module
-                        method(*args, **kwargs)
-                        if name not in importable:
-                                importable[name] = module
-        return import_name_errors
+    import os
+    importable = {'os': os}
+    def import_name_errors(*args, **kwargs):
+        try:
+            method(*args, **kwargs)
+        except NameError as e:
+            name = name_error(e)
+            if not name:
+                return False
+            if name in sys.modules:
+                return False
+            from importlib import __import__
+            module = __import__(name)
+            globals()[name] = module
+            method(*args, **kwargs)
+            if name not in importable:
+                importable[name] = module
+    return import_name_errors
 
 with make_import_name_errors(method) as runner:
-        runner("some", args="here")
+    runner("some", args="here")
 
 class NameErrorHandler(object):
-        def __enter__(self):
-                return self
-        def __exit__(self,exc_type, exc_val, exc_tb):
-                """Exit the context, returning truthiness to suppress exception.
+    def __enter__(self):
+        return self
+    def __exit__(self,exc_type, exc_val, exc_tb):
+        """Exit the context, returning truthiness to suppress exception.
 
-                If an exception occurred while executing the body of the with statement,
-                        the arguments contain the exception type, value and traceback information.
-                        Otherwise, all three arguments are None.
+        If an exception occurred while executing the body of the with statement,
+            the arguments contain the exception type, value and traceback information.
+            Otherwise, all three arguments are None.
 
-                Returning a true value from this method will cause the with statement to suppress the exception and continue execution with the statement immediately following the with statement. Otherwise the exception continues propagating after this method has finished executing. Exceptions that occur during execution of this method will replace any exception that occurred in the body of the with statement.
+        Returning a true value from this method will cause the with statement to suppress the exception and continue execution with the statement immediately following the with statement. Otherwise the exception continues propagating after this method has finished executing. Exceptions that occur during execution of this method will replace any exception that occurred in the body of the with statement.
 
-                The exception passed in should never be reraised explicitly - instead, this method should return a false value to indicate that the method completed successfully and does not want to suppress the raised exception. This allows context management code to easily detect whether or not an __exit__() method has actually failed.
-                """
+        The exception passed in should never be reraised explicitly - instead, this method should return a false value to indicate that the method completed successfully and does not want to suppress the raised exception. This allows context management code to easily detect whether or not an __exit__() method has actually failed.
+        """
 
-def
-        try: method()
-        except NameError as e:
-                importable = ['os']
-                name = name_error(e)
-                if name and name in importable:
-                        from importlib import __import__
-                        __import__(name)
-                        method()
+def try_import_on_name_error():
+    try: method()
+    except NameError as e:
+        importable = ['os']
+        name = name_error(e)
+        if name and name in importable:
+            from importlib import __import__
+            __import__(name)
+            method()
 
 def name_error(exception):
-        string = str(exception)
+    string = str(exception)
     words = string.split(' ')
     if words[0] != 'name':
         return None
