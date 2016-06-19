@@ -30,6 +30,7 @@ setup(
         'Topic :: Software Development :: Code Generators',
     ],
     test_suite='nose.collector',
+    install_requires=['dotsite'],
     tests_require=['nose', 'dotsite'],
     extras_require={
         'testing': ['nose'],

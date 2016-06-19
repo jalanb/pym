@@ -6,8 +6,7 @@ import sys
 import argparse
 from bdb import BdbQuit
 
-
-from dotsite.getch import yield_asciis
+import dotsite as site
 from pym.edit.tree import TreeEditor
 from pym.edit.tree import Tundra
 from pym.edit import keyboard
@@ -44,7 +43,7 @@ def main():
         args = parse_args()
         items = eval(' '.join(args.items))  # pylint: disable=eval-used
         edit3 = TreeEditor(items)
-        keys = iter(args.command) if args.command else yield_asciis()
+        keys = iter(args.command) if args.command else site.getch.yield_asciis()
         for key in keys:
             try:
                 edit3.edit(key, keyboard)

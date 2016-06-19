@@ -3,7 +3,7 @@
 
 
 
-from dotsite import paths
+import dotsite as site
 
 
 class SyntaxTree(object):
@@ -11,7 +11,7 @@ class SyntaxTree(object):
     pass
 
 
-class DirectoryDiskTree(SyntaxTree, paths.DirectoryPath):
+class DirectoryDiskTree(SyntaxTree, site.paths.DirectoryPath):
     """Directory tree"""
     pass
 
@@ -19,10 +19,10 @@ class DirectoryDiskTree(SyntaxTree, paths.DirectoryPath):
 class NotMyType(ValueError):
     pass
 
-class LanguageFile(SyntaxTree, paths.ExtendedFilePath):
+class LanguageFile(SyntaxTree, site.paths.ExtendedFilePath):
     """File (leaf of a disk tree, root of contents)"""
     def __init__(self, s, exts=None):
-        super.__init__(paths.FilePath, s, exts)
+        super.__init__(site.paths.FilePath, s, exts)
         self._exts = exts if exts else []
 
     def extended(self, test):
