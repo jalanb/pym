@@ -1,10 +1,11 @@
 """
 pym: Interactive Python editor.
 Usage:
-    pym [ --vi ]
+    pym [ --emacs ]
              [ --config-dir=<directory> ] [ --interactive=<filename> ]
              [--] [ <arg>... ]
-    pym -h | --help
+    pym -h
+    pym --help
 
 Options:
     --emacs                      : Use Emacs keybindings instead of Vi bindings.
@@ -29,27 +30,29 @@ def parse(args):
     def ptparse(args):
         """Parse the given args, as ptpython did"""
 
-        def create_config_directory():
-            config_dir = os.path.expanduser(args['--config-dir'] or '~/.pym/')
-            # Create config directory.
-            if not os.path.isdir(config_dir):
-                os.mkdir(config_dir)
-            return config_dir
+        import os
 
-        def store_interaction(args, startup_paths):
+        def create_config_directory():
+            _config_dir = os.path.expanduser(args['--config-dir'] or '~/.pym/')
+            # Create config directory.
+            if not os.path.isdir(_config_dir):
+                os.mkdir(_config_dir)
+            return _config_dir
+
+        def store_interaction(args):
+            import sys
             if args['--interactive']:
-                startup_paths.append(args['--interactive'])
+                args['startup_paths'].append(args['--interactive'])
                 sys.argv = [args['--interactive']] + args['<arg>']
 
-        import pudb
-        pudb.set_trace()
-        config_dir = create_config_directory()
+        args['config_dir'] = create_config_directory()
         python_startup = os.environ.get('PYTHONSTARTUP', False)
-        startup_paths = [python_startup] if python_startup else []
-        store_interaction(args, startup_paths)
+        args['startup_paths'] = [python_startup] if python_startup else []
+        store_interaction(args)
         return args
 
 
-    args = docopt.docopt(doc)
-    args['vi'] = not bool(args['--emacs'])
+    import docopt
+    args = docopt.docopt(__doc__)
+    args['--vi'] = not bool(args['--emacs'])
     return ptparse(args)
