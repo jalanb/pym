@@ -39,7 +39,7 @@ def re_render(path):
 
 
 def main():
-    """Run the program"""
+    """Render a python file"""
     args = parse_args()
     try:
         print re_render(args.path)

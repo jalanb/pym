@@ -1,5 +1,5 @@
 #! /usr/bin/env python2
-"""Script to edit items"""
+"""Script to edit items as a tree"""
 
 import os
 import sys
@@ -38,7 +38,7 @@ def parse_args():
 
 
 def main():
-    """Run the script"""
+    """Edit items as a tree"""
     try:
         args = parse_args()
         items = eval(' '.join(args.items))  # pylint: disable=eval-used
