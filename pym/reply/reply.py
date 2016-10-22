@@ -6,9 +6,6 @@ import os
 
 import ptpython
 from pym.reply import argv
-def main(args):
-    argv.parse(args)
-    repl.run(args)
 from pym.reply import pym_repl
 
 
@@ -24,7 +21,7 @@ def embed(globals, locals):
     ptpython.repl.embed(globals, locals)
 
 
-def run(args):
+def main(args):
 
     def add_the_current_directory_to_sys_path():
         if sys.path[0] != '':
@@ -45,11 +42,7 @@ def run(args):
 
     def run_interactive_shell():
 
-        def configure(repl):
-            """Apply config file"""
-            path = os.path.join(config_dir, 'config.py')
-            if os.path.exists(path):
-                run_config(repl, path)
+    def run(args):
 
         enable_deprecation_warnings()
         ptpython.repl.embed(vi_mode=args.get('vi', True),
