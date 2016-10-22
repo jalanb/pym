@@ -4,7 +4,6 @@
 import os
 
 
-import pudb
 import ptpython
 from pym.reply import argv
 
@@ -25,6 +24,7 @@ def embedder():
 
 def embed(globals, locals):
     ptpython.repl.PythonRepl = PymRepl
+    import pudb
     pudb.set_trace()
     ptpython.repl.embed(globals, locals)
 
@@ -35,6 +35,9 @@ def run(args):
         if sys.path[0] != '':
             sys.path.insert(0, '')
 
+        def run_args():
+            import pudb
+            pudb.set_trace()
 
     def detached_with_file():
         return args['<arg>'] and not args['--interactive']
