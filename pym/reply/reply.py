@@ -15,7 +15,7 @@ def embedder():
 
 
 def embed(globals, locals):
-    ptpython.repl.PythonRepl = PymRepl
+    ptpython.repl.PythonRepl = pym_repl.PymRepl
     import pudb
     pudb.set_trace()
     ptpython.repl.embed(globals, locals)
