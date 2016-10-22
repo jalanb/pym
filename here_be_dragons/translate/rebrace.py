@@ -85,9 +85,9 @@ def rebrace(filename):
 	lines = read_lines(filename)
 	for word in [ 'package', 'import' ]:
 		lines = [ l for l in lines if not l.startswith('%s ' % word) ]
-	for word,repl in [ ('final','const ') ]:
+	for word, replacement in [ ('final', 'const ') ]:
 		regex = re.compile(r'\b%s\b\s*' % word)
-		lines = [ regex.sub(repl,l) for l in lines ]
+		lines = [ regex.sub(replacement, l) for l in lines ]
 	for method in [ start, one, two, three ]:
 		lines = method(lines)
 	return [ l.rstrip() for l in lines if l.strip() ]
