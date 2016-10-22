@@ -10,6 +10,9 @@ class Indenter(object):
         self.indent_string = string if string else ' ' * INDENT_SIZE
         self.indentation = 0
 
+    def __str__(self):
+        return self.indent_string * self.indentation
+
     def _check(self):
         if self.indentation >= 0:
             return
@@ -26,4 +29,4 @@ class Indenter(object):
         self._check()
 
     def render(self, string):
-        return '%s%s' % (self.indent_string * self.indentation, string)
+        return '%s%s' % (self, string)
