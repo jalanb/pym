@@ -6,15 +6,10 @@ import os
 
 import ptpython
 from pym.reply import argv
-
-class PymRepl(ptpython.repl.PythonRepl):
-    def __init__(self, *a, **kw):
-        pudb.set_trace()
-        super(PymRepl, self).__init__(*a, **kw)
-
 def main(args):
     argv.parse(args)
     repl.run(args)
+from pym.reply import pym_repl
 
 
 def embedder():
