@@ -23,39 +23,55 @@ def embed(globals, locals):
 
 def main(args):
 
-    def add_the_current_directory_to_sys_path():
-        if sys.path[0] != '':
-            sys.path.insert(0, '')
+    def run(args):
+
+        def add_the_current_directory_to_sys_path():
+            import sys
+            if sys.path[0] != '':
+                sys.path.insert(0, '')
+
+
+        def disjointed_with_script():
+            """Whether we are not interactive, but have a script"""
+            return args['<arg>'] and not args['--interactive']
+
 
         def run_args():
             import pudb
             pudb.set_trace()
-
-    def detached_with_file():
-        return args['<arg>'] and not args['--interactive']
-
-
-    def run_args():
-        sys.argv = args['<arg>']
-            six.exec_(compile(open(args['<arg>'][0], "rb").read(), args['<arg>'][0], 'exec'))
-
-
-    def run_interactive_shell():
-
-    def run(args):
-
-        enable_deprecation_warnings()
-        ptpython.repl.embed(vi_mode=args.get('vi', True),
-              history_filename=os.path.join(config_dir, 'history'),
-              configure=configure,
-              startup_paths=startup_paths,
-              title='Pym REPL (pym)')
+            sys.argv = args['<arg>']
+            program = sys.argv[0]
+            six.exec_(
+                compile(
+                    open(program, "rb").read(),
+                    program,
+                    'exec'
+                )
+            )
 
 
-    add_the_current_directory_to_sys_path()
-    if detached_with_file():
-        run_args()
-    else:
-        run_interactive_shell()
+        def run_interactive_shell():
+
+            def configure(repl):
+                """Apply config file"""
+                path = os.path.join(args['config_dir'], 'config.py')
+                if os.path.exists(path):
+                    repl.run_config(repl, path)
+
+            from ptpython import repl
+            repl.enable_deprecation_warnings()
+            repl.embed(vi_mode=args.get('--vi', True),
+                  history_filename=os.path.join(args['config_dir'], 'history'),
+                  configure=configure,
+                  startup_paths=args.get('startup_paths', []),
+                  title=u'Pym REPL (pym)')
 
 
+        add_the_current_directory_to_sys_path()
+        if disjointed_with_script():
+            run_args()
+        else:
+            run_interactive_shell()
+
+    args = argv.parse(args)
+    run(args)
