@@ -48,7 +48,7 @@ def parse(args):
         args['config_dir'] = create_config_directory()
         python_startup = os.environ.get('PYTHONSTARTUP', False)
         args['startup_paths'] = [python_startup] if python_startup else []
-        store_interaction(args)
+        store_interaction()
         return args
 
 
