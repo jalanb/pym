@@ -32,12 +32,14 @@ def parse(args):
 
         import os
 
+        def make_missing_dir(path):
+            if not os.path.isdir(path):
+                os.mkdir(path)
+            return path
+
         def create_config_directory():
-            _config_dir = os.path.expanduser(args['--config-dir'] or '~/.pym/')
-            # Create config directory.
-            if not os.path.isdir(_config_dir):
-                os.mkdir(_config_dir)
-            return _config_dir
+            config_dir = os.path.expanduser(args['--config-dir'] or '~/.pym/')
+            return make_missing_dir(config_dir)
 
         def store_interaction(args):
             import sys
