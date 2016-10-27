@@ -34,6 +34,7 @@ def fred(method):
 
 
 class NameErrorHandler(object):
+    """Experimental"""
     def __enter__(self):
         return self
     def __exit__(self, exc_type, exc_val, exc_tb):
@@ -48,8 +49,9 @@ class NameErrorHandler(object):
         The exception passed in should never be reraised explicitly - instead, this method should return a false value to indicate that the method completed successfully and does not want to suppress the raised exception. This allows context management code to easily detect whether or not an __exit__() method has actually failed.
         """
 
-def try_import_on_name_error():
-    try: method()
+def try_import_on_name_error(method):
+    try:
+        method()
     except NameError as e:
         importable = ['os']
         name = name_error(e)
@@ -59,6 +61,7 @@ def try_import_on_name_error():
             method()
 
 def name_error(exception):
+    """Experimental"""
     string = str(exception)
     words = string.split(' ')
     if words[0] != 'name':
