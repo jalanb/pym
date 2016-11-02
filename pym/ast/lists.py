@@ -5,6 +5,7 @@ AS Trees are usually lists of lists
 
 Facilities to handle such lists
 """
+import sys
 
 def _items(thing):
     """The thing is either a dictionary or a list"""
@@ -78,3 +79,7 @@ def main():
     lines = file(__file__).read().splitlines()
     pudb.set_trace()
     return _search(lines, line_compare)
+
+
+if __name__ == '__main__':
+    sys.exit(main())

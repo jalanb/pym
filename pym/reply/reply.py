@@ -75,3 +75,7 @@ def main(args):
 
     args = argv.parse(args)
     run(args)
+
+
+if __name__ == '__main__':
+    sys.exit(main(sys.argv[1:]))
