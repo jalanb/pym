@@ -5,7 +5,6 @@ AS Trees are usually lists of lists
 
 Facilities to handle such lists
 """
-import sys
 
 def _items(thing):
     """The thing is either a dictionary or a list"""
@@ -14,20 +13,20 @@ def _items(thing):
     except AttributeError:
         return thing
 
-def _found(item):
+def _found(_item):
     pass
 
-def _too_low(item):
+def _too_low(_item):
     pass
 
-def _too_high(item):
+def _too_high(_item):
     pass
 
 class Uncomparable(Exception):
     pass
 
 def _search(tree,
-            compare=None,
+            compare,
             start=0,
             end=None,
             parents=None):
@@ -37,32 +36,36 @@ def _search(tree,
     while start <= end:
         mid = (start + end) / 2
         item = _items(tree)[mid]
+        parents.append(item)
         if isinstance(item, list):
-            return _search(item, 0, None, compare, parents + [tree])
+            return _search(item, compare, 0, None, parents)
         else:
             # have an item at middle
             try:
                 diff = compare(item)
-            except Exception:
+            except Exception:  # pylint: disable=broad-except
                 # Default strategy, just ignore that item
                 copy = tree[:]
-                copy.erase(item)
-                return _search(copy, compare, start, end, parents)
-                start = start + 1
+                copy.remove(item)
+                if not copy:
+                    return -1
+                return _search(copy, compare, start, end - 1, parents)
+                start = start + 1  # pylint: disable=unreachable
                 continue  # Anything after here will return
             if not diff:
                 return item, parents
-            if diff < 0:
+            if diff > 0:
                 start = mid + 1
-            elif diff > 0:
+            elif diff < 0:
                 end = mid - 1
             if start >= end:
                 raise StopIteration
-            return _search(tree, start, end, compare, parents)
+            return _search(tree, compare, start, end, parents)
 
 def attribute_comparison(attribute, value):
     def compare(item):
-        return cmp(value, getattr(item, attribute))
+        attr_value = getattr(item, attribute)
+        return cmp(value, attr_value)  # pylint: disable=undefined-variable
     return compare
 
 
@@ -73,13 +76,13 @@ def post_order_depth_first(node):
         print(node.value)
 
 
-def main():
-    import pudb
-    line_compare = attribute_comparison('line', 44)
-    lines = file(__file__).read().splitlines()
-    pudb.set_trace()
-    return _search(lines, line_compare)
+class Line(object):
+    def __init__(self, i, s):
+        self.line = i
+        self.string = s
 
+    def __str__(self):
+        return self.string
 
-if __name__ == '__main__':
-    sys.exit(main())
+    def __int__(self):
+        return self.line
