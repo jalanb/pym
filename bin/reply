@@ -1,0 +1,22 @@
+"""A REPL for pym, from ptpython"""
+
+import os
+import sys
+
+from pym.reply.ptpython import args
+from pym.reply.ptpython import repl
+
+def main():
+
+    args = args.parse(args)
+
+    repl.enable_deprecation_warnings()
+    repl.embed(
+        vi_mode=args.get('--vi', True),
+        history_filename=os.path.join(args['config_dir'], 'history'),
+        configure=configure,
+        startup_paths=args.get('startup_paths', []),
+        title=u'Pym REPL (pym)')
+
+if __name__ == '__main__':
+    sys.exit(main())
