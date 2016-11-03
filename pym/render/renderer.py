@@ -576,3 +576,26 @@ class Renderer(Visitor):
         if node.value:
             self.write(' ')
             self.dispatch(node.value)
+
+
+class FrameRenderer(Visitor):
+    """Render a tree into frames
+
+    Frames contain frames or text"""
+    def __init__(self, frame):
+        self.frame = frame
+        super(Visitor, self).__init__()
+
+    def generic_visit(self, node):
+        try:
+            self.generic_frame(node.frame, node)
+        except AttributeError:
+            self.generic_frame(self.frame, node)
+
+    def frame_block(self, values, line_number):
+        pass
+
+
+    def generic_frame(self, frame, node):
+        method = getattr(self, 'frame_%s' % node.name)
+        return method(frame_name) if method else frame
