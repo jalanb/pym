@@ -52,7 +52,87 @@ def infinity_string():
     return '1e' + repr(sys.float_info.max_10_exp + 1)
 
 
-class Renderer(Visitor):
+def and_be_damned():
+    return True
+
+class Text(object):
+    def __init__(self):
+        super(Text, self).__init__()
+        self.start.pop is not None # type assertion
+        self.strings = self.start
+
+    def __str__(self):
+        string = self.space.join(self.strings)
+
+    @property
+    def start(self):
+        return []
+
+    @property
+    def space(self):
+        return ''
+
+    def end(self, string=None):
+        if string:
+            self.strings += string
+        s = str(self)
+        self.strings = self.start
+        return s
+
+class LineWriter(object):
+    def write(self, string, publish=and_be_damned):
+        if not (publish() and string):
+            return
+        self.text += string
+
+    def quote(self, quotes, string):
+        if quotes in string:
+            raise ValueError('%r in %r' % (quotes, string))
+        self.write(quotes)
+        self.write(string)
+        self.write(quotes)
+
+
+class PageWriter(LineWriter):
+    def __init__(self):
+        super(Frame, self).__init__()
+        self.tail = Text()
+        self.lines = [self.tail]
+
+    def __str__(self):
+        if self.tail:
+            self.write_line()
+        return self.end.join(self.lines)
+
+    @property
+    def end(self):
+        return '\n'
+
+    def write(self, string, publish=and_be_damned):
+        if self.end in string:
+            self.write_lines(string)
+        else:
+            self.tail += string
+
+    def write_line(self, string='', publish=and_be_damned):
+        self.write(string, publish)
+        self.lines.append(
+            self.tail.end(self.end))
+
+    def write_lines(self, string, publish=and_be_damned):
+        _ = [self.write_line(_, publish) for _ in string.splitlines()]
+
+
+class IndentingWriter(PageWriter):
+    def __init__(self):
+        super(IndentingWriter, self).__init__()
+        self.indenter = Indenter()
+
+    def start(self, string):
+        return [str(self.indenter)]
+
+
+class Renderer(Visitor, IndentingWriter):
     """Render an AST as nodal text
 
     This class just renders text snippets
@@ -72,28 +152,6 @@ class Renderer(Visitor):
             _ = [self.visit(n) for n in node]
         else:
             return self.visit(node)
-
-    def new_line(self, string):
-        self.line = self.indenter.render(string)
-
-    def write(self, string):
-        if not self.line:
-            self.new_line(string)
-            self.line = self.indenter.render(string)
-        else:
-            self.line = '%s%s' % (self.line, string)
-
-    def write_line(self, string=''):
-        self.write(string)
-        if not self.line.isspace():
-            self.lines.append(self.line)
-        self.line = ''
-
-    def write_multiline_string(self, quotes, string):
-        self.write(quotes)
-        for line in string.splitlines():
-            self.write_line(line)
-        self.write(quotes)
 
     def visit_alias(self, node):
         self.write(node.name)
@@ -290,10 +348,10 @@ class Renderer(Visitor):
         self.write('}')
 
     def visit_DocString(self, node):
-        if '\n' in node.s:
-            self.write_multiline_string('"""', node.s)
-        else:
-            self.write('"""%s"""' % node.s)
+        try:
+            self.quote('"""', node.s)
+        except ValueError:
+            self.quote("'''", node.s)
 
     def visit_Ellipsis(self, _node):
         self.write('...')
@@ -494,7 +552,10 @@ class Renderer(Visitor):
 
     def visit_Str(self, node):
         if '\n' in node.s:
-            self.write_multiline_string("'''", node.s)
+            try:
+                self.quote("'''", node.s)
+            except ValueError:
+                self.quote('"""', node.s)
         else:
             self.write(repr(node.s))
 
