@@ -1,6 +1,8 @@
 """Debug a method"""
+import os
+import json
 
-
+import ipdb
 
 def _read_line_from_path(path):
     import linecache # Import as late as possible
@@ -49,12 +51,28 @@ def _lines_before_at_same_indentation(read, end):
     return reversed([read(i) for i in lines])
 
 def lines_in_frame(path, line):
-    pudb.set_trace()
+    ipdb.set_trace()
     from pym.edit.tree import Climber
     from pym.ast.parse import parse_path
     climber = Climber(parse_path(path))
     climber.to_line(line)
 
+
+def path_to_breakpoints():
+    return os.path.expanduser('~/.config/pym/breaks.json')
+
+
+def save_breaks(breakpoints):
+    with open(path_to_breakpoints(), 'w') as stream:
+        return json.dump(breakpoints, stream)
+
+def break_here():
+    with open(path_to_breakpoints()) as stream:
+        return json.load(stream)
+
+
+def continue_(_frame):
+    raise NotImplementedError('To do: running in Pym')
 
 def set_trace():
     from pprintpp import pprint as pp
@@ -64,12 +82,11 @@ def set_trace():
     def ppv(_):
         return pp(vars(_))
 
-    import pudb
     import inspect
-    sources = [(path, line) for _, path, line, _, _, _ inspect.stack()]
+    sources = [(path, line) for _, path, line, _, _, _ in inspect.stack()]
     path, line = sources[-1]
     read = _read_line_from_path(path)
     lines = lines_in_frame(path, line)
     text = '\n'.join(lines)
     print text
-    pudb.set_trace()
+    ipdb.set_trace()
