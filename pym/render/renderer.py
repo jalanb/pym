@@ -11,6 +11,7 @@ from ..ast.nodes import Comment, BlankLine
 
 class Punctuator(object):
     def __init__(self, renderer, punctuation):
+        super(Punctuator, self).__init__()
         self.punctuated = False
         self.renderer = renderer
         self.punctuation = punctuation
@@ -36,7 +37,7 @@ class Punctuator(object):
 
 class Commas(Punctuator):
     def __init__(self, renderer):
-        Punctuator.__init__(self, renderer, ',')
+        super(Commas, self).__init__(renderer, ',')
 
 
 def line_after(body):
@@ -67,10 +68,7 @@ class Renderer(Visitor):
     """
 
     def __init__(self):
-        Visitor.__init__(self)
-        self.indenter = Indenter()
-        self.line = ''
-        self.lines = []
+        super(Renderer, self).__init__()
         self.future_imports = []
 
     def dispatch(self, node):
