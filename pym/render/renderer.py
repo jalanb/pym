@@ -17,18 +17,14 @@ class Punctuator(object):
         self.punctuation = punctuation
 
     def dispatch(self, node):
-        self.prefix()
-        if isinstance(node, list):
-            for item in node:
-                self.renderer.dispatch(item)
-        else:
-            self.renderer.dispatch(node)
+        self._punctuate()
+        self.renderer.dispatch(node)
 
     def write(self, string):
-        self.prefix()
+        self._punctuate()
         self.renderer.write(string)
 
-    def prefix(self):
+    def _punctuate(self):
         if self.punctuated:
             self.renderer.write('%s ' % self.punctuation)
         else:
