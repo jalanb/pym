@@ -11,7 +11,7 @@
     <style> .blue {color:blue} </style>
     <style> .green {color:green} </style>
 
-pym v0.3.1 documentation
+pym v0.3.2 documentation
 ========================
 
 What is pym?
