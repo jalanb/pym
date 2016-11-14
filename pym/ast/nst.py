@@ -1,9 +1,11 @@
-""" "Normal" syntax trees"""
+'''"Normal" syntax trees'''
 
 
 
 
-import dotsite as site
+from dotsite import dictionaries
+from dotsite import paths
+
 
 
 class SyntaxTree(object):
@@ -53,12 +55,9 @@ class NormalSyntaxTree(LanguageSyntaxTree):
 
     def _normalise(self, node):
         """Convert the syntax tree into a (whatever counts as) Normal (round here) ST"""
-        tree = LazyDefaultDict
-        tree[node]
-        for node in syntax_tree:
-            key = node
-        self.TODO = True  # raise NotImplementedError
-
+        tree = dictionaries.LazyDefaultDict()
+        tree[node.name] = tuple(self._normalise(_) for _ in node.children)
+        return tree
 
 class EnglishNormalSyntaxTree(NormalSyntaxTree, EnglishSyntaxTree):
     """A Normalised English syntax tree"""
