@@ -11,31 +11,6 @@ class SyntaxTree(object):
     pass
 
 
-class DirectoryDiskTree(SyntaxTree, site.paths.DirectoryPath):
-    """Directory tree"""
-    pass
-
-
-class LanguageFile(SyntaxTree, site.paths.FilePath):
-    """File (leaf of a disk tree, root of contents)"""
-    def __init__(self, path, exts=None):
-        super(LanguageFile, self).__init__(path, exts)
-        self.choose_language(exts)
-
-
-#  pylint: disable=too-many-ancestors
-class ScriptFile(LanguageFile):
-    """Script files have text in a known language
-
-    So far we know Python, Bash, JavaScript, English
-    """
-    def _parse(self):
-        self.TODO = True  # raise NotImplementedError
-
-    def __init__(self, path, exts=None):
-        super(ScriptFile, self).__init__(self, path, exts=['.py', '.sh', '.js', '.txt'])
-
-
 class LanguageSyntaxTree(object):
     pass
 
@@ -67,7 +42,7 @@ class NormalSyntaxTree(LanguageSyntaxTree):
     @property
     def syntax_tree(self):
         try:
-            return self._syntax_tree = self._parse(self)
+            return self._syntax_tree
         except AttributeError:
             self._syntax_tree = self._parse(self)
             return self._syntax_tree
@@ -103,6 +78,20 @@ class JavaScriptNormalSyntaxTree(NormalSyntaxTree, JavaScriptSyntaxTree):
 class PythonNormalSyntaxTree(NormalSyntaxTree, PythonSyntaxTree):
     """A Normalised Python syntax tree"""
     pass
+
+
+
+
+#  pylint: disable=too-many-ancestors
+class ScriptFile(paths.FilePath):
+    """Script files have text in a known language"""
+    def __init__(self, path, exts):
+        super(ScriptFile, self).__init__(path)
+        self.exts = exts
+
+    def nst(self):
+        ast = self.parse(self.text)
+        return self.normalise(ast)
 
 
 class EnglishScript(ScriptFile, EnglishNormalSyntaxTree):
