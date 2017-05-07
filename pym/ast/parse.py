@@ -5,8 +5,7 @@ import ast
 
 
 def parse(source, path=None):
-    path = path if path else '<unknown>'
-    return ast.parse(source, path)
+    return ast.parse(source, path or '<None>')
 
 
 def parse_path(path):
