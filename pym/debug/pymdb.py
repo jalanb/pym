@@ -4,14 +4,6 @@ import json
 
 import ipdb
 
-def _read_line_from_path(path):
-    import linecache # Import as late as possible
-
-    def read(i):
-        return linecache.getline(path, i).rstrip()
-
-    return read
-
 def _lines_before_at_same_indentation(read, end):
     """This method could not work on itself
 
@@ -74,18 +66,19 @@ def break_here():
 def continue_(_frame):
     raise NotImplementedError('To do: running in Pym')
 
+
 def set_trace():
-    from pprintpp import pprint as pp
-    def ppd(_):
-        return pp(dir(_))
+    class SourceFrame(object):
+        import linecache # lazy import
+        def __init__(self, path, i):
+            self.path = path
+            self.i = i
 
-    def ppv(_):
-        return pp(vars(_))
+        def __str__(self):
+            linecache.getline(self.path, self.i).rstrip()
 
-    import inspect
     sources = [(path, line) for _, path, line, _, _, _ in inspect.stack()]
-    path, line = sources[-1]
-    read = _read_line_from_path(path)
+    read = _line_reader(path)
     lines = lines_in_frame(path, line)
     text = '\n'.join(lines)
     print text
