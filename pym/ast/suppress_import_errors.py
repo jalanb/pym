@@ -1,23 +1,14 @@
-"""
+import os
+import sys
 from contextlib import contextmanager
-
-@contextmanager
-def tag(name):
-    print("<%s>" % name)
-    yield
-    print("</%s>" % name)
-
->>> with tag("h1"):
-...    print("foo")
-    <h1>
-    foo
-    </h1>
-"""
+from importlib import import_module
 
 def make_import_name_errors(method):
-    import os
-    importable = {'os': os}
+    """Experimental"""
+
+    @contextmanager
     def import_name_errors(*args, **kwargs):
+        """Experimental"""
         try:
             method(*args, **kwargs)
         except NameError as e:
@@ -26,21 +17,26 @@ def make_import_name_errors(method):
                 return False
             if name in sys.modules:
                 return False
-            from importlib import __import__
-            module = __import__(name)
+            module = import_module(name)
             globals()[name] = module
             method(*args, **kwargs)
             if name not in importable:
                 importable[name] = module
+
+    importable = {'os': os}
     return import_name_errors
 
-with make_import_name_errors(method) as runner:
-    runner("some", args="here")
+
+def fred(method):
+    runner = make_import_name_errors(method)
+    with runner:
+        runner("some", args="here")
+
 
 class NameErrorHandler(object):
     def __enter__(self):
         return self
-    def __exit__(self,exc_type, exc_val, exc_tb):
+    def __exit__(self, exc_type, exc_val, exc_tb):
         """Exit the context, returning truthiness to suppress exception.
 
         If an exception occurred while executing the body of the with statement,
