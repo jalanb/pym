@@ -1,0 +1,15 @@
+SOURCE = LETTERS $ ;
+
+LETTER = (/[a-z]/ | /[A-Z]/ ) ;
+
+LETTERS = {LETTER} ;
+
+DIGIT = /[0-9]/ ;
+
+NUMBER = {DIGIT}+ ;
+
+UNDER = '_' ;
+
+NAMER = LETTER | DIGIT | UNDER ;
+
+WORD = {NAMER}+ ;
