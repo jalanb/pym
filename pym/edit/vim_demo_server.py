@@ -1,5 +1,8 @@
 #!/usr/bin/python
 #
+# Code copied, unmodified (except this) from https://github.com/vim/vim/blob/master/runtime/tools/demoserver.py
+# That file is under VIM LICENSE, a copy of which is stored with it
+#
 # Server that will accept connections from a Vim channel.
 # Run this server and then in Vim you can open the channel:
 #  :let handle = ch_open('localhost:8765')
