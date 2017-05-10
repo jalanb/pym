@@ -1,3 +1,8 @@
+# derived Python
+
+pym/grammars/bash.py
+
+# Compiled Python
 *.py[cod]
 
 # C extensions
