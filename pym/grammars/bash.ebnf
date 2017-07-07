@@ -1,15 +1,28 @@
-SOURCE = LETTERS $ ;
 
-LETTER = (/[a-z]/ | /[A-Z]/ ) ;
+letter = (/[a-z]/ | /[A-Z]/ ) ;
 
-LETTERS = {LETTER} ;
+letters = {letter} ;
 
-DIGIT = /[0-9]/ ;
+digit = /[0-9]/ ;
 
-NUMBER = {DIGIT}+ ;
+digits = {digit}+ ;
 
-UNDER = '_' ;
+under = '_' ;
 
-NAMER = LETTER | DIGIT | UNDER ;
+namer = letter | digit | under ;
 
-WORD = {NAMER}+ ;
+word = {namer}+ ;
+
+statement = {word}* ;
+
+function = '{word}' '(' ')' '{' '{word}+' '}' ;
+
+functions = {function}* ;
+
+module
+    =
+    | functions statement
+    | statement
+    ;
+
+source = module ;

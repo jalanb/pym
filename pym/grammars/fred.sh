@@ -1,5 +1,1 @@
-fred () {
-    ls
-}
-
-fred
+main () { fred }
