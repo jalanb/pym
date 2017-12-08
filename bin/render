@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 """Script to render a python file
 
 To itself
@@ -8,7 +9,7 @@ import sys
 import argparse
 
 
-import render
+from pym.rendering import render
 
 
 def parse_args(args=None):
@@ -21,28 +22,22 @@ def absolute_python_path(path):
     if not os.path.isfile(path):
         raise ValueError('No such path %r' % path)
     _, ext = os.path.splitext(path)
-    if ext != '.py':
+    if ext and ext != '.py':
         raise ValueError('Extension is not ".py" for %r' % path)
     return os.path.realpath(
         os.path.abspath(os.path.expanduser(os.path.expandvars(path))))
 
 
-def read_source(path):
-    with open(path) as stream:
-        return stream.read()
-
-
-def re_render(path):
+def render_path(path):
     path = absolute_python_path(path)
-    string = read_source(path)
-    return render.re_render(string)
+    return render.render_path(path)
 
 
 def main():
     """Render a python file"""
     args = parse_args()
     try:
-        print re_render(args.path)
+        print render_path(args.path)
     except ValueError as e:
         print >> sys.stderr, e
         return os.EX_USAGE

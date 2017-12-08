@@ -4,7 +4,7 @@
 from unittest import TestCase
 
 
-from pym.render import indent
+from pym.rendering import indent
 
 
 class IndentTest(TestCase):

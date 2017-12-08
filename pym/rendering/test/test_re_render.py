@@ -5,7 +5,7 @@ import os
 from unittest import TestCase
 import dotsite as site
 
-from pym.render import re_render
+from pym.rendering import re_render
 
 
 def write_extension(path, ext):

@@ -10,7 +10,7 @@ import dotsite as site
 from pym.edit.tree import TreeEditor
 from pym.edit.tree import Tundra
 from pym.edit import keyboard
-from pym.render import render
+from pym.rendering import render
 
 
 def start_debugging():
