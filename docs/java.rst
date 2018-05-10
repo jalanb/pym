@@ -11,7 +11,7 @@ Because it is commercially owned.
 Pym's License
 =============
 
-Pym's `primary license <https://github.com/jalanb/pym/blob/master/LICENSE>`_ is derived from the **JSLint License** (MIT plus the `"The Software shall be used for Good, not Evil" <https://en.wikipedia.org/wiki/JSLint#License>`_ clause)  with no `exceptions <https://en.wikipedia.org/wiki/Douglas_Crockford#.22Good.2C_not_Evil.22>`_.
+Pym's `primary license <https://github.com/jalanb/pym/blob/master/LICENSE>`_ is derived from the **JSLint License** (MIT plus the `"The Software shall be used for Good, not Evil" <https://en.wikipedia.org/wiki/JSLint#License>`_ clause)  without exceptional `permission <https://en.wikipedia.org/wiki/Douglas_Crockford#.22Good.2C_not_Evil.22>`_s.
     
 
 This is intended to `deter <http://dev.hasenj.org/post/3272592502/ibm-and-its-minions>`_ use in propietery or commercial contexts. Some parts of Pym may also be licensed under versions of the **GPL**, which has the *same intent*. Seriously, ask your boss, your company `does not want <http://www.cnet.com/news/dont-be-evil-google-spurns-no-evil-software/?_escaped_fragment_=#!>`_ you to use pym on their machines, or with their languages.
