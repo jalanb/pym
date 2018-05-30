@@ -1,15 +1,13 @@
 pym (deprecated)
 ================
 
-pym was going to help with "editing code, not text.
-
-No Java neither."
+pym was going to help with "editing code, not text. No Java neither."
 
 home
 ----
-Main repo was on [GitHub](https://github.com/jalanb/pym), but the good stuff is on [ReadTheDocs](https://pym.readthedocs.io). (Wonder if there's a blog in it?)
+The main repo was on [GitHub](https://github.com/jalanb/pym), but the good stuff is on [ReadTheDocs](https://pym.readthedocs.io).
 
-So, like the man said, "bye for now, and thanks for all the fish"
+So, like the man said, "bye [for now](https://github.com/jalanb/pai/blob/master/README.md), and thanks for all the fish"
 
 Documentation
 =============
