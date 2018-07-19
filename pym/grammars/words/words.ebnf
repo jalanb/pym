@@ -1,0 +1,17 @@
+letter
+    =
+    /a-zA-Z/
+    ;
+
+
+word
+    =
+    letter | word letter
+    ;
+
+
+words
+    =
+    word | word ' '
+    ;
+

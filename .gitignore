@@ -1,6 +1,6 @@
 # derived Python
 
-pym/grammars/bash.py
+pym/grammars/*/*.py
 
 # Compiled Python
 *.py[cod]
