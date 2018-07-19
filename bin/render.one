@@ -1,4 +1,3 @@
-#! /usr/bin/env python
 """Script to render a python file
 
 To itself
@@ -7,6 +6,7 @@ To itself
 import os
 import sys
 import argparse
+from pathlib import Path
 
 
 from pym.rendering import render
@@ -33,7 +33,7 @@ def read_source(path):
         return stream.read()
 
 
-def re_render(path):
+def render(path):
     return render.render(string, Path(path).absolute())
 
 
@@ -41,7 +41,7 @@ def main():
     """Render a python file"""
     args = parse_args()
     try:
-        print render_path(args.path)
+        print(render(args.path))
     except ValueError as e:
         print >> sys.stderr, e
         return os.EX_USAGE
