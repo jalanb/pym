@@ -5,8 +5,7 @@ from .renderer import Renderer
 from ..ast.parse import parse
 from ..ast.transform.commenter import add_comments
 from ..ast.transform.reliner import adjust_lines
-from ..ast.transform.docstringer import recast_docstrings
-
+from ..ast.transform.docsourceer import recast_docstrings
 
 def render(node):
     if not node:
@@ -16,12 +15,12 @@ def render(node):
     return '\n'.join(remove_empty_tail(renderer.lines))
 
 
-def re_render(string, path=None):
-    tree = parse(string, path)
-    recast_docstrings(tree)
-    add_comments(tree, string)
+def re_render(source, path=None):
+    tree = parse(source, path)
+    recast_docsources(tree)
+    add_comments(tree, source)
     adjust_lines(tree)
     text = render(tree)
-    if string and text and string[-1] == '\n' and text[-1] != '\n':
+    if source and text and string[-1] == '\n' and text[-1] != '\n':
         return '%s\n' % text
     return text
