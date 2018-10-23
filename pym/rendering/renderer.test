@@ -1,0 +1,7 @@
+The renderer module
+===================
+
+    >>> from pym.rendering import renderer
+    >>> actual = (renderer.__doc__ or 'None').splitlines()[0]
+    >>> expected = 'Render ASTs to text'
+    >>> assert actual == expected

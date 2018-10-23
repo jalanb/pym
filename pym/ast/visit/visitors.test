@@ -1,0 +1,6 @@
+The visitors module
+===================
+
+    >>> from pym.ast.visit import visitors
+    >>> print(visitors.__doc__.splitlines()[0])
+    Visiting nodes of ASTs

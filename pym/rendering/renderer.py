@@ -1,4 +1,6 @@
-from ..ast.visit.visitors import Visitor
+"""Render ASTs to text"""
+
+from pym.ast.visit.visitors import PymVisitor
 
 
 import ast
@@ -6,7 +8,7 @@ import sys
 
 
 from indent import Indenter
-from ..ast.nodes import Comment, BlankLine
+from pym.ast.nodes import Comment, BlankLine
 
 
 class Punctuator(object):
@@ -132,7 +134,7 @@ class IndentingWriter(PageWriter):
         return [str(self.indenter)]
 
 
-class Renderer(Visitor, IndentingWriter):
+class Renderer(PymVisitor, IndentingWriter):
     """Render an AST as nodal text
 
     This class just renders text snippets
@@ -635,13 +637,13 @@ class Renderer(Visitor, IndentingWriter):
             self.dispatch(node.value)
 
 
-class FrameRenderer(Visitor):
+class FrameRenderer(PymVisitor):
     """Render a tree into frames
 
     Frames contain frames or text"""
     def __init__(self, frame):
         self.frame = frame
-        super(Visitor, self).__init__()
+        super(PymVisitor, self).__init__()
 
     def generic_visit(self, node):
         try:

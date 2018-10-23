@@ -5,15 +5,16 @@ import ast
 import linecache
 
 
-class Visitor(ast.NodeVisitor):
+class PymVisitor(ast.NodeVisitor):
+    """ABC for all pym's Vistors"""
     def __init__(self):
-        super(Visitor, self).__init__()
+        super(PymVisitor, self).__init__()
 
     def generic_visit(self, node):
         raise NotImplementedError('Cannot visit %s' % node.__class__.__name__)
 
 
-class Sourcer(Visitor):
+class Sourcer(PymVisitor):
     def __init__(self):
         super(Sourcer, self).__init__()
 
