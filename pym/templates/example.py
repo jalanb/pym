@@ -1,3 +1,29 @@
+from visitors import default_visitors_map
+
+
+
+class Example(object):
+    all_examples = [] #class attr
+    def __init__(self, name, content,
+                 visitor_map=default_visitors_map.copy(),
+                 input_encoding='utf-8'):
+        self.name = name
+        self.content = content
+        self.visitor_map = visitor_map
+        self.input_encoding = input_encoding
+        Example.all_examples.append(self)
+
+    def show(self):
+        print '-'*80
+        print '## Output from example:', self.name
+        print
+        output = Serializer(
+            self.visitor_map,
+            self.input_encoding).serialize(self.content)
+        print output.encode(get_default_encoding())
+
+
+
 Example(
     'Standard python types, no html',
     [1, 2, 3

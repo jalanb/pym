@@ -2,4 +2,4 @@ The example module
 ==================
 
     >>> import example
-    >>> print example.__doc__
+    >>> not example.__doc__

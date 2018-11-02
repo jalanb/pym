@@ -2,4 +2,4 @@ The money module
 ================
 
     >>> import money
-    >>> print money.__doc__
+    >>> not money.__doc__

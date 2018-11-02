@@ -2,4 +2,4 @@ The visitor module
 ==================
 
     >>> import visitor
->>> print visitor.__doc__
+    >>> not  visitor.__doc__
