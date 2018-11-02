@@ -5,7 +5,7 @@ import re
 import sys
 import token
 from fnmatch import fnmatch
-from cStringIO import StringIO
+from six import StringIO
 from collections import Counter
 from tokenize import generate_tokens
 from keyword import iskeyword

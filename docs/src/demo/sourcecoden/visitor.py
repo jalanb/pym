@@ -1,6 +1,6 @@
 import sys
 from compiler import ast
-from cStringIO import StringIO
+from six import StringIO
 version = sys.version_info[:3]
 def triple_quote(doc):
         return ('"""%s"""' % doc.replace('"""', '"""'))

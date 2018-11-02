@@ -1,0 +1,5 @@
+The money module
+================
+
+    >>> import money
+    >>> print money.__doc__

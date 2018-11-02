@@ -1,6 +1,6 @@
 import unittest
 from test import test_support
-import cStringIO
+from six import StringIO
 import sys
 import os
 import tokenize
@@ -81,7 +81,7 @@ class ASTTestCase(unittest.TestCase):
 
     def check_roundtrip(self, code1, filename="internal"):
         ast1 = compile(code1, filename, "exec", ast.PyCF_ONLY_AST)
-        unparse_buffer = cStringIO.StringIO()
+        unparse_buffer = StringIO()
         unparse.Unparser(ast1, unparse_buffer)
         code2 = unparse_buffer.getvalue()
         ast2 = compile(code2, filename, "exec", ast.PyCF_ONLY_AST)

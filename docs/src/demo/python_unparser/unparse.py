@@ -1,7 +1,7 @@
 "Usage: unparse.py <path to source file>"
 import sys
 import ast
-import cStringIO
+from six import StringIO
 import os
 
 # Large float and imaginary literals get turned into infinities in the AST.
@@ -585,7 +585,7 @@ def testdir(a):
         for n in names:
             fullname = os.path.join(a, n)
             if os.path.isfile(fullname):
-                output = cStringIO.StringIO()
+                output = StringIO()
                 print 'Testing %s' % fullname
                 try:
                     roundtrip(fullname, output)

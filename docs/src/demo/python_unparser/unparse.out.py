@@ -2,7 +2,7 @@
 'Usage: unparse.py <path to source file>'
 import sys
 import ast
-import cStringIO
+from six import StringIO
 import os
 INFSTR = ('1e' + repr((sys.float_info.max_10_exp + 1)))
 
@@ -553,7 +553,7 @@ def testdir(a):
         for n in names:
             fullname = os.path.join(a, n)
             if os.path.isfile(fullname):
-                output = cStringIO.StringIO()
+                output = StringIO()
                 print ('Testing %s' % fullname)
                 try:
                     roundtrip(fullname, output)

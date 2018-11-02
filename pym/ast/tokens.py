@@ -1,7 +1,7 @@
 """Find Python tokens in sources"""
 
 
-from cStringIO import StringIO
+from six import StringIO
 import tokenize
 
 

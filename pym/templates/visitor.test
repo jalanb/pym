@@ -1,0 +1,5 @@
+The visitor module
+==================
+
+    >>> import visitor
+>>> print visitor.__doc__
