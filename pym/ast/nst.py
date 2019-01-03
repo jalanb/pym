@@ -13,8 +13,8 @@ class SyntaxTree(object):
     pass
 
 
-class LanguageSyntaxTree(object):
-    pass
+class LanguageSyntaxTree(SyntaxTree):
+    """A syntax tree parsed, via a language, from text"""
 
 
 class EnglishSyntaxTree(LanguageSyntaxTree):

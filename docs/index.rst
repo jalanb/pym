@@ -17,29 +17,31 @@ pym v0.3.3 documentation
 What is pym?
 ------------
 
-pym helps with editing code, not text (:ref:`java_rst`).
+`pym` helps with editing code, not text (:ref:`java_rst`).
 
-pym knows what code is, from a programmer's POV: controlled flow of data through controlled manipulations.
+`pym` knows what code is, from a programmer's point of view: controlled flow of structured data through semantically connected algorithms. 
 
 Code is expressed in a language, such as `Python <https://github.com/jalanb/pym/blob/master/pym/ast/parse.py#L9>`_ or `Bash <https://github.com/jalanb/parsher/blob/master/parsher/__init__.py#L32>`_, `etc <https://pypi.python.org/pypi/grako/3.6.6#abstract-syntax-trees-asts>`_.
 
-Code is parsed to an `NST <https://github.com/jalanb/pym/blob/master/pym/ast/nst.py#L88>`_, which is annotated with interesting properties of the code.
+Code is parsed to an `Abstract Syntax <https://github.com/jalanb/pym/blob/master/pym/ast/nst.py#L88>`_, filtering out as many language specific details as possible. `pym`
 
-An NST is a "Normal Syntax Tree", which links known names to known Syntax Trees. A "Syntax Tree" is provided by a (language-specific) parser, and can catch any runtime problems, providing source for each stack frame.
+which can be annotated with interesting properties and connections.
 
-pym was inspired by vim but it handles structured (not plain) text. At present pym is entirely vapourware, and consists of some ideas based around mindful manipulation of `Abstract Syntax Trees <http://en.wikipedia.org/wiki/Abstract_syntax_tree>`_, such as those provided by the `ast module <http://docs.python.org/2/library/ast.html?highlight=ast>`_ and `grako <https://pypi.python.org/pypi/grako/3.6.6#abstract-syntax-trees-asts>`_ . It would help  if the parser could handle `bash script <https://github.com/jalanb/parsher/blob/master/parsher/__init__.py#L9>`_ too.
+Such a connected  NST ("Normal Syntax Tree") links known names to known Syntax Trees. , and can catch any runtime problems, providing source for each stack frame.
+
+`pym` was inspired by vim but it handles structured (not plain) text. At present `pym` is entirely vapourware, and consists of some ideas based around mindful manipulation of `Abstract Syntax Trees <http://en.wikipedia.org/wiki/Abstract_syntax_tree>`_, such as those provided by the `ast module <http://docs.python.org/2/library/ast.html?highlight=ast>`_ and `grako <https://pypi.python.org/pypi/grako/3.6.6#abstract-syntax-trees-asts>`_ . It would help  if the parser could handle `bash script <https://github.com/jalanb/parsher/blob/master/parsher/__init__.py#L9>`_ too.
 
 Parsing
 ^^^^^^^
 
 :ref:`parsing_page` should be more boring, but remains interesting, at least as a means of transforming plain to structured text. `Rendering <https://github.com/jalanb/pym/tree/master/pym/render>`_ is ! parsing.
 
-pym treats parsing and rendering as separate operations, but ideally they should be a single, reversible process. They will provide a "back end" to pym, connecting stored text, which is plain, to structured text which `can be editted <https://github.com/jalanb/pym/blob/master/pym/edit/main.py#L41>`_.
+`pym` treats parsing and rendering as separate operations, but ideally they should be a single, reversible process. They will provide a "back end" to `pym`, connecting stored text, which is plain, to structured text which `can be editted <https://github.com/jalanb/pym/blob/master/pym/edit/main.py#L41>`_.
 
 Editing
 ^^^^^^^
 
-`Editting <https://github.com/jalanb/pym/blob/master/pym/edit/main.py#L41>`_ is the heart of pym, a means of transforming ideas into structured text.
+`Editting <https://github.com/jalanb/pym/blob/master/pym/edit/main.py#L41>`_ is the heart of `pym`, a means of transforming ideas into structured text.
 
 An editor is an interface between a person and structured text. The person has a keyboard and sees a window, tapping `keys <https://github.com/jalanb/pym/blob/master/pym/edit/keyboard.py#L35>`_ `changes <https://github.com/jalanb/pym/blob/master/pym/edit/main.py#L54>`_ the window. The person first needs to learn `which keys lead <https://github.com/jalanb/pym/blob/master/pym/edit/keyboard.py#L35>`_ to which `changes <https://github.com/jalanb/pym/blob/master/pym/edit/tree.py#L104>`_ on screen. As soon as changes are made the screen shows diff from original.
 
@@ -68,16 +70,16 @@ Anyway, structured text is ever a snapshot from a flow of your ideas to the code
 
 An editor should appear in a `debugger <https://docs.python.org/3/library/pdb.html>`_: accepting `changes <>`_ from the coder and passing them on to an `evaluator<  >`_, and incidentally to a `disk <http://www.pygit2.org/>`_. An editor is rarely an end in itself, and should not get in the way of the larger cycle. Hence an editor should be quick, and more efficient of the coder's time than other factors.
 
-pym should look for the flow of ideas in the iterations of the REPL, noting steps such as when tests start to pass, and so development moves on.
+`pym` should look for the flow of ideas in the iterations of the REPL, noting steps such as when tests start to pass, and so development moves on.
 
-pym should be editable by itself. This is a **high priority** - I do not have a lot of time for coding personal projects such as pym, the sooner it is "good enough" to be usable daily for editing other programs, but *quickly* fixable, then the more development it will actually get. (Such has been my experience with `my dot files <https://github.com/jalanb/dotjab/blob/master/functons>`_, in particular since I added `a function to edit functions <https://github.com/jalanb/what/blob/650677f8d0e80bc9aa9552cb5f87c42d34801b30/what.sh#L55>`_).
+`pym` should be editable by itself. This is a **high priority** - I do not have a lot of time for coding personal projects such as `pym`, the sooner it is "good enough" to be usable daily for editing other programs, but *quickly* fixable, then the more development it will actually get. (Such has been my experience with `my dot files <https://github.com/jalanb/dotjab/blob/master/functons>`_, in particular since I added `a function to edit functions <https://github.com/jalanb/what/blob/650677f8d0e80bc9aa9552cb5f87c42d34801b30/what.sh#L55>`_).
 
 Modality
 ^^^^^^^^
 
-pym is inherently a modal editor, and one is not directly editing plain text. Some parts of the program will look more like plain text than others, e.g. names. But each structure in the tree uses its own specialised sub-editor, e.g. there is a different editor for an else branch than for a function definition than for a function. pym should transition between such editors unnoticeably to the user, not needing any "start loop here" instructions, although they could be explicitly given.
+`pym` is inherently a modal editor, and one is not directly editing plain text. Some parts of the program will look more like plain text than others, e.g. names. But each structure in the tree uses its own specialised sub-editor, e.g. there is a different editor for an else branch than for a function definition than for a function. `pym` should transition between such editors unnoticeably to the user, not needing any "start loop here" instructions, although they could be explicitly given.
 
-Command/insert mode might toggle on the CAPS LOCK key. pym is UI agnostic, capable of presentation between pipes, on a console, GUI, web page, or directly from Python. Development shall concentrate on Python first, console second, with others trailing. Full use should be made of available visual cues, such as colour, position, movement, ...
+Command/insert mode might toggle on the CAPS LOCK key. `pym` is UI agnostic, capable of presentation between pipes, on a console, GUI, web page, or directly from Python. Development shall concentrate on Python first, console second, with others trailing. Full use should be made of available visual cues, such as colour, position, movement, ...
 
 The user should be presented with program objects (e.g. projects, methods, operators) first and incidentals (e.g. files) second, if at all.
 
