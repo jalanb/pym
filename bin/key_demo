@@ -13,14 +13,6 @@ from pym.edit import keyboard
 from pym.rendering import render
 
 
-def start_debugging():
-    try:
-        import pudb as pdb
-    except ImportError:
-        import pdb
-    pdb.set_trace()
-
-
 def parse_args():
     """Parse out command line arguments"""
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
@@ -29,11 +21,7 @@ def parse_args():
     pa('-c', '--command', action='store', default=list(), type=str,
        help='act like vim for a string of hjkl commands',)
     pa('-q', '--quiet', action='store_true', help='Show less output')
-    pa('-U', '--Use_debugger', action='store_true',
-       help='Run the script with pdb (or pudb if available)')
     args = parser.parse_args()
-    if args.Use_debugger:
-        start_debugging()
     return args
 
 
