@@ -1,28 +1,29 @@
+source = module ;
+
+module
+    =
+    | functions {statement}*
+    | statement
+    ;
+
+statement = {word}+ ;
+
+statements = {statement}* ;
+
+function = '{word}' '(' ')' '{' '{word}+' '}' ;
+
+functions = {function}+ ;
+
+word = {namer}+ ;
+
+namer = letter | digit | under ;
 
 letter = (/[a-z]/ | /[A-Z]/ ) ;
 
-letters = {letter} ;
+letters = {letter}+ ;
 
 digit = /[0-9]/ ;
 
 digits = {digit}+ ;
 
 under = '_' ;
-
-namer = letter | digit | under ;
-
-word = {namer}+ ;
-
-statement = {word}* ;
-
-function = '{word}' '(' ')' '{' '{word}+' '}' ;
-
-functions = {function}* ;
-
-module
-    =
-    | functions statement
-    | statement
-    ;
-
-source = module ;
