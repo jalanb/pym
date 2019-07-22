@@ -3,8 +3,8 @@
 
 
 
-from dotsite import dictionaries
-from dotsite import paths
+from pysyte.types import dictionaries
+from pysyte.types import paths
 
 
 

@@ -1,10 +1,12 @@
 language: python
 python:
 - '2.7'
-install: "pip install -r requirements.txt --use-mirrors"
+install: pip install -r requirements.txt --use-mirrors
 script: nosetests
 notifications:
   email: false
+  slack:
+    secure: JpfEIn9AWu+8vpJMPrlVMAXOUr7jPt/B+xuwZ7FjnaeXdAeNYH1I/2pQQAtLVzAzk1ntnK0geIofqNWOyqtsaj6IJNWJQkDdoOXjxu55FAAX2B5bO2L8pgSPWPcxY2VNQwwIIpMRNKPdn3A/0Wg3LIYnUZTptSj7s6jqLzfjJUQ=
 deploy:
   provider: pypi
   user: jalanb
