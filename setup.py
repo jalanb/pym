@@ -29,10 +29,10 @@ setup(
         'Topic :: Text Editors :: Text Processing',
         'Topic :: Software Development :: Code Generators',
     ],
-    test_suite='nose.collector',
-    install_requires=['dotsite'],
-    tests_require=['nose', 'dotsite'],
+    test_suite='pytest.collector',
+    install_requires=['pysyte'],
+    tests_require=['pytest', 'pysyte'],
     extras_require={
-        'testing': ['nose'],
+        'testing': ['pytest'],
     }
 )
