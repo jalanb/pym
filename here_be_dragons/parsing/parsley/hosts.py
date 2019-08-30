@@ -21,23 +21,23 @@ def read_hosts_grammar():
     return chimichurri.read_grammar('hosts.parsley')
 
 
-def parse_text(text):
+def parse_hosts(text):
     """Parse the given text as a hosts file"""
     parser_maker = read_hosts_grammar()
     grammar_wrapper = parser_maker(text)
     return grammar_wrapper.hosts()
 
 
-def parse_path(path_to_hosts):
+def parse_hosts_at(path_to_hosts):
     """Parse the hosts file at the given path"""
     require_file(path_to_hosts)
     text = file(path_to_hosts).read()
-    return parse_text(text)
+    return parse_hosts(text)
 
 
 def show_parsed_hosts(path_to_hosts):
     """Parse a hosts file and show the result"""
-    parsed = parse_path(path_to_hosts)
+    parsed = parse_hosts_at(path_to_hosts)
     pprint(parsed)
 
 
