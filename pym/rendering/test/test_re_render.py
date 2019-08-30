@@ -3,7 +3,7 @@
 
 import os
 from unittest import TestCase
-import dotsite as site
+import pysyte
 
 from pym.rendering import re_render
 
@@ -23,7 +23,7 @@ class ReRenderTest(TestCase):
         self.assertEqual(args.path, expected)
 
     def test_no_args(self):
-        with site.streams.swallow_stderr():
+        with pysyte.streams.swallow_stderr():
             self.assertRaises(SystemExit, re_render.parse_args, [])
 
     def test_absolute_python_path(self):
