@@ -1,5 +1,6 @@
 # derived Python
 
+pym/grammars/*.py
 pym/grammars/*/*.py
 
 # Compiled Python
