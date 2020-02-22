@@ -1,7 +1,8 @@
 #!/usr/bin/python
 #
-# Code copied, unmodified (except this) from https://github.com/vim/vim/blob/master/runtime/tools/demoserver.py
-# That file is under VIM LICENSE, a copy of which is stored with it
+# Copied, unmodified (except this) from
+#     https://github.com/vim/vim/blob/master/runtime/tools/demoserver.py
+# That file is under VIM LICENSE, a copy of which is also stored here
 #
 # Server that will accept connections from a Vim channel.
 # Run this server and then in Vim you can open the channel:
@@ -39,7 +40,7 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
 
     def handle(self):
         print("=== socket opened ===")
-        global thesocket  # pylint: disable=global-statement
+        global thesocket
         thesocket = self.request
         while True:
             try:
@@ -47,7 +48,7 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
             except socket.error:
                 print("=== socket error ===")
                 break
-            except IOError:  # pylint: disable=duplicate-except
+            except IOError:
                 print("=== socket closed ===")
                 break
             if data == '':
@@ -104,3 +105,4 @@ if __name__ == "__main__":
 
     server.shutdown()
     server.server_close()
+

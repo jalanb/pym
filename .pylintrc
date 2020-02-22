@@ -1,0 +1,5 @@
+[MESSAGES CONTROL]
+
+disable=W0603,W0705
+# :global-statement (W0603): *Using the global statement*
+# :duplicate-except (W0705): *Catching previously caught exception type %s*
