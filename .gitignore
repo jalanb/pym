@@ -49,3 +49,4 @@ todo.txt
 *.fail
 *.out.py
 tags
+.venv/

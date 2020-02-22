@@ -19,7 +19,7 @@ I take it as a given that all changes to text should be considered temporary, be
 Most editors ignore this, because they handle text directly, and the user only indirectly. And so the reasons behind a change are invisible, and text becomes brittle because tomorrow I become wary of losing the original reason for today's change. Consider a simple `change from yesterday <https://github.com/jalanb/dotjab/commit/a60447db525a7fb9995fdd6f979a033e44460c85>`_::
 
     colour = priority_colour(item.priority)
-    print colours.colour_text(item.text, colour)
+    print colours.colour_text(colour, item.text)
 
 If I want to change that code, say by removing the variable colour, I need to know firstly whether that variable is used later on in the code (or even: somewhere else in this file, this project, my code, someone else's code). The text in front of me is no help, but `the commit comment <https://github.com/jalanb/dotjab/commit/a60447db525a7fb9995fdd6f979a033e44460c85>`_ is.
 
