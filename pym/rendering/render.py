@@ -9,14 +9,35 @@ from .renderer import Renderer
 from ..ast.parse import parse
 from ..ast.transform.commenter import add_comments
 from ..ast.transform.reliner import adjust_lines
-from ..ast.transform.docsourceer import recast_docstrings
+from ..ast.transform.docstringer import recast_docstrings
+
 
 class UnParsable(ValueError):
     pass
 
 
+def re_render(source, path=None):
+    if not source:
+        return ''
+    tree = parse(source, path)
+    if not tree:
+        return ''
+    recast_docstrings(tree)
+    add_comments(tree, source)
+    adjust_lines(tree)
+    text = render(tree).rstrip()
+    if not text:
+        return ''
+    return f'{text}\n'
+
+
 @singledispatch
-def render(string: str):
+def render(none: type(None)):
+    return None
+
+
+@render.register
+def _(string: str):
     node = parse(string) or parse('', string)
     if not node:
         raise UnParsable(string)
@@ -40,12 +61,7 @@ def _(path: Path):
     return render(node)
 
 
-def re_render(source, path=None):
-    tree = parse(source, path)
-    recast_docsources(tree)
-    add_comments(tree, source)
-    adjust_lines(tree)
-    text = render(tree)
-    if source and text and string[-1] == '\n' and text[-1] != '\n':
-        return '%s\n' % text
-    return text
+@render.register
+def _(method: type(re_render)):
+    node = parse(method)
+    return render(node)

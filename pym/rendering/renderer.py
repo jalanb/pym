@@ -7,7 +7,7 @@ import ast
 import sys
 
 
-from indent import Indenter
+from pym.rendering.indent import Indenter
 from pym.ast.nodes import Comment, BlankLine
 
 
@@ -398,9 +398,8 @@ class Renderer(PymVisitor, IndentingWriter):
 
     def visit_FunctionDef(self, node):
         self.visit_decorators(node)
-        self.write('def %s(' % node.name)
-        self.dispatch(node.args)
-        self.write(')')
+        node_args = self.dispatch(node.args)
+        self.write(f'def {node.name}({node_args})')
         self.visit_block(node.body, node.lineno)
 
     def visit_GeneratorExp(self, node):

@@ -2,6 +2,21 @@ The renderer module
 ===================
 
     >>> from pym.rendering import renderer
-    >>> actual = (renderer.__doc__ or 'None').splitlines()[0]
-    >>> expected = 'Render ASTs to text'
-    >>> assert actual == expected
+    >>> assert 'Render ASTs to text' in renderer.__doc__
+
+Supoort imports
+---------------
+
+    >>> from pym.ast.parse import parse
+    >>> from pym.rendering import render
+
+Get code
+--------
+
+    >>> source = render.render(renderer.and_be_damned)
+    >>> assert source
+    >>> assert isinstance(source, str)
+
+    >>> astree = parse(renderer.and_be_damned)
+    >>> try: assert render.render(astree)
+    ... except NameError: pass

@@ -33,10 +33,6 @@ def read_source(path):
         return stream.read()
 
 
-def re_render(path):
-    return render.render(string, Path(path).absolute())
-
-
 def main():
     """Render a python file"""
     args = parse_args()
