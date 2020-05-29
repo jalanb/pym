@@ -2,14 +2,50 @@
 
 import os
 import ast
+from functools import singledispatch
+
+from pysyte.types.paths import FilePath
+from pysyte.types.paths import makepath
 
 
-def parse(source, path=None):
-    if not source and os.path.isfile(path):
-        return parse_path(path)
-    return ast.parse(source, path or '<None>')
+def parse_path(source, path):
+    return ast.parse(
+        source if source else '',
+        path if path else '<None>'
+    )
 
 
-def parse_path(path):
-    with open(path) as stream:
-        return parse(stream.read(), path)
+@singledispatch
+def parse(arg):
+    return parse_path(arg, None)
+
+
+@parse.register(type(None))
+def _(arg):
+    return parse_path(None, None)
+
+
+@parse.register(str)
+def _(arg):
+    try:
+        return parse(FilePath(arg))
+    except (FileNotFoundError, IOError):
+        return parse_path(arg, None)
+
+
+@parse.register(type(parse_path))
+def _(arg):
+    line_number = arg.__code__.co_firstlineno
+    p = makepath(arg)
+    assert p
+    astree = parse(p)
+
+
+@parse.register(type(os))
+def _(arg):
+    return parse(makepath(arg))
+
+
+@parse.register(FilePath)
+def _(arg):
+    return parse_path(arg.text(), arg)
