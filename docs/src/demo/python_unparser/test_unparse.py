@@ -5,7 +5,8 @@ import sys
 import os
 import tokenize
 import ast
-import unparse
+
+from . import unparse
 
 def read_pyfile(filename):
     """Read and return the contents of a Python source file (as a
