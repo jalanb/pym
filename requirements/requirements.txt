@@ -1,2 +1,2 @@
 pprintpp
-pysyte
+pysyte>=0.7.41

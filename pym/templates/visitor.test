@@ -1,5 +1,0 @@
-The visitor module
-==================
-
-    >>> import visitor
-    >>> not  visitor.__doc__
