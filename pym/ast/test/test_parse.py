@@ -17,7 +17,7 @@ class TestParse(TestCase):
         path = '%s.py' % stem
         with open(path) as stream:
             source = stream.read()
-            parsed = parse.parse(source, path)
+            parsed = parse.parse_path(source, path)
             self.assertTrue(isinstance(parsed, ast.AST))
 
     def test_parse_string(self):

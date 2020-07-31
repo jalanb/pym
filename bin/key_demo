@@ -28,6 +28,7 @@ def parse_args():
 def main():
     """Edit items as a tree"""
     try:
+        breakpoint()
         args = parse_args()
         items = eval(' '.join(args.items))  # pylint: disable=eval-used
         edit3 = TreeEditor(items)
