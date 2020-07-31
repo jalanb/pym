@@ -16,7 +16,7 @@ def parse_path(source: str, path: str):
 @singledispatch
 def parse(arg):
     """In the face of ambiguity, refuse the temptation to guess."""
-    breakpoint()
+    # breakpoint()
     raise NotImplementedError
 
 
