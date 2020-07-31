@@ -25,10 +25,10 @@ def re_render(source, path=None):
     recast_docstrings(tree)
     add_comments(tree, source)
     adjust_lines(tree)
-    text = render(tree).rstrip()
+    text = render(tree)
     if not text:
         return ''
-    return f'{text}\n'
+    return f'{text.rstrip()}\n'
 
 
 @singledispatch
