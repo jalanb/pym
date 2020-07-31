@@ -9,6 +9,7 @@ from pym.reply.ptpython import repl
 def main():
 
     args = args.parse(args)
+    breakpoint()
 
     repl.enable_deprecation_warnings()
     repl.embed(

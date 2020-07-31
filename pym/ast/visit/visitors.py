@@ -4,6 +4,7 @@
 import ast
 import types
 import linecache
+from dataclasses import dataclass
 from decimal import Decimal
 
 
@@ -16,6 +17,31 @@ class PymVisitor(ast.NodeVisitor):
         raise NotImplementedError('Cannot visit %s' % node.__class__.__name__)
 
 
+@dataclass
+class DataGrepperSought(PymVisitor):
+    type_: str
+    regexp_: str
+
+class GrepperSought(DataGrepperSought):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.regexp = re.compile(self.regexp_)
+
+    @property
+    def type(self):
+        return self.type_
+
+    @property
+    def re(self):
+        return self.regexp
+
+@dataclass
+class DataGrepper(PymVisitor):
+    root: str
+    sought: GrepperSought
+
+class Grepper(DataGrepper):
+    def grep(self,
 class Sourcer(PymVisitor):
     def __init__(self):
         super(Sourcer, self).__init__()

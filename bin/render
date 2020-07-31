@@ -10,6 +10,7 @@ import argparse
 
 
 from pym.rendering import render
+from pysyte.cli.main import run
 
 
 def parse_args(args=None):
@@ -28,21 +29,17 @@ def absolute_python_path(path):
         os.path.abspath(os.path.expanduser(os.path.expandvars(path))))
 
 
-def read_source(path):
+def render_path(path):
     with open(path) as stream:
-        return stream.read()
+        source = stream.read()
 
 
 def main():
     """Render a python file"""
     args = parse_args()
-    try:
-        print(render_path(args.path))
-    except ValueError as e:
-        print(str(e), file=sys.stderr)
-        return os.EX_USAGE
-    return os.EX_OK
+    breakpoint()
+    print(render_path(args.path))
+    return True
 
 
-if __name__ == '__main__':
-    sys.exit(main())
+run(main)

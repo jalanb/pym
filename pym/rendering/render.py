@@ -38,7 +38,7 @@ def render(none: type(None)):
 
 @render.register
 def _(string: str):
-    node = parse(string) or parse('', string)
+    node = parse(string)
     if not node:
         raise UnParsable(string)
     return render(node)

@@ -41,6 +41,7 @@ def main():
     """Render a python file"""
     args = parse_args()
     try:
+        breakpoint()
         print(render(args.path))
     except ValueError as e:
         print >> sys.stderr, e

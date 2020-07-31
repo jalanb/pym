@@ -1,3 +1,7 @@
 -r requirements.txt
 
+codecov
+coverage
 pytest
+pytest-cov
+tox

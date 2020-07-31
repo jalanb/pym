@@ -2,6 +2,8 @@
 
 import re
 
+from pysyte.types.lists import as_list
+
 
 class Tundra(StopIteration):
     """A Tundra is a "treeless mountain tract"
@@ -11,23 +13,6 @@ class Tundra(StopIteration):
     No place for a Climber to be.
     """
     pass
-
-
-def as_list(item):
-    """Make item a list from types which can index, have items, or can pop"""
-    # pylint: disable=pointless-statement
-    try:
-        item.index
-        return item
-    except AttributeError:
-        try:
-            return item.items()
-        except AttributeError:
-            try:
-                item.pop
-                return list(item)
-            except AttributeError:
-                raise Tundra
 
 
 class Brancher(object):

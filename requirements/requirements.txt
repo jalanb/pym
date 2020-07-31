@@ -1,2 +1,3 @@
 pprintpp
 pysyte>=0.7.41
+tatsu
