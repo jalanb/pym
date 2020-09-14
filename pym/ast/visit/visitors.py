@@ -10,7 +10,6 @@ from decimal import Decimal
 
 class PymVisitor(ast.NodeVisitor):
     """ABC for all pym's Vistors"""
-
     def generic_visit(self, node):
         self.node = node
         for field, value in ast.iter_fields(node):
@@ -42,8 +41,6 @@ class Sourcer(PymVisitor):
 
     def generic_visit(self, node):
         self.line_number = node.lineno
-        breakpoint()
-        filename, line_number = node.file, node.lineno
         self.line = linecache.getline(filename, line_number).rstrip()
         super().generic_visit(node)
 
