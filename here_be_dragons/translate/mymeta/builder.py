@@ -2,11 +2,11 @@ from types import ModuleType as module
 import itertools
 import linecache
 import sys
-from types import FunctionType
-from compiler import ast
-from compiler import compile as python_compile
-from compiler.pycodegen import ExpressionCodeGenerator
-from utils import save_source
+from .types import FunctionType
+from .compiler import ast
+from .compiler import compile as python_compile
+from .compiler.pycodegen import ExpressionCodeGenerator
+from .utils import save_source
 
 
 # pylint: disable=no-self-use

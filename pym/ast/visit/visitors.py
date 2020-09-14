@@ -1,6 +1,7 @@
 """Visiting ASTs' nodes """
 
 
+import re
 import ast
 import types
 import linecache
@@ -10,50 +11,45 @@ from decimal import Decimal
 
 class PymVisitor(ast.NodeVisitor):
     """ABC for all pym's Vistors"""
-    def __init__(self):
-        super(PymVisitor, self).__init__()
-
     def generic_visit(self, node):
-        raise NotImplementedError('Cannot visit %s' % node.__class__.__name__)
+        self.node = node
+        for field, value in ast.iter_fields(node):
+            self.field = field
+            if isinstance(value, list):
+                for item in value:
+                    self.visit(item)
+            elif isinstance(value, ast.AST):
+                self.visit(value)
 
 
-@dataclass
-class DataGrepperSought(PymVisitor):
-    type_: str
-    regexp_: str
+class Grepper(PymVisitor):
+    def __init__(self, type_, regexp_):
+        super().__init__()
+        self.regexp = re.compile(regexp_)
+        self.type = type_
+        self.found = []
+        setattr(self, f"visit_{type_}", self.grep)
 
-class GrepperSought(DataGrepperSought):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.regexp = re.compile(self.regexp_)
+    def grep(self, node):
+        if not self.regexp.match(node.name):
+            return
+        self.found.append(node)
 
-    @property
-    def type(self):
-        return self.type_
 
-    @property
-    def re(self):
-        return self.regexp
 
-@dataclass
-class DataGrepper(PymVisitor):
-    root: str
-    sought: GrepperSought
-
-class Grepper(DataGrepper):
-    def grep(self,
 class Sourcer(PymVisitor):
     def __init__(self):
-        super(Sourcer, self).__init__()
+        super().__init__()
 
     def generic_visit(self, node):
-        line_number = node.lineno
-        line = linecache.getline(filename, line_number).rstrip()
+        self.line_number = node.lineno
+        self.line = linecache.getline(filename, line_number).rstrip()
+        super().generic_visit(node)
 
 
 class Liner(PymVisitor):
     def __init__(self):
-        super(Liner, self).__init__()
+        super().__init__()
         self._old = None
         self.lines = {}
 
@@ -73,9 +69,6 @@ class VisitorMap(dict):
     fall-back to if it doesn't have a visitor registered for a
     specific type (or one of that types base classes).
     """
-    def __init__(self, map_or_seq=(), parent_map=None):
-        super(VisitorMap, self).__init__(map_or_seq)
-        self.parent_map = parent_map
 
     def get_visitor(self, obj, use_default=True):
         """Return the visitor callable registered for `type(obj)`.
@@ -115,7 +108,7 @@ class VisitorMap(dict):
                     return self[base]
 
     def copy(self):
-        return self.__class__(super(VisitorMap, self).copy())
+        return self.__class__(super().copy())
 
     def as_context(self, walker, set_parent_map=True):
         """Returns as context manager for use with 'with' statements
@@ -144,8 +137,10 @@ class VisitorMap(dict):
                 return f
             return decorator
 
+
 class DEFAULT:
     ">>> visitor_map[DEFAULT] = visitor # sets default fallback visitor"
+
 
 class _VisitorMapContextManager(object):
     """The `with` statement context manager returned by
@@ -168,6 +163,7 @@ class _VisitorMapContextManager(object):
         if self.set_parent_map:
             self.vmap.parent_map = None
 
+
 ################################################################################
 # 4:  Default serialization visitors for standard Python types
 
@@ -179,7 +175,9 @@ default_visitors_map = VisitorMap({
     type(None): (lambda o, w: None),
     bool: (lambda o, w: w.emit(str(o))),
     type: (lambda o, w: w.walk(bytes(o))),
-    DEFAULT: (lambda o, w: w.walk(repr(o)))})
+    DEFAULT: (lambda o, w: w.walk(repr(o))),
+})
+default_visitors_map.parent_map = None
 
 number_types = (int, Decimal, float, complex)
 func_types = (types.FunctionType, types.BuiltinMethodType, types.MethodType)

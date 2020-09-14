@@ -13,7 +13,7 @@ from pym.ast.nodes import Comment, BlankLine
 
 class Punctuator(object):
     def __init__(self, renderer, punctuation):
-        super(Punctuator, self).__init__()
+        super().__init__()
         self.punctuated = False
         self.renderer = renderer
         self.punctuation = punctuation
@@ -35,7 +35,7 @@ class Punctuator(object):
 
 class Commas(Punctuator):
     def __init__(self, renderer):
-        super(Commas, self).__init__(renderer, ',')
+        super().__init__(renderer, ',')
 
 
 def line_after(body):
@@ -57,14 +57,17 @@ def infinity_string():
 def and_be_damned():
     return True
 
-class Text(object):
+class Text:
     def __init__(self):
-        super(Text, self).__init__()
         self.start.pop is not None # type assertion
         self.strings = self.start
 
     def __str__(self):
         string = self.space.join(self.strings)
+        return string
+
+    def add(self, string: str):
+        self.strings.append(string)
 
     @property
     def start(self):
@@ -81,11 +84,15 @@ class Text(object):
         self.strings = self.start
         return s
 
-class LineWriter(object):
+
+class LineWriter:
+    def __init__(self):
+        self.tail = Text()
+
     def write(self, string, publish=and_be_damned):
         if not (publish() and string):
             return
-        self.text += string
+        self.tail.add(string)
 
     def quote(self, quotes, string):
         if quotes in string:
@@ -97,8 +104,7 @@ class LineWriter(object):
 
 class PageWriter(LineWriter):
     def __init__(self):
-        super(Frame, self).__init__()
-        self.tail = Text()
+        super().__init__()
         self.lines = [self.tail]
 
     def __str__(self):
@@ -114,7 +120,7 @@ class PageWriter(LineWriter):
         if self.end in string:
             self.write_lines(string)
         else:
-            self.tail += string
+            self.tail.add(string)
 
     def write_line(self, string='', publish=and_be_damned):
         self.write(string, publish)
@@ -127,7 +133,7 @@ class PageWriter(LineWriter):
 
 class IndentingWriter(PageWriter):
     def __init__(self):
-        super(IndentingWriter, self).__init__()
+        super().__init__()
         self.indenter = Indenter()
 
     def start(self, string):
@@ -146,7 +152,7 @@ class Renderer(PymVisitor, IndentingWriter):
     """
 
     def __init__(self):
-        super(Renderer, self).__init__()
+        super().__init__()
         self.future_imports = []
 
     def dispatch(self, node):
@@ -642,7 +648,7 @@ class FrameRenderer(PymVisitor):
     Frames contain frames or text"""
     def __init__(self, frame):
         self.frame = frame
-        super(PymVisitor, self).__init__()
+        super().__init__()
 
     def generic_visit(self, node):
         try:

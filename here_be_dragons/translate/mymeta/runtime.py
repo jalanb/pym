@@ -172,10 +172,10 @@ class OMetaBase(object):
 			r = getattr(self, "rule_"+ruleName, None)
 		if r is not None:
 			try: return self._apply(r, ruleName, args)
-			except NameError, e:
+			except NameError as e:
 				message = '(%s) -> %s' % ((r, ruleName, args),e)
 				raise ValueError(message)
-			except ParseError, e:
+			except ParseError as e:
 				method = re.sub(' .*','()',str(r).replace('<bound method ',''))
 				error = str(e)
 				message = 'self._apply(%s,%s,%s)' % (method, ruleName, args)

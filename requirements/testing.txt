@@ -1,6 +1,7 @@
 -r requirements.txt
 
 coverage
+pym==0.3.3
 pytest
 pytest-cov
 tox

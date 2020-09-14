@@ -4,14 +4,13 @@
 import os
 import sys
 from pprint import pprint
-from terml.nodes import termMaker
 
 import chimichurri
 
 
 def read_parsley_grammar():
     """Make a grammar for hosts grammar"""
-    symbols = {'t': termMaker}
+    symbols = {}
     return chimichurri.read_grammar_with_symbols('parsley.parsley', symbols)
 
 

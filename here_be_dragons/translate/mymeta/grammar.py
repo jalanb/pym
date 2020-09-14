@@ -3,7 +3,7 @@ Public interface to OMeta, as well as the grammars used to compile grammar
 definitions.
 """
 import sys, string
-from builder import PythonBuilder
+from .builder import PythonBuilder
 from boot import BootOMetaGrammar
 from runtime import OMetaBase, ParseError
 

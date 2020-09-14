@@ -31,7 +31,7 @@ def _parse(target, string):
     target_method = getattr(instance, target)
     try:
         return target_method(), None
-    except Exception, e:
+    except Exception as e:
         return None, str(e).splitlines()[-1]
 
 

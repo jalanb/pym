@@ -1,4 +1,5 @@
-rom decimal import Decimal
+from decimal import Decimal
+
 class Money(Decimal):
     pass
 

@@ -4,7 +4,9 @@ import os
 import ast
 from functools import singledispatch
 
+from pysyte.types.methods import Method
 from pysyte.types.paths import FilePath
+from pysyte.types.paths import NonePath
 from pysyte.types.paths import makepath
 
 
@@ -33,17 +35,18 @@ def _(arg):
     If the arg is a path, or file-like, read source from there
     Else use the arg as source
     """
+    source, path = arg, None
     try:
         try:
-            source = arg.read()
-            path = arg.name
-        except AttributeError
-            if len(arg).splitlines() == 1:
-                parsed = parsed(FilePath(arg))
+            source, path = arg.read(), arg.name
+        except AttributeError:
+            p = FilePath(arg)
+            if p:
+                return parse(p)
     except (FileNotFoundError, IOError):
-        return parse_path(arg, None)
+        pass
+    return parse_path(source, path)
 
-        return parse(path) if path 
 
 @parse.register(type(parse_path))
 def _(arg):

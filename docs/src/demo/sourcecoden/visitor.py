@@ -105,7 +105,8 @@ class ASTVisitor(object):
                 try:
                         func = getattr(self, ('visit%s' % name))
                 except AttributeError:
-                        raise NotImplementedError(('Unable to visit `%s`.' % repr(node)))gen = func(node)
+                        raise NotImplementedError(('Unable to visit `%s`.' % repr(node)))
+                gen = func(node)
                 if isinstance(gen, prioritized):
                         return gen
                 return prioritized(gen, 0)

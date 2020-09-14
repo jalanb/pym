@@ -586,11 +586,11 @@ def testdir(a):
             fullname = os.path.join(a, n)
             if os.path.isfile(fullname):
                 output = StringIO()
-                print('Testing %s' % fullname)
+                print(f"Testing {fullname}")
                 try:
                     roundtrip(fullname, output)
                 except Exception as e:
-                    print('  Failed to compile, exception is %s' % repr(e))
+                    print(f"  Failed to compile, exception is {e!r}")
             elif os.path.isdir(fullname):
                 testdir(fullname)
 

@@ -4,7 +4,7 @@
 
 import os
 import sys
-from pprint import pprint
+from rich import print
 
 
 from pyrception import pyrceive
@@ -15,7 +15,7 @@ def main(args):
     for path in paths:
         print(path)
         counts = pyrceive.pyrceive_dir(path)
-        pprint(sorted([(v, k) for k, v in counts.items()]))
+        print(sorted([(v, k) for k, v in counts.items()]))
     return os.EX_OK
 
 
