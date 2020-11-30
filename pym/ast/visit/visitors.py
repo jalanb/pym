@@ -84,9 +84,7 @@ class VisitorMap(dict):
         `None`.
         """
         type_ = type(obj)
-        result = self.get(type_) or self._get_parent_type_visitor(
-            obj, type_
-        )
+        result = self.get(type_) or self._get_parent_type_visitor(obj, type_)
         if result:
             return result
         elif self.parent_map is not None:
@@ -100,15 +98,12 @@ class VisitorMap(dict):
     def _get_parent_type_visitor(self, obj, type_):
         try:
             from types import InstanceType  # support old-style classes
+
             if type_ is InstanceType:
                 m = [t for t in self if isinstance(obj, t)]
                 for i, t in enumerate(m):
                     j = i + i
-                    if not any(
-                        t2
-                        for t2 in m[j:]
-                        if t2 is not t and issubclass(t2, t)
-                    ):
+                    if not any(t2 for t2 in m[j:] if t2 is not t and issubclass(t2, t)):
                         return self[t]
             return
         except ImportError:
