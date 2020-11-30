@@ -15,12 +15,12 @@ class IndentTest(TestCase):
         indenter = indent.Indenter()
         text = indenter.indent_string
         for i in range(0, 4):
-            rendered = indenter.render('text')
+            rendered = indenter.render("text")
             expected = text * i
             self.assertTrue(rendered.startswith(expected))
             indenter.indent()
         for i in range(4, 0, -1):
-            rendered = indenter.render('text')
+            rendered = indenter.render("text")
             expected = text * i
             self.assertTrue(rendered.startswith(expected))
             indenter.dedent()

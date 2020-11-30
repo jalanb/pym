@@ -18,17 +18,17 @@ class UnParsable(ValueError):
 
 def re_render(source, path=None):
     if not source:
-        return ''
+        return ""
     tree = parse(source, path)
     if not tree:
-        return ''
+        return ""
     recast_docstrings(tree)
     add_comments(tree, source)
     adjust_lines(tree)
     text = render(tree)
     if not text:
-        return ''
-    return f'{text.rstrip()}\n'
+        return ""
+    return f"{text.rstrip()}\n"
 
 
 @singledispatch
@@ -47,17 +47,17 @@ def _(string: str):
 @render.register
 def _(node: AST):
     if not node:
-        return ''
+        return ""
     renderer = Renderer()
     renderer.visit(node)
-    return '\n'.join(remove_empty_tail(renderer.lines))
+    return "\n".join(remove_empty_tail(renderer.lines))
 
 
 @render.register
 def _(path: Path):
     if not path.exists():
         raise UnParsable(str(path))
-    node = parse('', path)
+    node = parse("", path)
     return render(node)
 
 

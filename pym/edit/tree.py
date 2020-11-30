@@ -1,5 +1,3 @@
-
-
 import re
 
 from pysyte.types.lists import as_list
@@ -12,11 +10,13 @@ class Tundra(StopIteration):
 
     No place for a Climber to be.
     """
+
     pass
 
 
 class Brancher(object):
     """Walks right / left along a list of items"""
+
     def __init__(self, thing):
         self._try(0, as_list(thing))
 
@@ -68,7 +68,7 @@ class Climber(Brancher):
     def down(self):
         item = self.item()
         try:
-            if re.match('^.$', item):
+            if re.match("^.$", item):
                 raise Tundra
         except TypeError:
             pass

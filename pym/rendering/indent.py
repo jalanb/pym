@@ -6,8 +6,9 @@ INDENT_SIZE = 4
 
 class Indenter(object):
     """Maintain an indentation count"""
+
     def __init__(self, string=None):
-        self.indent_string = string if string else ' ' * INDENT_SIZE
+        self.indent_string = string if string else " " * INDENT_SIZE
         self.indentation = 0
 
     def __str__(self):
@@ -17,7 +18,7 @@ class Indenter(object):
         if self.indentation >= 0:
             return
         self.indentation = 0
-        message = 'Negative indentation: %d' % self.indentation
+        message = "Negative indentation: %d" % self.indentation
         raise ValueError(message)
 
     def indent(self):
@@ -29,4 +30,4 @@ class Indenter(object):
         self._check()
 
     def render(self, string):
-        return '%s%s' % (self, string)
+        return "%s%s" % (self, string)

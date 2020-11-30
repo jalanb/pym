@@ -18,13 +18,12 @@ def render_text(module_text):
 
 
 class TestLineariness(TestCase):
-
     def test_initialisation(self):
         self.assertIsNotNone(Liner())
 
     def test_add_no_lines_to_nothing(self):
-        actual = render_text('')
-        self.assertEqual('', actual)
+        actual = render_text("")
+        self.assertEqual("", actual)
 
     def test_add_no_lines_to_docstring(self):
         expected = '"""This is a docstring"""'

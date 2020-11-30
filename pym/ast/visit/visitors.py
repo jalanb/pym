@@ -11,6 +11,7 @@ from decimal import Decimal
 
 class PymVisitor(ast.NodeVisitor):
     """ABC for all pym's Vistors"""
+
     def generic_visit(self, node):
         self.node = node
         for field, value in ast.iter_fields(node):
@@ -34,7 +35,6 @@ class Grepper(PymVisitor):
         if not self.regexp.match(node.name):
             return
         self.found.append(node)
-
 
 
 class Sourcer(PymVisitor):
@@ -83,8 +83,9 @@ class VisitorMap(dict):
         `None`.
         """
         py_type = type(obj)
-        result = (self.get(py_type)
-                  or self._get_parent_type_visitor(obj, py_type))
+        result = self.get(py_type) or self._get_parent_type_visitor(
+            obj, py_type
+        )
         if result:
             return result
         elif self.parent_map is not None:
@@ -96,13 +97,16 @@ class VisitorMap(dict):
         return result
 
     def _get_parent_type_visitor(self, obj, py_type):
-        if py_type is InstanceType: # support old-style classes
+        if py_type is InstanceType:  # support old-style classes
             m = [t for t in self if isinstance(obj, t)]
             for i, t in enumerate(m):
-                if not any(t2 for t2 in m[i+i:]
-                           if t2 is not t and issubclass(t2, t)):
+                if not any(
+                    t2
+                    for t2 in m[i + i :]
+                    if t2 is not t and issubclass(t2, t)
+                ):
                     return self[t]
-        else: # newstyle type/class
+        else:  # newstyle type/class
             for base in py_type.__mro__:
                 if base in self:
                     return self[base]
@@ -132,9 +136,11 @@ class VisitorMap(dict):
         if visitor:
             self[py_type] = visitor
         else:
+
             def decorator(f):
                 self[py_type] = f
                 return f
+
             return decorator
 
 
@@ -145,6 +151,7 @@ class DEFAULT:
 class _VisitorMapContextManager(object):
     """The `with` statement context manager returned by
     VisitorMap.as_context()"""
+
     def __init__(self, vmap, walker, set_parent_map=True):
         self.vmap = vmap
         self.original_map = None
@@ -169,14 +176,16 @@ class _VisitorMapContextManager(object):
 
 # visitor signature = "f(obj_to_be_walked, walker)", return value ignored
 # o = obj_to_be_walked, w = walker (aka serializer)
-default_visitors_map = VisitorMap({
-    str: (lambda o,w: w.walk(bytes(o, w.input_encoding, 'strict'))),
-    bytes: (lambda o, w: w.emit(o)),
-    type(None): (lambda o, w: None),
-    bool: (lambda o, w: w.emit(str(o))),
-    type: (lambda o, w: w.walk(bytes(o))),
-    DEFAULT: (lambda o, w: w.walk(repr(o))),
-})
+default_visitors_map = VisitorMap(
+    {
+        str: (lambda o, w: w.walk(bytes(o, w.input_encoding, "strict"))),
+        bytes: (lambda o, w: w.emit(o)),
+        type(None): (lambda o, w: None),
+        bool: (lambda o, w: w.emit(str(o))),
+        type: (lambda o, w: w.walk(bytes(o))),
+        DEFAULT: (lambda o, w: w.walk(repr(o))),
+    }
+)
 default_visitors_map.parent_map = None
 
 number_types = (int, Decimal, float, complex)
@@ -186,8 +195,7 @@ sequence_types = (tuple, list, set, frozenset, range, types.GeneratorType)
 for typeset, visitor in (
     (number_types, (lambda o, w: w.emit(str(o)))),
     (sequence_types, (lambda o, w: [w.walk(i) for i in o])),
-    (func_types, (lambda o, w: w.walk(o())))):
+    (func_types, (lambda o, w: w.walk(o()))),
+):
     for type_ in typeset:
         default_visitors_map[type_] = visitor
-
-

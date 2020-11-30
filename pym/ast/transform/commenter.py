@@ -14,9 +14,10 @@ def statement_precedes_comment(value, comment):
 
 class Commenter(PymTransformer):
     """Add comments into an AST"""
+
     def __init__(self, comments):
         PymTransformer.__init__(self)
-        self.comment = NoComment((-1, -1, ''))
+        self.comment = NoComment((-1, -1, ""))
         self.comments = comments
         self.next_comment()
 
@@ -24,7 +25,7 @@ class Commenter(PymTransformer):
         try:
             self.comment = Comment(self.comments.pop(0))
         except IndexError:
-            self.comment = NoComment((-1, -1, ''))
+            self.comment = NoComment((-1, -1, ""))
 
     def before_old_ast_value(self, new_values, value):
         while self.comment.is_line_before(value):

@@ -6,6 +6,7 @@ AS Trees are usually lists of lists
 Facilities to handle such lists
 """
 
+
 def _items(thing):
     """The thing is either a dictionary or a list"""
     try:
@@ -13,23 +14,24 @@ def _items(thing):
     except AttributeError:
         return thing
 
+
 def _found(_item):
     pass
+
 
 def _too_low(_item):
     pass
 
+
 def _too_high(_item):
     pass
+
 
 class Uncomparable(Exception):
     pass
 
-def _search(tree,
-            compare,
-            start=0,
-            end=None,
-            parents=None):
+
+def _search(tree, compare, start=0, end=None, parents=None):
 
     end = end or len(tree)
     parents = parents or []
@@ -62,10 +64,12 @@ def _search(tree,
                 raise StopIteration
             return _search(tree, compare, start, end, parents)
 
+
 def attribute_comparison(attribute, value):
     def compare(item):
         attr_value = getattr(item, attribute)
         return cmp(value, attr_value)  # pylint: disable=undefined-variable
+
     return compare
 
 

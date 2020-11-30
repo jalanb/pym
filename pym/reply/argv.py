@@ -38,23 +38,24 @@ def parse(args):
             return path
 
         def create_config_directory():
-            config_dir = os.path.expanduser(args['--config-dir'] or '~/.pym/')
+            config_dir = os.path.expanduser(args["--config-dir"] or "~/.pym/")
             return make_missing_dir(config_dir)
 
         def store_interaction(args):
             import sys
-            if args['--interactive']:
-                args['startup_paths'].append(args['--interactive'])
-                sys.argv = [args['--interactive']] + args['<arg>']
 
-        args['config_dir'] = create_config_directory()
-        python_startup = os.environ.get('PYTHONSTARTUP', False)
-        args['startup_paths'] = [python_startup] if python_startup else []
+            if args["--interactive"]:
+                args["startup_paths"].append(args["--interactive"])
+                sys.argv = [args["--interactive"]] + args["<arg>"]
+
+        args["config_dir"] = create_config_directory()
+        python_startup = os.environ.get("PYTHONSTARTUP", False)
+        args["startup_paths"] = [python_startup] if python_startup else []
         store_interaction()
         return args
 
-
     import docopt
+
     args = docopt.docopt(__doc__)
-    args['--vi'] = not bool(args['--emacs'])
+    args["--vi"] = not bool(args["--emacs"])
     return ptparse(args)

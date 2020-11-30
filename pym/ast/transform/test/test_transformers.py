@@ -9,9 +9,8 @@ from pym.render import render
 
 
 class PymTransformerTest(TestCase):
-
     def test_transformer(self):
-        expected = render.parse('i = 0\nj = i = 1')
+        expected = render.parse("i = 0\nj = i = 1")
         transformer = PymTransformer()
         actual = transformer.visit(expected)
         self.assertEqual(expected, actual)
@@ -23,22 +22,22 @@ class PymTransformerTest(TestCase):
                 return None
 
         transformer = PassRemover()
-        ast = render.parse('pass')
+        ast = render.parse("pass")
         ast = transformer.visit(ast)
         actual = render.render(ast)
-        self.assertEqual('', actual)
+        self.assertEqual("", actual)
 
     def test_string_emptying(self):
         class StringBlanker(PymTransformer):
             def visit_Str(self, _node):
                 # pylint: disable-msg=no-self-use
-                return 'pass'
+                return "pass"
 
         transformer = StringBlanker()
         ast = render.parse('"contents"')
         ast = transformer.visit(ast)
         actual = render.render(ast)
-        self.assertEqual('pass', actual)
+        self.assertEqual("pass", actual)
 
     def test_string_removal_from_module(self):
         class StringBlanker(PymTransformer):
@@ -50,7 +49,7 @@ class PymTransformerTest(TestCase):
         ast = render.parse('"contents"')
         ast = transformer.visit(ast)
         actual = render.render(ast)
-        self.assertEqual('', actual)
+        self.assertEqual("", actual)
 
     def test_string_removal_from_expression(self):
         class StringBlanker(PymTransformer):
@@ -62,4 +61,4 @@ class PymTransformerTest(TestCase):
         ast = render.parse('i=0\n"contents"')
         ast = transformer.visit(ast)
         actual = render.render(ast)
-        self.assertEqual('i = 0', actual)
+        self.assertEqual("i = 0", actual)

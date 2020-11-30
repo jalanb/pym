@@ -11,7 +11,7 @@ from pysyte.types.paths import makepath
 
 
 def parse_path(source: str, path: str):
-    path_name = path if path else '<None>'
+    path_name = path if path else "<None>"
     return ast.parse(source, path_name) if source else None
 
 

@@ -2,13 +2,15 @@
 
 import ast
 
+
 class BlankLine(ast.stmt):
     pass
+
 
 class DocString(ast.Str):
     def __init__(self, node, string):
         ast.Str.__init__(self)
-        self.lineno = getattr(node, 'lineno', 0)
+        self.lineno = getattr(node, "lineno", 0)
         self.col_offset = 0
         self.s = string
 
@@ -23,7 +25,7 @@ class Comment(ast.stmt):
         self.prefix = None
 
     def is_line_before(self, node):
-        if not hasattr(node, 'lineno'):
+        if not hasattr(node, "lineno"):
             return False
         if self.lineno < node.lineno:
             return True

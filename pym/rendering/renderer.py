@@ -28,21 +28,21 @@ class Punctuator(object):
 
     def _punctuate(self):
         if self.punctuated:
-            self.renderer.write('%s ' % self.punctuation)
+            self.renderer.write("%s " % self.punctuation)
         else:
             self.punctuated = True
 
 
 class Commas(Punctuator):
     def __init__(self, renderer):
-        super().__init__(renderer, ',')
+        super().__init__(renderer, ",")
 
 
 def line_after(body):
     result = None
     for node in body:
-        if hasattr(node, 'lineno'):
-            result = getattr(node, 'lineno')
+        if hasattr(node, "lineno"):
+            result = getattr(node, "lineno")
     return result + 1
 
 
@@ -51,15 +51,16 @@ def infinity_string():
 
     Unparse them here
     """
-    return '1e' + repr(sys.float_info.max_10_exp + 1)
+    return "1e" + repr(sys.float_info.max_10_exp + 1)
 
 
 def and_be_damned():
     return True
 
+
 class Text:
     def __init__(self):
-        self.start.pop is not None # type assertion
+        self.start.pop is not None  # type assertion
         self.strings = self.start
 
     def __str__(self):
@@ -75,7 +76,7 @@ class Text:
 
     @property
     def space(self):
-        return ''
+        return ""
 
     def end(self, string=None):
         if string:
@@ -96,7 +97,7 @@ class LineWriter:
 
     def quote(self, quotes, string):
         if quotes in string:
-            raise ValueError('%r in %r' % (quotes, string))
+            raise ValueError("%r in %r" % (quotes, string))
         self.write(quotes)
         self.write(string)
         self.write(quotes)
@@ -114,7 +115,7 @@ class PageWriter(LineWriter):
 
     @property
     def end(self):
-        return '\n'
+        return "\n"
 
     def write(self, string, publish=and_be_damned):
         if self.end in string:
@@ -122,10 +123,9 @@ class PageWriter(LineWriter):
         else:
             self.tail.add(string)
 
-    def write_line(self, string='', publish=and_be_damned):
+    def write_line(self, string="", publish=and_be_damned):
         self.write(string, publish)
-        self.lines.append(
-            self.tail.end(self.end))
+        self.lines.append(self.tail.end(self.end))
 
     def write_lines(self, string, publish=and_be_damned):
         _ = [self.write_line(_, publish) for _ in string.splitlines()]
@@ -164,7 +164,7 @@ class Renderer(PymVisitor, IndentingWriter):
     def visit_alias(self, node):
         self.write(node.name)
         if node.asname:
-            self.write(' as %s' % node.asname)
+            self.write(" as %s" % node.asname)
 
     def visit_arguments(self, node):
         if node.defaults:
@@ -180,13 +180,13 @@ class Renderer(PymVisitor, IndentingWriter):
             commas.dispatch(arg)
         for arg, default in defaulted_args:
             commas.dispatch(arg)
-            self.write('=')
+            self.write("=")
             self.dispatch(default)
         if node.vararg:
-            commas.write('*')
+            commas.write("*")
             self.dispatch(node.vararg)
         if node.kwarg:
-            commas.write('**')
+            commas.write("**")
             self.dispatch(node.kwarg)
 
     def visit_body(self, node):
@@ -197,21 +197,21 @@ class Renderer(PymVisitor, IndentingWriter):
                 self.write_line()
 
     def visit_comprehension(self, node):
-        self.write(' for ')
+        self.write(" for ")
         self.dispatch(node.target)
-        self.write(' in ')
+        self.write(" in ")
         self.dispatch(node.iter)
         for if_clause in node.ifs:
-            self.write(' if ')
+            self.write(" if ")
             self.dispatch(if_clause)
 
     def visit_block(self, values, line_number):
         value = values[0]
         if isinstance(value, Comment) and value.lineno == line_number:
-            string = ':  %s' % value.s
+            string = ":  %s" % value.s
             values = values[1:]
         else:
-            string = ':'
+            string = ":"
         self.write_line(string)
         self.indenter.indent()
         self.visit_body(values)
@@ -221,139 +221,155 @@ class Renderer(PymVisitor, IndentingWriter):
         if not node.decorator_list:
             return
         for decorator in node.decorator_list:
-            self.write('@')
+            self.write("@")
             self.dispatch(decorator)
         self.write_line()
 
     def visit_keyword(self, node):
         self.write(node.arg)
-        self.write('=')
+        self.write("=")
         self.dispatch(node.value)
 
     def visit_str(self, string):
         self.write(string)
 
     def visit_Assert(self, node):
-        self.write('assert ')
+        self.write("assert ")
         self.dispatch(node.test)
         if node.msg:
-            self.write(', ')
+            self.write(", ")
             self.dispatch(node.msg)
 
     def visit_Assign(self, node):
         for target in node.targets:
             self.dispatch(target)
-            self.write(' = ')
+            self.write(" = ")
         self.dispatch(node.value)
 
     def visit_Attribute(self, node):
         self.dispatch(node.value)
         # ints are objects too, so can have attributes, e.g. 1 .__add__(1) == 2
         if isinstance(node.value, ast.Num) and isinstance(node.value.n, int):
-            self.write(' ')
-        self.write('.')
+            self.write(" ")
+        self.write(".")
         self.write(node.attr)
 
     def visit_AugAssign(self, node):
         self.dispatch(node.target)
-        self.write(' %s= ' % self.binary_operators[node.op.__class__.__name__])
+        self.write(" %s= " % self.binary_operators[node.op.__class__.__name__])
         self.dispatch(node.value)
 
-    boolops = {ast.And: 'and', ast.Or: 'or'}
+    boolops = {ast.And: "and", ast.Or: "or"}
 
     def visit_BoolOp(self, node):
-        punctuation = ' %s' % self.boolops[node.op.__class__]
+        punctuation = " %s" % self.boolops[node.op.__class__]
         punctuator = Punctuator(self, punctuation)
         for value in node.values:
             punctuator.dispatch(value)
 
     binary_operators = {
-        'Add': '+', 'Sub': '-', 'Mult': '*', 'Div': '/', 'Mod': '%',
-        'LShift': '<<', 'RShift': '>>', 'BitOr': '|', 'BitXor': '^',
-        'BitAnd': '&', 'FloorDiv': '//', 'Pow': '**'
+        "Add": "+",
+        "Sub": "-",
+        "Mult": "*",
+        "Div": "/",
+        "Mod": "%",
+        "LShift": "<<",
+        "RShift": ">>",
+        "BitOr": "|",
+        "BitXor": "^",
+        "BitAnd": "&",
+        "FloorDiv": "//",
+        "Pow": "**",
     }
 
     def visit_BinOp(self, node):
         operator_name = node.op.__class__.__name__
         self.dispatch(node.left)
-        self.write(' %s ' % self.binary_operators[operator_name])
+        self.write(" %s " % self.binary_operators[operator_name])
         self.dispatch(node.right)
 
     def visit_BlankLine(self, _node):
-        self.write_line('')
+        self.write_line("")
 
     def visit_Break(self, _node):
-        self.write('break')
+        self.write("break")
 
     def visit_Call(self, node):
         self.dispatch(node.func)
-        self.write('(')
+        self.write("(")
         commas = Commas(self)
         for arg in node.args + node.keywords:
             commas.dispatch(arg)
         if node.starargs:
-            commas.write('*')
+            commas.write("*")
             self.dispatch(node.starargs)
         if node.kwargs:
-            commas.write('**')
+            commas.write("**")
             self.dispatch(node.kwargs)
-        self.write(')')
+        self.write(")")
 
     def visit_ClassDef(self, node):
         self.visit_decorators(node)
-        self.write('class %s' % node.name)
+        self.write("class %s" % node.name)
         if node.bases:
-            self.write('(')
+            self.write("(")
             commas = Commas(self)
             for base in node.bases:
                 commas.dispatch(base)
-            self.write(')')
+            self.write(")")
         self.visit_block(node.body, node.lineno)
 
     def visit_Comment(self, node):
         if node.prefix:
             self.dispatch(node.prefix)
-            self.write('  ')
+            self.write("  ")
         self.write(node.s)
 
     def visit_Compare(self, node):
         operators = {
-            'Eq': '==', 'NotEq': '!=', 'Lt': '<', 'LtE': '<=',
-            'Gt': '>', 'GtE': '>=', 'Is': 'is', 'IsNot': 'is not',
-            'In': 'in', 'NotIn': 'not in'
+            "Eq": "==",
+            "NotEq": "!=",
+            "Lt": "<",
+            "LtE": "<=",
+            "Gt": ">",
+            "GtE": ">=",
+            "Is": "is",
+            "IsNot": "is not",
+            "In": "in",
+            "NotIn": "not in",
         }
         self.dispatch(node.left)
         for operator_node, comparator in zip(node.ops, node.comparators):
             operator_name = operator_node.__class__.__name__
             operator = operators[operator_name]
-            self.write(' %s ' % operator)
+            self.write(" %s " % operator)
             self.dispatch(comparator)
 
     def visit_Continue(self, _node):
-        self.write('continue')
+        self.write("continue")
 
     def visit_Delete(self, node):
-        self.write('del ')
+        self.write("del ")
         commas = Commas(self)
         for target in node.targets:
             commas.dispatch(target)
 
     def visit_Dict(self, node):
-        self.write('{')
+        self.write("{")
         items = zip(node.keys, node.values)
         commas = Commas(self)
         for key, value in items:
-            commas.dispatch([key, ': ', value])
-        self.write('}')
+            commas.dispatch([key, ": ", value])
+        self.write("}")
 
     def visit_DictComp(self, node):
-        self.write('{')
+        self.write("{")
         self.dispatch(node.key)
-        self.write(':')
+        self.write(":")
         self.dispatch(node.value)
         for generator in node.generators:
             self.dispatch(generator)
-        self.write('}')
+        self.write("}")
 
     def visit_DocString(self, node):
         try:
@@ -362,26 +378,26 @@ class Renderer(PymVisitor, IndentingWriter):
             self.quote("'''", node.s)
 
     def visit_Ellipsis(self, _node):
-        self.write('...')
+        self.write("...")
 
     def visit_ExceptHandler(self, node):
-        self.write('except')
+        self.write("except")
         if node.type:
-            self.write(' ')
+            self.write(" ")
             self.dispatch(node.type)
         if node.name:
-            self.write(' as ')
+            self.write(" as ")
             self.dispatch(node.name)
         self.visit_block(node.body, node.lineno)
 
     def visit_Exec(self, node):
-        self.write('exec ')
+        self.write("exec ")
         self.dispatch(node.body)
         if node.globals:
-            self.write(' in ')
+            self.write(" in ")
             self.dispatch(node.globals)
         if node.locals:
-            self.write(', ')
+            self.write(", ")
             self.dispatch(node.locals)
 
     def visit_Expr(self, node):
@@ -393,70 +409,73 @@ class Renderer(PymVisitor, IndentingWriter):
             commas.dispatch(dimension)
 
     def visit_For(self, node):
-        self.write('for ')
+        self.write("for ")
         self.dispatch(node.target)
-        self.write(' in ')
+        self.write(" in ")
         self.dispatch(node.iter)
         self.visit_block(node.body, node.lineno)
         if node.orelse:
-            self.write('else')
+            self.write("else")
             self.visit_block(node.orelse, line_after(node.body))
 
     def visit_FunctionDef(self, node):
         self.visit_decorators(node)
         node_args = self.dispatch(node.args)
-        self.write(f'def {node.name}({node_args})')
+        self.write(f"def {node.name}({node_args})")
         self.visit_block(node.body, node.lineno)
 
     def visit_GeneratorExp(self, node):
-        self.write('(')
+        self.write("(")
         self.dispatch(node.elt)
         for generator in node.generators:
             self.dispatch(generator)
-        self.write(')')
+        self.write(")")
 
     def visit_Global(self, node):
-        self.write('global ')
+        self.write("global ")
         commas = Commas(self)
         for name in node.names:
             commas.dispatch(name)
 
     def visit_If(self, node):
-        self.write('if ')
+        self.write("if ")
         self.dispatch(node.test)
         self.visit_block(node.body, node.lineno)
-        while (node.orelse and len(node.orelse) == 1 and
-               isinstance(node.orelse[0], ast.If)):
+        while (
+            node.orelse
+            and len(node.orelse) == 1
+            and isinstance(node.orelse[0], ast.If)
+        ):
             node = node.orelse[0]
-            self.write('elif ')
+            self.write("elif ")
             self.dispatch(node.test)
             self.visit_block(node.body, node.test.lineno)
         if node.orelse:
-            self.write('else')
+            self.write("else")
             self.visit_block(node.orelse, line_after(node.body))
 
     def visit_IfExp(self, node):
         self.dispatch(node.body)
-        self.write(' if ')
+        self.write(" if ")
         self.dispatch(node.test)
-        self.write(' else ')
+        self.write(" else ")
         self.dispatch(node.orelse)
 
     def visit_Import(self, node):
-        self.write('import ')
+        self.write("import ")
         self.dispatch(node.names[0])
         for name in node.names[1:]:
-            self.write(', ')
+            self.write(", ")
             self.dispatch(name)
 
     def visit_ImportFrom(self, node):
-        if node.module and node.module == '__future__':
+        if node.module and node.module == "__future__":
             self.future_imports.extend(n.name for n in node.names)
-        self.write('from ')
-        self.write('.' * node.level)
+        self.write("from ")
+        self.write("." * node.level)
         if node.module:
             self.write(node.module)
-        self.write(' import ')
+        self.write(" import ")
         commas = Commas(self)
         for name in node.names:
             commas.dispatch(name)
@@ -465,26 +484,26 @@ class Renderer(PymVisitor, IndentingWriter):
         self.dispatch(node.value)
 
     def visit_Lambda(self, node):
-        self.write('lambda')
+        self.write("lambda")
         if node.args and node.args.args:
-            self.write(' ')
+            self.write(" ")
             self.dispatch(node.args)
-        self.write(': ')
+        self.write(": ")
         self.dispatch(node.body)
 
     def visit_List(self, node):
-        self.write('[')
+        self.write("[")
         commas = Commas(self)
         for item in node.elts:
             commas.dispatch(item)
-        self.write(']')
+        self.write("]")
 
     def visit_ListComp(self, node):
-        self.write('[')
+        self.write("[")
         self.dispatch(node.elt)
         for generator in node.generators:
             self.dispatch(generator)
-        self.write(']')
+        self.write("]")
 
     def visit_Module(self, node):
         self.visit_body(node.body)
@@ -498,67 +517,67 @@ class Renderer(PymVisitor, IndentingWriter):
         self.write(string)
 
     def visit_Pass(self, _node):
-        self.write('pass')
+        self.write("pass")
 
     def visit_Print(self, node):
-        self.write('print ')
+        self.write("print ")
         commas = Commas(self)
         if node.dest:
-            commas.write('>> ')
+            commas.write(">> ")
             self.dispatch(node.dest)
         for value in node.values:
             commas.dispatch(value)
-        stay_on_line = ',' if not node.nl else ''
+        stay_on_line = "," if not node.nl else ""
         self.write(stay_on_line)
 
     def visit_Raise(self, node):
-        self.write('raise ')
+        self.write("raise ")
         if node.type:
             self.dispatch(node.type)
         if node.inst:
-            self.write(', ')
+            self.write(", ")
             self.dispatch(node.inst)
         if node.tback:
-            self.write(', ')
+            self.write(", ")
             self.dispatch(node.tback)
 
     def visit_Repr(self, node):
-        self.write('`')
+        self.write("`")
         self.dispatch(node.value)
-        self.write('`')
+        self.write("`")
 
     def visit_Return(self, node):
-        self.write('return')
+        self.write("return")
         if node.value:
-            self.write(' ')
+            self.write(" ")
             self.dispatch(node.value)
 
     def visit_Set(self, node):
-        self.write('{')
+        self.write("{")
         commas = Commas(self)
         for element in node.elts:
             commas.dispatch(element)
-        self.write('}')
+        self.write("}")
 
     def visit_SetComp(self, node):
-        self.write('{')
+        self.write("{")
         self.dispatch(node.elt)
         for generator in node.generators:
             self.dispatch(generator)
-        self.write('}')
+        self.write("}")
 
     def visit_Slice(self, node):
         if node.lower:
             self.dispatch(node.lower)
-        self.write(':')
+        self.write(":")
         if node.upper:
             self.dispatch(node.upper)
         if node.step:
-            self.write(':')
+            self.write(":")
             self.dispatch(node.step)
 
     def visit_Str(self, node):
-        if '\n' in node.s:
+        if "\n" in node.s:
             try:
                 self.quote("'''", node.s)
             except ValueError:
@@ -568,17 +587,17 @@ class Renderer(PymVisitor, IndentingWriter):
 
     def visit_Subscript(self, node):
         self.dispatch(node.value)
-        self.write('[')
+        self.write("[")
         self.dispatch(node.slice)
-        self.write(']')
+        self.write("]")
 
     def visit_TryExcept(self, node):
-        self.write('try')
+        self.write("try")
         self.visit_block(node.body, node.lineno)
         for handler in node.handlers:
             self.dispatch(handler)
         if node.orelse:
-            self.write('else')
+            self.write("else")
             self.visit_block(node.orelse, line_after(node.body))
 
     def visit_TryFinally(self, node):
@@ -586,59 +605,59 @@ class Renderer(PymVisitor, IndentingWriter):
             # try-except-finally
             self.dispatch(node.body)
         else:
-            self.write('try')
+            self.write("try")
             self.visit_block(node.body, node.lineno)
-        self.write('finally')
+        self.write("finally")
         self.visit_block(node.finalbody, line_after(node.body))
 
     def visit_Tuple(self, node):
         loading = isinstance(node.ctx, ast.Load)
         if loading:
-            self.write('(')
+            self.write("(")
         if len(node.elts) == 1:
             (item,) = node.elts
             self.dispatch(item)
-            self.write(',')
+            self.write(",")
         else:
             commas = Commas(self)
             for item in node.elts:
                 commas.dispatch(item)
         if loading:
-            self.write(')')
+            self.write(")")
 
     def visit_UnaryOp(self, node):
-        operators = {'Invert': '~', 'Not': 'not', 'UAdd': '+', 'USub': '-'}
+        operators = {"Invert": "~", "Not": "not", "UAdd": "+", "USub": "-"}
         operator_name = node.op.__class__.__name__
         operator = operators[operator_name]
-        space = operator_name == 'Not' and ' ' or ''
-        self.write('%s%s' % (operator, space))
-        if operator_name == 'USub' and isinstance(node.operand, ast.Num):
-            self.write('(')
+        space = operator_name == "Not" and " " or ""
+        self.write("%s%s" % (operator, space))
+        if operator_name == "USub" and isinstance(node.operand, ast.Num):
+            self.write("(")
             self.dispatch(node.operand)
-            self.write(')')
+            self.write(")")
         else:
             self.dispatch(node.operand)
 
     def visit_While(self, node):
-        self.write('while ')
+        self.write("while ")
         self.dispatch(node.test)
         self.visit_block(node.body, node.lineno)
         if node.orelse:
-            self.write('else')
+            self.write("else")
             self.visit_block(node.orelse, line_after(node.body))
 
     def visit_With(self, node):
-        self.write('with ')
+        self.write("with ")
         self.dispatch(node.context_expr)
         if node.optional_vars:
-            self.write(' as ')
+            self.write(" as ")
             self.dispatch(node.optional_vars)
         self.visit_block(node.body, node.lineno)
 
     def visit_Yield(self, node):
-        self.write('yield')
+        self.write("yield")
         if node.value:
-            self.write(' ')
+            self.write(" ")
             self.dispatch(node.value)
 
 
@@ -646,6 +665,7 @@ class FrameRenderer(PymVisitor):
     """Render a tree into frames
 
     Frames contain frames or text"""
+
     def __init__(self, frame):
         self.frame = frame
         super().__init__()
@@ -659,7 +679,6 @@ class FrameRenderer(PymVisitor):
     def frame_block(self, values, line_number):
         pass
 
-
     def generic_frame(self, frame, node):
-        method = getattr(self, 'frame_%s' % node.name)
+        method = getattr(self, "frame_%s" % node.name)
         return method(frame_name) if method else frame

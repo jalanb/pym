@@ -11,8 +11,7 @@ def get_comments(string):
     tokens = list(tokenize.generate_tokens(stream.readline))
     comments = [
         (start_line, start_column, comment)
-        for type_, comment, (start_line, start_column), _, _,
-        in tokens
+        for type_, comment, (start_line, start_column), _, _, in tokens
         if type_ == tokenize.COMMENT
     ]
     return sorted(comments)

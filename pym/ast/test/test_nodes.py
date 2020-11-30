@@ -1,4 +1,3 @@
-
 """Test the AST nodes"""
 
 
@@ -19,14 +18,14 @@ class DocStringTest(TestCase):
 
     def test_initialization(self):
         node = MockAttributes(lineno=22)
-        string = 'Hello World'
+        string = "Hello World"
         docstring = nodes.DocString(node, string)
         self.assertEqual(docstring.s, string)
         self.assertEqual(docstring.lineno, node.lineno)
         self.assertEqual(docstring.col_offset, 0)
 
     def test_initialization_without_line(self):
-        string = 'Hello World'
+        string = "Hello World"
         docstring = nodes.DocString(None, string)
         self.assertEqual(docstring.s, string)
         self.assertEqual(docstring.lineno, 0)
@@ -38,9 +37,13 @@ class DocStringTest(TestCase):
 
 class CommentTest(TestCase):
     def setUp(self):
-        self.data = 11, 22, 'That is the end of the interval. '\
-            'Will you kindly return to your seats? '\
-            'We will now proceed with the film as advertised'
+        self.data = (
+            11,
+            22,
+            "That is the end of the interval. "
+            "Will you kindly return to your seats? "
+            "We will now proceed with the film as advertised",
+        )
 
     def test_is_line_before_without_lineno(self):
         comment = nodes.Comment(self.data)
@@ -75,6 +78,6 @@ class CommentTest(TestCase):
     def test_set_prefix(self):
         comment = nodes.Comment(self.data)
         self.assertIsNone(comment.prefix)
-        expected = 'Oh, my nipples explode with delight!'
+        expected = "Oh, my nipples explode with delight!"
         comment.set_prefix(expected)
         self.assertEqual(expected, comment.prefix)

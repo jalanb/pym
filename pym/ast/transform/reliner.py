@@ -17,7 +17,7 @@ def module_node_group_id(node):
         return id(node)
     if isinstance(node, ast.stmt):
         return 2
-    raise ValueError('Ungroupable')
+    raise ValueError("Ungroupable")
 
 
 def _add_blank_lines(nodes):
@@ -35,6 +35,7 @@ def _add_blank_lines(nodes):
 
 class Liner(PymTransformer):
     """Add lines into a module AST"""
+
     def __init__(self):
         PymTransformer.__init__(self)
 
