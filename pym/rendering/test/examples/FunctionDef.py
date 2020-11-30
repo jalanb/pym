@@ -1,18 +1,18 @@
-def method():
+def method1():
     pass
 
 
-def method(a):
+def method2(a):
     return a
 
 
-def method(a, b):
+def method3(a, b):
     pass
 
 
-def method(a, b=None):
+def method4(a, b=None):
     pass
 
 
-def method(*args, **kwargs):
+def method5(*args, **kwargs):
     pass

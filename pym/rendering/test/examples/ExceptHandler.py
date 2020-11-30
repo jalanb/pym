@@ -1,6 +1,6 @@
 try:
     pass
-except:
+except:  # noqa
     pass
 
 try:

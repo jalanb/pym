@@ -1,3 +1,5 @@
+from stuff import instance
+
 instance.attribute = 0
 i = instance.method()
-1 .__add__(1) == 2
+i.__add__(1) == 2

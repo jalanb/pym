@@ -59,3 +59,5 @@ class ReRenderTest(TestCase):
         actual = re_render.re_render(python_path)
         # TODO - fix problems with adding back blank lines
         # self.assertEqual(expected, actual)
+        self.assertTrue(expected)
+        self.assertTrue(actual)

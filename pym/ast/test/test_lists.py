@@ -6,7 +6,6 @@ from pym import lists
 
 
 class TestPymLists(unittest.TestCase):
-    # pylint: disable=protected-access
     def test_lists(self):
         line_compare = lists.attribute_comparison("line", 44)
         lines = [
@@ -15,12 +14,8 @@ class TestPymLists(unittest.TestCase):
         ]
         actual = lists._search(lines, line_compare)
         expected = None
-        try:
-            self.assertEqual(actual, expected)
-        except:  # pylint: disable=bare-except
-            import pudb
-
-            pudb.set_trace()
+        # breakpoint()
+        self.assertEqual(actual, expected)
 
 
 if __name__ == "__main__":

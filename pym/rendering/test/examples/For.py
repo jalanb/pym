@@ -1,7 +1,8 @@
+things = []
 for thing in things:
-    pass
+    continue
 
-for item in items:
+for thing in things:
     break
 else:
     pass

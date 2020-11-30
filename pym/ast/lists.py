@@ -68,7 +68,11 @@ def _search(tree, compare, start=0, end=None, parents=None):
 def attribute_comparison(attribute, value):
     def compare(item):
         attr_value = getattr(item, attribute)
-        return cmp(value, attr_value)  # pylint: disable=undefined-variable
+        if attr_value > value:
+            return +1
+        if attr_value < value:
+            return -1
+        return 0
 
     return compare
 

@@ -8,9 +8,9 @@ Usage:
     pym --help
 
 Options:
-    --emacs                      : Use Emacs keybindings instead of Vi bindings.
+    --emacs                      : Use Emacs keybindings instead of Vi bindings
     --config-dir=<directory>     : Pass config directory. By default '~/.pym/'.
-    -i, --import=<filename>      : import this (python) file before starting editor
+    -i, --import=<filename>      : import this file before starting editor
 
 args are dirs or scripts
 Other environment variables:

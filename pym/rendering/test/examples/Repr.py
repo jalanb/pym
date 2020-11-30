@@ -1,1 +1,1 @@
-print(`__file__`)
+repr(f"{ __file__!r}")

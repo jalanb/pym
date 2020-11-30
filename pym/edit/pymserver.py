@@ -9,4 +9,4 @@ class PymVimRequestHandler(ThreadedTCPRequestHandler):
 class PymVimServer(object):
     def __init__(self, host, port):
         self.server = ThreadedTCPServer(host, port, PymVimRequestHandler)
-        self.ip, self.port = server.server_address
+        self.ip, self.port = self.server.server_address

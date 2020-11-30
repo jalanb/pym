@@ -1,3 +1,6 @@
+# flake8: noqa
+
+
 class Serializer(object):
     """A tree walker that uses the visitor pattern to serialize what
     it walks into properly escaped unicode.

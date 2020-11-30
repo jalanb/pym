@@ -58,7 +58,7 @@ class NormalSyntaxTree(LanguageSyntaxTree):
         return self._n_tree
 
     def _normalise(self, node):
-        """Convert the syntax tree into a (whatever counts as) Normal (round here) ST"""
+        """Convert the syntax tree into a (what as) Normal (round here) ST"""
         tree = dictionaries.LazyDefaultDict()
         tree[node.name] = tuple(self._normalise(_) for _ in node.children)
         return tree

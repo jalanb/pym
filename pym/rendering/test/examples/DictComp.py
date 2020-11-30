@@ -1,1 +1,1 @@
-{key: value for key, value in get_items()}
+{key: value for key, value in {}}

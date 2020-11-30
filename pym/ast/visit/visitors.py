@@ -5,7 +5,6 @@ import re
 import ast
 import types
 import linecache
-from dataclasses import dataclass
 from decimal import Decimal
 
 
@@ -43,6 +42,8 @@ class Sourcer(PymVisitor):
 
     def generic_visit(self, node):
         self.line_number = node.lineno
+        breakpoint()
+        filename, line_number = node.file, node.lineno
         self.line = linecache.getline(filename, line_number).rstrip()
         super().generic_visit(node)
 
@@ -82,9 +83,9 @@ class VisitorMap(dict):
         If all of the above fails, it returns the `DEFAULT` visitor or
         `None`.
         """
-        py_type = type(obj)
-        result = self.get(py_type) or self._get_parent_type_visitor(
-            obj, py_type
+        type_ = type(obj)
+        result = self.get(type_) or self._get_parent_type_visitor(
+            obj, type_
         )
         if result:
             return result
@@ -96,18 +97,22 @@ class VisitorMap(dict):
                 result = self.parent_map.get(DEFAULT)
         return result
 
-    def _get_parent_type_visitor(self, obj, py_type):
-        if py_type is InstanceType:  # support old-style classes
-            m = [t for t in self if isinstance(obj, t)]
-            for i, t in enumerate(m):
-                if not any(
-                    t2
-                    for t2 in m[i + i :]
-                    if t2 is not t and issubclass(t2, t)
-                ):
-                    return self[t]
-        else:  # newstyle type/class
-            for base in py_type.__mro__:
+    def _get_parent_type_visitor(self, obj, type_):
+        try:
+            from types import InstanceType  # support old-style classes
+            if type_ is InstanceType:
+                m = [t for t in self if isinstance(obj, t)]
+                for i, t in enumerate(m):
+                    j = i + i
+                    if not any(
+                        t2
+                        for t2 in m[j:]
+                        if t2 is not t and issubclass(t2, t)
+                    ):
+                        return self[t]
+            return
+        except ImportError:
+            for base in type_.__mro__:
                 if base in self:
                     return self[base]
 
@@ -125,20 +130,20 @@ class VisitorMap(dict):
         """
         return _VisitorMapContextManager(self, walker, set_parent_map)
 
-    def register(self, py_type, visitor=None):
-        """If both args are passed, this does `vmap[py_type] = visitor`.
-        If only `py_type` is passed, it assumes you are decorating a
+    def register(self, type_, visitor=None):
+        """If both args are passed, this does `vmap[type_] = visitor`.
+        If only `type_` is passed, it assumes you are decorating a
         visitor function definition:
           @vmap.register(some_type)
           def visit_some_type(o, w):
               ...
         """
         if visitor:
-            self[py_type] = visitor
+            self[type_] = visitor
         else:
 
             def decorator(f):
-                self[py_type] = f
+                self[type_] = f
                 return f
 
             return decorator
@@ -171,7 +176,6 @@ class _VisitorMapContextManager(object):
             self.vmap.parent_map = None
 
 
-################################################################################
 # 4:  Default serialization visitors for standard Python types
 
 # visitor signature = "f(obj_to_be_walked, walker)", return value ignored

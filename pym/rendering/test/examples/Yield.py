@@ -1,2 +1,3 @@
-for item in []:
-    yield None
+def method():
+    for item in []:
+        yield None

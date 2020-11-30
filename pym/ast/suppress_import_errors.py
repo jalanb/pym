@@ -43,13 +43,22 @@ class NameErrorHandler(object):
     def __exit__(self, exc_type, exc_val, exc_tb):
         """Exit the context, returning truthiness to suppress exception.
 
-        If an exception occurred while executing the body of the with statement,
-            the arguments contain the exception type, value and traceback information.
+        If an exception occurred while executing the body of the with statement
+            the arguments contain the exception's type, value and traceback.
             Otherwise, all three arguments are None.
 
-        Returning a true value from this method will cause the with statement to suppress the exception and continue execution with the statement immediately following the with statement. Otherwise the exception continues propagating after this method has finished executing. Exceptions that occur during execution of this method will replace any exception that occurred in the body of the with statement.
+        Returning a true value from this method will cause the with statement
+            to suppress the exception and continue execution with the statement
+            immediately following the with statement. Otherwise the exception
+            continues propagating after this method has finished executing.
+            Exceptions that occur during execution of this method will replace
+            any exception that occurred in the body of the with statement.
 
-        The exception passed in should never be reraised explicitly - instead, this method should return a false value to indicate that the method completed successfully and does not want to suppress the raised exception. This allows context management code to easily detect whether or not an __exit__() method has actually failed.
+        The exception passed in should never be reraised explicitly - instead,
+            this method should return a false value to indicate that the method
+            completed successfully and does not want to suppress the raised
+            exception. This allows context management code to easily detect
+            whether or not an __exit__() method has actually failed.
         """
 
 

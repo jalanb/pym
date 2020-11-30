@@ -3,6 +3,7 @@
 import os
 import ast
 from functools import singledispatch
+from typing import Callable
 
 from pysyte.types.methods import Method
 from pysyte.types.paths import FilePath
@@ -48,12 +49,17 @@ def _(arg):
     return parse_path(source, path)
 
 
-@parse.register(type(parse_path))
+@parse.register(Callable)
 def _(arg):
-    line_number = arg.__code__.co_firstlineno
     p = makepath(arg)
     assert p
     astree = parse(p)
+    assert astree
+
+
+@parse.register(Method)
+def _(arg):
+    return parse(arg.method)
 
 
 @parse.register(type(os))

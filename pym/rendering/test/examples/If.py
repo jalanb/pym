@@ -6,7 +6,7 @@ if True:
 elif False:
     pass
 else:
-    break
+    i = 0
 
 if i < 0:
     if 0 > i:

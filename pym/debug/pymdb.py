@@ -1,6 +1,8 @@
 """Debug a method"""
-import os
 import json
+import os
+import re
+from itertools import takewhile
 
 import ipdb
 
@@ -21,7 +23,7 @@ def _lines_before_at_same_indentation(read, end):
         match = regexp.match(string)
         try:
             return match.string[: match.end()]
-        except AttributeError as e:
+        except AttributeError:
             return ""
 
     def make_finder(regexp):
@@ -38,9 +40,6 @@ def _lines_before_at_same_indentation(read, end):
             return finder(text) == first_find
 
         return find
-
-    import re
-    from itertools import takewhile
 
     starts_with_spaces = re.compile("(^$)|(^ +)")
     find = make_find(starts_with_spaces, read(end))

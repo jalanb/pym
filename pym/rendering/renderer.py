@@ -681,4 +681,5 @@ class FrameRenderer(PymVisitor):
 
     def generic_frame(self, frame, node):
         method = getattr(self, "frame_%s" % node.name)
-        return method(frame_name) if method else frame
+        breakpoint()
+        return method([], 0) if method else frame

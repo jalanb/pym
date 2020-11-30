@@ -18,7 +18,7 @@ def path_hence(sub_path):
 
 def get_source_here(sub_path):
     with open(sub_path) as stream:
-        return path, stream.read()
+        return sub_path, stream.read()
 
 
 class TestRender(TestCase):
@@ -64,6 +64,7 @@ class TestRender(TestCase):
         path, source = get_source_here("re_render.txt")
         expected = render.render_string(source, path)
         actual = render.render_path(path)
+        self.assertEqual(actual, expected)
 
     def test_examples(self):
         there = os.path.join(os.path.dirname(__file__), "examples")

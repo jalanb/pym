@@ -1,3 +1,5 @@
+# flake8: noqa
+
 from visitors import default_visitors_map
 
 
