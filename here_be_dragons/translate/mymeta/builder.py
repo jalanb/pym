@@ -16,6 +16,7 @@ class TreeBuilder(object):
     """
     Produce an abstract syntax tree of OMeta operations.
     """
+
     def __init__(self, name, grammar):
         self.name = name
         self.grammar = grammar
@@ -24,7 +25,7 @@ class TreeBuilder(object):
         return ["Grammar", rules]
 
     def apply(self, ruleName, codeName=None, *exprs):
-        return ["Apply", ruleName, codeName or '', exprs]
+        return ["Apply", ruleName, codeName or "", exprs]
 
     def exactly(self, expr):
         return ["Exactly", expr]
@@ -70,6 +71,7 @@ class AstBuilder(object):
     """
     Builder of Python code objects via the 'compiler.ast' module.
     """
+
     def __init__(self, name, grammar):
         """
         @param name: The grammar name.
@@ -100,13 +102,18 @@ class AstBuilder(object):
         @param expr: The Python expression to compile.
         """
         c = python_compile(expr, "<grammar rule %s>" % (name,), "eval")
-        return ast.Stmt([
-            ast.CallFunc(
-                ast.Name('eval'),
-                [ast.Const(c),
-                 ast.Getattr(ast.Name("self"), "globals"),
-                 ast.Name('__locals')]
-            )])
+        return ast.Stmt(
+            [
+                ast.CallFunc(
+                    ast.Name("eval"),
+                    [
+                        ast.Const(c),
+                        ast.Getattr(ast.Name("self"), "globals"),
+                        ast.Name("__locals"),
+                    ],
+                )
+            ]
+        )
 
     def function(self, name, expr):
         """
@@ -117,18 +124,26 @@ class AstBuilder(object):
         @param expr: The AST to insert into the function.
         """
 
-        fexpr = ast.Stmt([
-            ast.Assign(
-                [ast.AssName('__locals', 'OP_ASSIGN')],
-                ast.Dict([(ast.Const('self'), ast.Name('self'))])),
-            ast.Assign(
-                [ast.Subscript(
-                    ast.Getattr(ast.Name('self'), 'locals'),
-                    'OP_ASSIGN',
-                    [ast.Const(name.split('_', 1)[1])])],
-                ast.Name('__locals')),
-            expr])
-        f = ast.Lambda(['self'], [], 0, fexpr)
+        fexpr = ast.Stmt(
+            [
+                ast.Assign(
+                    [ast.AssName("__locals", "OP_ASSIGN")],
+                    ast.Dict([(ast.Const("self"), ast.Name("self"))]),
+                ),
+                ast.Assign(
+                    [
+                        ast.Subscript(
+                            ast.Getattr(ast.Name("self"), "locals"),
+                            "OP_ASSIGN",
+                            [ast.Const(name.split("_", 1)[1])],
+                        )
+                    ],
+                    ast.Name("__locals"),
+                ),
+                expr,
+            ]
+        )
+        f = ast.Lambda(["self"], [], 0, fexpr)
         f.filename = self.name
         return f
 
@@ -137,37 +152,40 @@ class AstBuilder(object):
         Collect a list of (name, ast) tuples into a dict suitable for use as a
         class' method dictionary.
         """
-        ruleMethods = dict([
-            ('rule_' + k, self._compileAstMethod('rule_' + k, v))
-            for (k, v) in rules])
+        ruleMethods = dict(
+            [("rule_" + k, self._compileAstMethod("rule_" + k, v)) for (k, v) in rules]
+        )
 
-        methodDict = {'locals': {}}
+        methodDict = {"locals": {}}
         methodDict.update(ruleMethods)
         return methodDict
 
-    def apply(self, ruleName, codeName='', *exprs):
+    def apply(self, ruleName, codeName="", *exprs):
         """
         Create a call to self.apply(ruleName, *args).
         """
         args = [self.compilePythonExpr(codeName, arg) for arg in exprs]
         if ruleName == "super":
-            return ast.CallFunc(ast.Getattr(ast.Name("self"),
-                                            "superApply"),
-                                [ast.Const(codeName)] + args,
-                                None, None)
-        return ast.CallFunc(ast.Getattr(ast.Name("self"), "apply"),
-                            [ast.Const(ruleName)] + args,
-                            None,
-                            None)
+            return ast.CallFunc(
+                ast.Getattr(ast.Name("self"), "superApply"),
+                [ast.Const(codeName)] + args,
+                None,
+                None,
+            )
+        return ast.CallFunc(
+            ast.Getattr(ast.Name("self"), "apply"),
+            [ast.Const(ruleName)] + args,
+            None,
+            None,
+        )
 
     def exactly(self, expr):
         """
         Create a call to self.exactly(expr).
         """
-        return ast.CallFunc(ast.Getattr(ast.Name("self"),
-                                        "exactly"),
-                            [ast.Const(expr)],
-                            None, None)
+        return ast.CallFunc(
+            ast.Getattr(ast.Name("self"), "exactly"), [ast.Const(expr)], None, None
+        )
 
     def many(self, expr):
         """
@@ -175,10 +193,7 @@ class AstBuilder(object):
         """
         f = ast.Lambda([], [], 0, expr)
         f.filename = self.name
-        return ast.CallFunc(ast.Getattr(ast.Name("self"),
-                                        "many"),
-                            [f],
-                            None, None)
+        return ast.CallFunc(ast.Getattr(ast.Name("self"), "many"), [f], None, None)
 
     def many1(self, expr):
         """
@@ -186,10 +201,9 @@ class AstBuilder(object):
         """
         f = ast.Lambda([], [], 0, expr)
         f.filename = self.name
-        return ast.CallFunc(ast.Getattr(ast.Name("self"),
-                                        "many"),
-                            [f, expr],
-                            None, None)
+        return ast.CallFunc(
+            ast.Getattr(ast.Name("self"), "many"), [f, expr], None, None
+        )
 
     def optional(self, expr):
         """
@@ -207,10 +221,9 @@ class AstBuilder(object):
             f = ast.Lambda([], [], 0, expr)
             f.filename = self.name
             fs.append(f)
-        return ast.CallFunc(ast.Getattr(ast.Name("self"),
-                                        "_or"),
-                            [ast.List(fs)],
-                            None, None)
+        return ast.CallFunc(
+            ast.Getattr(ast.Name("self"), "_or"), [ast.List(fs)], None, None
+        )
 
     def _not(self, expr):
         """
@@ -219,10 +232,7 @@ class AstBuilder(object):
 
         f = ast.Lambda([], [], 0, expr)
         f.filename = self.name
-        return ast.CallFunc(ast.Getattr(ast.Name("self"),
-                                        "_not"),
-                            [f],
-                            None, None)
+        return ast.CallFunc(ast.Getattr(ast.Name("self"), "_not"), [f], None, None)
 
     def lookahead(self, expr):
         """
@@ -231,10 +241,7 @@ class AstBuilder(object):
 
         f = ast.Lambda([], [], 0, expr)
         f.filename = self.name
-        return ast.CallFunc(ast.Getattr(ast.Name("self"),
-                                        "lookahead"),
-                            [f],
-                            None, None)
+        return ast.CallFunc(ast.Getattr(ast.Name("self"), "lookahead"), [f], None, None)
 
     def sequence(self, exprs):
         """
@@ -250,19 +257,19 @@ class AstBuilder(object):
         """
         Generates code for binding a name to a value in the rule's locals dict.
         """
-        return ast.Stmt([
-            ast.Assign(
-                [
-                    ast.Subscript(
-                        ast.Name('__locals'),
-                        'OP_ASSIGN',
-                        [ast.Const(name)])
-                ],
-                expr),
-            ast.Subscript(
-                ast.Name('__locals'),
-                'OP_APPLY',
-                [ast.Const(name)])])
+        return ast.Stmt(
+            [
+                ast.Assign(
+                    [
+                        ast.Subscript(
+                            ast.Name("__locals"), "OP_ASSIGN", [ast.Const(name)]
+                        )
+                    ],
+                    expr,
+                ),
+                ast.Subscript(ast.Name("__locals"), "OP_APPLY", [ast.Const(name)]),
+            ]
+        )
 
     def pred(self, expr):
         """
@@ -271,10 +278,7 @@ class AstBuilder(object):
 
         f = ast.Lambda([], [], 0, expr)
         f.filename = self.name
-        return ast.CallFunc(ast.Getattr(ast.Name("self"),
-                                        "pred"),
-                            [f],
-                            None, None)
+        return ast.CallFunc(ast.Getattr(ast.Name("self"), "pred"), [f], None, None)
 
     def action(self, expr):
         """
@@ -289,10 +293,9 @@ class AstBuilder(object):
         """
         f = ast.Lambda([], [], 0, exprs)
         f.filename = self.name
-        return ast.CallFunc(ast.Getattr(ast.Name("self"),
-                                        "listpattern"),
-                            [f],
-                            None, None)
+        return ast.CallFunc(
+            ast.Getattr(ast.Name("self"), "listpattern"), [f], None, None
+        )
 
 
 class GeneratedCodeLoader(object):
@@ -300,6 +303,7 @@ class GeneratedCodeLoader(object):
     Object for use as a module's __loader__, to display generated
     source.
     """
+
     def __init__(self, source):
         self.source = source
 
@@ -311,6 +315,7 @@ class PythonBuilder(object):
     """
     Same idea as ASTBuilder but producing literal Python source instead.
     """
+
     def __init__(self, name, grammar, superclass, globals_):
         self.name = name
         self.superclass = superclass
@@ -345,7 +350,7 @@ class PythonBuilder(object):
         Indent a line of code.
         """
         if line.isspace():
-            return '\n'
+            return "\n"
         else:
             return "    " + line
 
@@ -356,7 +361,7 @@ class PythonBuilder(object):
         if ex.strip().startswith("return"):
             return ex
         else:
-            return 'return ' + ex
+            return "return " + ex
 
     def _function(self, head, body):
         """
@@ -365,9 +370,11 @@ class PythonBuilder(object):
         @param body: A list of lines for the function body.
         """
         body = list(body)
-        return [head] + \
-               [self._indent(line) for line in body[:-1]] + \
-               [self._indent(self._return(body[-1]))]
+        return (
+            [head]
+            + [self._indent(line) for line in body[:-1]]
+            + [self._indent(self._return(body[-1]))]
+        )
 
     def _suite(self, head, body):
         """
@@ -384,14 +391,25 @@ class PythonBuilder(object):
 
         @param rules: A mapping of names to rule bodies.
         """
-        lines = list(itertools.chain(*[
-            self._function("def rule_%s(self):" % (name,),
-                           ["_locals = {'self': self}",
-                            "self.locals[%r] = _locals" % (name,)] +
-                           list(body)) + ['\n\n'] for (name, body) in rules]))
-        source = '\n'.join(self._suite(
-            "class %s(%s):" % (self.name, self.superclass.__name__),
-            lines))
+        lines = list(
+            itertools.chain(
+                *[
+                    self._function(
+                        "def rule_%s(self):" % (name,),
+                        [
+                            "_locals = {'self': self}",
+                            "self.locals[%r] = _locals" % (name,),
+                        ]
+                        + list(body),
+                    )
+                    + ["\n\n"]
+                    for (name, body) in rules
+                ]
+            )
+        )
+        source = "\n".join(
+            self._suite("class %s(%s):" % (self.name, self.superclass.__name__), lines)
+        )
         modname = "mymeta_grammar__" + self.name
         save_source(source, modname)
         filename = "/mymeta_generated_code/" + modname + ".py"
@@ -414,15 +432,15 @@ class PythonBuilder(object):
         """
         Generate code for running embedded Python expressions.
         """
-        return self._expr('eval(%r, self.globals, _locals)' % (expr,))
+        return self._expr("eval(%r, self.globals, _locals)" % (expr,))
 
     def apply(self, ruleName, codeName=None, *exprs):
         """
         Create a call to self.apply(ruleName, *args).
         """
         args = [self.compilePythonExpr(codeName, arg) for arg in exprs]
-        args = ', '.join(args)
-        if ruleName == 'super':
+        args = ", ".join(args)
+        if ruleName == "super":
             return [self._expr('self.superApply("%s", %s)' % (codeName, args))]
         return [self._expr('self.apply("%s", %s)' % (ruleName, args))]
 
@@ -430,7 +448,7 @@ class PythonBuilder(object):
         """
         Create a call to self.exactly(expr).
         """
-        return [self._expr('self.exactly(%r)' % (literal,))]
+        return [self._expr("self.exactly(%r)" % (literal,))]
 
     def many(self, expr):
         """
@@ -460,8 +478,9 @@ class PythonBuilder(object):
         """
         if len(exprs) > 1:
             fs, fnames = zip(*[self._newThunkFor("_or", _) for _ in exprs])
-            return self.sequence(list(fs) + [
-                self._expr("self._or([%s])" % (', '.join(fnames)))])
+            return self.sequence(
+                list(fs) + [self._expr("self._or([%s])" % (", ".join(fnames)))]
+            )
         else:
             return exprs[0]
 
@@ -523,5 +542,4 @@ class PythonBuilder(object):
         Generate a call to self.listpattern(lambda: expr).
         """
         fn, fname = self._newThunkFor("listpattern", expr)
-        return self.sequence([fn,
-                              self._expr("self.listpattern(%s)" % (fname))])
+        return self.sequence([fn, self._expr("self.listpattern(%s)" % (fname))])

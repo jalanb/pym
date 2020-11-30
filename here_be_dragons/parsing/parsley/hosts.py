@@ -13,12 +13,12 @@ def require_file(path_to_file):
     """If the given path is not a file then raise ValueError"""
     if os.path.isfile(path_to_file):
         return
-    raise ValueError('%r is not a file' % path_to_file)
+    raise ValueError("%r is not a file" % path_to_file)
 
 
 def read_hosts_grammar():
     """Make a grammar for hosts files"""
-    return chimichurri.read_grammar('hosts.parsley')
+    return chimichurri.read_grammar("hosts.parsley")
 
 
 def parse_hosts(text):
@@ -47,13 +47,14 @@ def main(args):
     for arg in args:
         try:
             show_parsed_hosts(arg)
-        except ValueError, e:
+        except ValueError as e:
             print(str(e), file=sys.stderr)
             result = os.EX_NOHOST
     return result
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import pudb
+
     pudb.set_trace()
     sys.exit(main(sys.argv[1:]))

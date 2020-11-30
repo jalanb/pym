@@ -5,6 +5,7 @@ import re
 from itertools import takewhile
 
 
+
 def _lines_before_at_same_indentation(read, end):
     """This method could not work on itself
 
@@ -86,6 +87,6 @@ def set_trace():
     sources = [(path, line) for _, path, line, _, _, _ in inspect.stack()]
     read = _line_reader(path)
     lines = lines_in_frame(path, line)
-    text = '\n'.join(lines)
+    text = "\n".join(lines)
     print(text)
     ipdb.set_trace()

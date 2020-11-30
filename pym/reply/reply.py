@@ -55,7 +55,7 @@ def main(args):
                 history_filename=os.path.join(args["config_dir"], "history"),
                 configure=configure,
                 startup_paths=args.get("startup_paths", []),
-                title=u"Pym REPL (pym)",
+                title="Pym REPL (pym)",
             )
 
         add_the_current_directory_to_sys_path()

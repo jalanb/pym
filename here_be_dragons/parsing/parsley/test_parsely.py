@@ -39,7 +39,7 @@ def use_grammar(grammar):
     """Use that grammar in subsequent tests"""
 
     def invalidate():
-        delattr(use_grammar, 'grammar')
+        delattr(use_grammar, "grammar")
 
     use_grammar.grammar = grammar
     use_grammar.invalidate = invalidate
@@ -50,7 +50,7 @@ def instantiate(string):
     try:
         return use_grammar.grammar(string)
     except AttributeError:
-        raise KeyboardInterrupt('Call use_grammar() before try_parse()')
+        raise KeyboardInterrupt("Call use_grammar() before try_parse()")
 
 
 def try_parse(target, string):
@@ -78,7 +78,7 @@ def try_match(target, test):
     """
     string, expected, actual = _actual_match(target, test)
     if actual != expected:
-        print('Not matched: %r -> %r, not %r' % (string, actual, expected))
+        print("Not matched: %r -> %r, not %r" % (string, actual, expected))
         return False
     return True
 

@@ -32,7 +32,6 @@ class Uncomparable(Exception):
 
 
 def _search(tree, compare, start=0, end=None, parents=None):
-
     end = end or len(tree)
     parents = parents or []
     while start <= end:

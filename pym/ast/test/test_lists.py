@@ -14,8 +14,10 @@ class TestPymLists(unittest.TestCase):
         ]
         actual = lists._search(lines, line_compare)
         expected = None
-        # breakpoint()
-        self.assertEqual(actual, expected)
+        try:
+            self.assertEqual(actual, expected)
+        except:  # pylint: disable=bare-except
+            breakpoint()
 
 
 if __name__ == "__main__":

@@ -2,7 +2,6 @@
 
 from visitors import default_visitors_map
 
-
 class Example(object):
     all_examples = []  # class attr
 

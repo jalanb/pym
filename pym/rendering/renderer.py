@@ -35,7 +35,7 @@ class Punctuator(object):
 
 class Commas(Punctuator):
     def __init__(self, renderer):
-        super().__init__(renderer, ',')
+        super().__init__(renderer, ",")
 
 
 def line_after(body):
@@ -680,6 +680,6 @@ class FrameRenderer(PymVisitor):
         pass
 
     def generic_frame(self, frame, node):
-        method = getattr(self, "frame_%s" % node.name)
-        breakpoint()
-        return method([], 0) if method else frame
+        frame_name = f'frame_{node.name}"
+        method = getattr(self, frame_name, None)
+        return method(frame_name) if method else frame

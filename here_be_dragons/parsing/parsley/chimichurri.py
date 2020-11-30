@@ -20,9 +20,9 @@ def _read_grammar(key):
 
 def trace(grammar_fragment, indices, input_position):
     start, end = indices
-    print('fragment', grammar_fragment)
-    print('indices', start, end)
-    print('input', input_position)
+    print("fragment", grammar_fragment)
+    print("indices", start, end)
+    print("input", input_position)
 
 
 def _make_grammar(grammar_text, symbols):
@@ -50,4 +50,4 @@ def read_grammar_with_symbols(path_to_grammar, symbols):
 
 def minimal_grammar():
     """Make a tiny grammar, especially for testing"""
-    return _make_grammar('target = letter', {})
+    return _make_grammar("target = letter", {})

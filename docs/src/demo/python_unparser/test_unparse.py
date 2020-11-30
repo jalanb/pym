@@ -8,12 +8,14 @@ import ast
 
 from . import unparse
 
+
 def read_pyfile(filename):
     """Read and return the contents of a Python source file (as a
     string), taking into account the file encoding."""
     with open(filename, "r") as pyfile:
         source = pyfile.read()
     return source
+
 
 for_else = """\
 def f():
@@ -74,6 +76,7 @@ finally:
     suite5
 """
 
+
 class ASTTestCase(unittest.TestCase):
     def assertASTEqual(self, ast1, ast2):
         dump1 = ast.dump(ast1)
@@ -87,6 +90,7 @@ class ASTTestCase(unittest.TestCase):
         code2 = unparse_buffer.getvalue()
         ast2 = compile(code2, filename, "exec", ast.PyCF_ONLY_AST)
         self.assertASTEqual(ast1, ast2)
+
 
 class UnparseTestCase(ASTTestCase):
     # Tests for specific bugs found in earlier versions of unparse
@@ -121,7 +125,7 @@ class UnparseTestCase(ASTTestCase):
         self.check_roundtrip("-1e1000j")
 
     def test_min_int(self):
-        self.check_roundtrip(str(-sys.maxint-1))
+        self.check_roundtrip(str(-sys.maxint - 1))
         self.check_roundtrip("-(%s)" % (sys.maxint + 1))
 
     def test_imaginary_literals(self):
@@ -183,11 +187,12 @@ class UnparseTestCase(ASTTestCase):
     def test_try_except_finally(self):
         self.check_roundtrip(try_except_finally)
 
+
 class DirectoryTestCase(ASTTestCase):
     """Test roundtrip behaviour on all files in Lib and Lib/test."""
 
     # test directories, relative to the root of the distribution
-    test_directories = 'Lib', os.path.join('Lib', 'test')
+    test_directories = "Lib", os.path.join("Lib", "test")
 
     def test_files(self):
         # get names of files to test
@@ -197,12 +202,12 @@ class DirectoryTestCase(ASTTestCase):
         for d in self.test_directories:
             test_dir = os.path.join(dist_dir, d)
             for n in os.listdir(test_dir):
-                if n.endswith('.py') and not n.startswith('bad'):
+                if n.endswith(".py") and not n.startswith("bad"):
                     names.append(os.path.join(test_dir, n))
 
         for filename in names:
             if test_support.verbose:
-                print('Testing %s' % filename)
+                print("Testing %s" % filename)
             source = read_pyfile(filename)
             self.check_roundtrip(source)
 
@@ -210,5 +215,6 @@ class DirectoryTestCase(ASTTestCase):
 def test_main():
     test_support.run_unittest(UnparseTestCase, DirectoryTestCase)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     test_main()

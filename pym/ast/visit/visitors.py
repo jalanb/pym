@@ -10,6 +10,7 @@ from decimal import Decimal
 
 class PymVisitor(ast.NodeVisitor):
     """ABC for all pym's Vistors"""
+
     def generic_visit(self, node):
         self.node = node
         for field, value in ast.iter_fields(node):
@@ -80,8 +81,8 @@ class VisitorMap(dict):
         If all of the above fails, it returns the `DEFAULT` visitor or
         `None`.
         """
-        type_ = type(obj)
-        result = self.get(type_) or self._get_parent_type_visitor(obj, type_)
+        py_type = type(obj)
+        result = self.get(py_type) or self._get_parent_type_visitor(obj, py_type)
         if result:
             return result
         elif self.parent_map is not None:

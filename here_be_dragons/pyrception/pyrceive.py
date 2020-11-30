@@ -15,94 +15,93 @@ from stemming.porter2 import stem
 
 
 def is_lib_module(word):
-    if not hasattr(is_lib_module, 'modules'):
-        path_to_lib = os.path.join(
-            sys.exec_prefix,
-            'lib', 'python%s' % sys.version[:3])
+    if not hasattr(is_lib_module, "modules"):
+        path_to_lib = os.path.join(sys.exec_prefix, "lib", "python%s" % sys.version[:3])
         is_lib_module.modules = [
             os.path.splitext(f)[0]
             for f in os.listdir(path_to_lib)
-            if fnmatch(f, '*.py')]
-    modules = is_lib_module.modules + ['sys']
+            if fnmatch(f, "*.py")
+        ]
+    modules = is_lib_module.modules + ["sys"]
     return word in modules
 
 
 def is_python_stem(string):
     """Not a python keyword, but usually used as python"""
     return string in [
-        'all',
-        'any',
-        'argparser',
-        'arg',
-        'bool',
-        'classmethod',
-        'cls',
-        'cmp',
-        'dict',
-        'dir',
-        'getattr',
-        'iter',
-        'len',
-        'metavar',
-        'narg',
-        'none',
-        'read',
-        'self',
-        'str',
-        'super',
+        "all",
+        "any",
+        "argparser",
+        "arg",
+        "bool",
+        "classmethod",
+        "cls",
+        "cmp",
+        "dict",
+        "dir",
+        "getattr",
+        "iter",
+        "len",
+        "metavar",
+        "narg",
+        "none",
+        "read",
+        "self",
+        "str",
+        "super",
     ]
 
 
 def is_python_call(string):
     """Common python methods"""
     return string in [
-        'basename',
-        'dirname',
-        'isdir',
-        'isfile',
-        'islower',
-        'ispunct',
-        'isspace',
-        'isupper',
-        'join',
-        'list',
-        'lower',
-        'lstrip',
-        'main',
-        'next',
-        'readline',
-        'replace',
-        'rstrip',
-        'setattr',
-        'sort',
-        'startswith',
-        'strip',
-        'trim',
-        'var',
-        'write',
+        "basename",
+        "dirname",
+        "isdir",
+        "isfile",
+        "islower",
+        "ispunct",
+        "isspace",
+        "isupper",
+        "join",
+        "list",
+        "lower",
+        "lstrip",
+        "main",
+        "next",
+        "readline",
+        "replace",
+        "rstrip",
+        "setattr",
+        "sort",
+        "startswith",
+        "strip",
+        "trim",
+        "var",
+        "write",
     ]
 
 
 def is_programming_stem(string):
     """Words commonly used by programmers"""
     return string in [
-        'add',
-        'append',
-        'arg',
-        'argv',
-        'ascii',
-        'character',
-        'diff',
-        'file',
-        'filename',
-        'key',
-        'name',
-        'one',
-        'path',
-        'string',
-        'two',
-        'usage',
-        'value',
+        "add",
+        "append",
+        "arg",
+        "argv",
+        "ascii",
+        "character",
+        "diff",
+        "file",
+        "filename",
+        "key",
+        "name",
+        "one",
+        "path",
+        "string",
+        "two",
+        "usage",
+        "value",
     ]
 
 
@@ -116,21 +115,21 @@ def interesting(string):
     if is_programming_stem(string):
         return False
     return string not in [
-        'the',
-        'we',
-        'they',
-        'to',
-        'split',
-        'set',
-        'sep',
-        'result',
-        'pop',
+        "the",
+        "we",
+        "they",
+        "to",
+        "split",
+        "set",
+        "sep",
+        "result",
+        "pop",
     ]
 
 
 def as_words(string):
     words = []
-    for word in string.split('_'):
+    for word in string.split("_"):
         if len(word) < 2:
             continue
         elif iskeyword(word):
@@ -140,7 +139,7 @@ def as_words(string):
         elif word[1:].islower():
             words.append(word.lower())
         else:
-            strings = re.findall('[A-Z][a-z]+', word)
+            strings = re.findall("[A-Z][a-z]+", word)
             lowers = [s.lower() for s in strings]
             words.extend(lowers)
     return words
@@ -169,10 +168,7 @@ def perceive_file(f):
 
 
 def directory_scripts(scripts, directory, files):
-    scripts.extend([
-        os.path.join(directory, f)
-        for f in files
-        if fnmatch(f, '*.py')])
+    scripts.extend([os.path.join(directory, f) for f in files if fnmatch(f, "*.py")])
 
 
 def collect_scripts(path):

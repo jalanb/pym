@@ -8,22 +8,34 @@ import pym
 
 
 setup(
-    packages=find_packages()
-    download_url="https://github.com/jalanb/pym/tarball/v%s" % pym.__version__,
+    packages=find_packages(),
+    download_url=f"https://github.com/jalanb/pym/tarball/v{pym.__version__}",
     test_suite="pytest.collector",
-    install_requires=["pysyte", "sh"],
+    install_requires=[
+        "pprintpp",
+        "pysyte>=0.7.41",
+        "rich",
+        "stemming",
+        "tatsu",
+    ],
     tests_require=[
-        "coverage<5",
-        "mock",
+        "codecov",
+        "coverage",
+        "pym==0.3.3",
+        "pysyte>=0.7.41",
         "pytest",
-        "pysyte",
         "pytest-cov",
         "tox",
     ],
     extras_require={
-        "test": ["pytest", "pysyte", ],
+        "test": [
+            "pytest",
+            "pysyte",
+        ],
         "development": ["ipython", "pudb3"],
-        "devops": ["bumpversion",],
-        "lint": ["black", "flake8", "mypy"]
-    }
+        "devops": [
+            "bumpversion",
+        ],
+        "lint": ["black", "flake8", "mypy"],
+    },
 )

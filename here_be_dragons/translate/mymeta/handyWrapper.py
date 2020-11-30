@@ -1,14 +1,16 @@
 from mymeta.runtime import ParseError
+
+
 class HandyWrapper(object):
     """
     Convenient grammar wrapper for parsing strings.
     """
+
     def __init__(self, grammar):
         """
         @param grammar: The grammar class to be wrapped.
         """
         self.grammar = grammar
-
 
     def __getattr__(self, rule_name):
         """
@@ -16,6 +18,7 @@ class HandyWrapper(object):
         rule.
         @param: Rule rule_name.
         """
+
         def doIt(string_to_be_parsed):
             """
             @param string_to_be_parsed: The string to be parsed by the wrapped grammar.
@@ -26,10 +29,10 @@ class HandyWrapper(object):
                 extra = obj.input.head()
             except IndexError:
                 try:
-                    return ''.join(result)
+                    return "".join(result)
                 except TypeError:
                     return result
             else:
                 raise ParseError("trailing garbage in input: %s" % (extra,))
-        return doIt
 
+        return doIt
