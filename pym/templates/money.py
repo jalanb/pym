@@ -40,9 +40,7 @@ def render_org_prices__imperative(org):
 
 
 def render_price(pr):
-    return span("price_rule", id=("rule", pr.oid))[
-        pr.product, ": $%0.2f" % pr.price
-    ]
+    return span("price_rule", id=("rule", pr.oid))[pr.product, ": $%0.2f" % pr.price]
 
 
 customer1 = Organization(name="Smith and Sons")
@@ -106,11 +104,7 @@ def visit_pricerule(pr, w):
 def render_org_prices__declarative(org):
     return UIScreen(
         title=("Custom Prices For ", org.name),
-        content=(
-            org.price_rules
-            if org.price_rules
-            else "No custom prices assigned."
-        ),
+        content=(org.price_rules if org.price_rules else "No custom prices assigned."),
     )
 
 

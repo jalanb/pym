@@ -32,9 +32,7 @@ class ReRenderTest(TestCase):
         self.assertEqual(expected, actual)
 
     def test_absolute_bad_path(self):
-        self.assertRaises(
-            ValueError, re_render.absolute_python_path, "/no/such/path"
-        )
+        self.assertRaises(ValueError, re_render.absolute_python_path, "/no/such/path")
 
     def test_absolute_non_python_path(self):
         """Test that a file which is not python source raises ValueError
@@ -43,9 +41,7 @@ class ReRenderTest(TestCase):
             Use the compiled (.pyc) version of this file
         """
         compiled_path = write_extension(__file__, "pyc")
-        self.assertRaises(
-            ValueError, re_render.absolute_python_path, compiled_path
-        )
+        self.assertRaises(ValueError, re_render.absolute_python_path, compiled_path)
 
     def test_read_source(self):
         python_path = write_extension(__file__, "py")
