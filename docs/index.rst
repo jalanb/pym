@@ -29,7 +29,7 @@ which can be annotated with interesting properties and connections.
 
 Such a connected  NST ("Normal Syntax Tree") links known names to known Syntax Trees. , and can catch any runtime problems, providing source for each stack frame.
 
-`pym` was inspired by vim but it handles structured (not plain) text. At present `pym` is entirely vapourware, and consists of some ideas based around  `mindful <https://www.youtube.com/watch?v=92i5m3tV5XY> manipulation of `Abstract Syntax Trees <http://en.wikipedia.org/wiki/Abstract_syntax_tree>`_, such as those provided by the `ast module <http://docs.python.org/2/library/ast.html?highlight=ast>`_ and `ZatSo <https://github.com/jalanb/ZatSo/blob/master/zatso/upgoers/readme.md>`_ . It would help  if the parser could handle `bash script <https://github.com/jalanb/parsher/blob/master/parsher/__init__.py#L9>`_ too.
+`pym` was inspired by vim but it handles structured (not plain) text. At present `pym` is entirely vapourware, and consists of some ideas based around  `mindful <https://www.youtube.com/watch?v=92i5m3tV5XY>`_ manipulation of `Abstract Syntax Trees <http://en.wikipedia.org/wiki/Abstract_syntax_tree>`_, such as those provided by the `ast module <http://docs.python.org/2/library/ast.html?highlight=ast>`_ and `ZatSo <https://github.com/jalanb/ZatSo/blob/master/zatso/upgoers/readme.md>`_ . It would help  if the parser could handle `bash script <https://github.com/jalanb/parsher/blob/master/parsher/__init__.py#L9>`_ too.
 
 Parsing
 ^^^^^^^
