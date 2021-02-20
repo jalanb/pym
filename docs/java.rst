@@ -52,8 +52,8 @@ Pull requests will be accepted subject to pusher's licensing
 
        - `WTFPL <https://en.wikipedia.org/wiki/WTFPL#Reception>`_
        - `MIT <https://tldrlegal.com/license/mit-license>`_
-       - `FreeBSD <https://tldrlegal.com/license/bsd-2-clause-license-(freebsd)>` and "`3 BSD <https://tldrlegal.com/license/bsd-3-clause-license-(revised)>`_"
-       - JSLint `Not Evil <https://en.wikipedia.org/wiki/JSLint#License>`_ LICENSE, with different exceptional `permission <https://en.wikipedia.org/wiki/Douglas_Crockford#.22Good.2C_not_Evil.22>`_s than pym
+       - `FreeBSD <https://tldrlegal.com/license/bsd-2-clause-license-(freebsd)>`_ and "`3 BSD <https://tldrlegal.com/license/bsd-3-clause-license-(revised)>`_"
+       - JSLint `Not Evil <https://en.wikipedia.org/wiki/JSLint#License>`_ LICENSE, with different exceptional `permission <https://en.wikipedia.org/wiki/Douglas_Crockford#.22Good.2C_not_Evil.22>`_ than pym
 
     These are not accepted, unless pusher agrees to re-licensing under pym's license
 
