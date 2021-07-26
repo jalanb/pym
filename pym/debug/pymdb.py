@@ -5,7 +5,6 @@ import re
 from itertools import takewhile
 
 
-
 def _lines_before_at_same_indentation(read, end):
     """This method could not work on itself
 
