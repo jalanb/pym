@@ -442,7 +442,9 @@ class Renderer(PymVisitor, IndentingWriter):
         self.dispatch(node.test)
         self.visit_block(node.body, node.lineno)
         while (
-            node.orelse and len(node.orelse) == 1 and isinstance(node.orelse[0], ast.If)
+            node.orelse
+            and len(node.orelse) == 1
+            and isinstance(node.orelse[0], ast.If)
         ):
             node = node.orelse[0]
             self.write("elif ")

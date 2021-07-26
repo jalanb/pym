@@ -6,6 +6,7 @@ from functools import singledispatch
 from typing import Callable
 
 from pysyte.types.methods import Method
+from pysyte.types.paths import StrPath
 from pysyte.types.paths import FilePath
 from pysyte.types.paths import NonePath
 from pysyte.types.paths import makepath
@@ -72,6 +73,6 @@ def _(arg):
     return parse(None)
 
 
-@parse.register(FilePath)
+@parse.register(StrPath)
 def _(arg):
     return parse_path(arg.text(), arg)

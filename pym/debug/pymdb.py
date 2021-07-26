@@ -4,8 +4,6 @@ import os
 import re
 from itertools import takewhile
 
-import ipdb
-
 
 def _lines_before_at_same_indentation(read, end):
     """This method could not work on itself
@@ -48,7 +46,7 @@ def _lines_before_at_same_indentation(read, end):
 
 
 def lines_in_frame(path, line):
-    ipdb.set_trace()
+    breakpoint()
     from pym.edit.tree import Climber
     from pym.ast.parse import parse_path
 

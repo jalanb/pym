@@ -103,7 +103,9 @@ class VisitorMap(dict):
                 m = [t for t in self if isinstance(obj, t)]
                 for i, t in enumerate(m):
                     j = i + i
-                    if not any(t2 for t2 in m[j:] if t2 is not t and issubclass(t2, t)):
+                    if not any(
+                        t2 for t2 in m[j:] if t2 is not t and issubclass(t2, t)
+                    ):
                         return self[t]
             return
         except ImportError:
