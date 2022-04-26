@@ -1,11 +1,37 @@
 pym (deprecated)
 ================
 
-pym was going to help with "editing code, not text. No Java neither."
+`pym` extends `python -m`
 
-home
-----
-The main repo was on [GitHub](https://github.com/jalanb/pym), but the good stuff is on [ReadTheDocs](https://pym.readthedocs.io).
+pym was going to help with "Editing code. Not text, no Java neither.", so there's a lot of that baggage still around.
+
+install
+-------
+
+```
+$ python -m pip install pym
+```
+
+Use
+---
+
+```
+$ python -m pym
+```
+And then, e.g.
+```
+$ pym pip install requests
+```
+
+Side-effects
+------------
+
+`pym` may abuse your `python` installation, try in a `virtual environment` first
+`pym` may really mess with your shell. Not recommended for `~/.bashrc`, yet
+
+Old stuff
+---------
+The code stuff was on [GitHub](https://github.com/jalanb/pym), but the good stuff is on [ReadTheDocs](https://pym.readthedocs.io).
 
 So, like the man said, "bye [for now](https://github.com/jalanb/pai/blob/master/README.md), and thanks for all the fish"
 
