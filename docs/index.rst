@@ -92,22 +92,47 @@ Those ideas are *intentions* - what the coder wants to happen at run time.
 
 Usage
 -----
-
-    $ pym main.py
-
+To run the installed package called kat
+```
+    $ python -m kat -h
+```
 or 
+```
+    $ pym kat -h
+```
+or 
+```
+    $ python -m pym -m kat -h
+```
 
+They'll all show kat's help page
+
+
+Vaporware
+---------
+```
     $ pym main.sh
+```
 
 
+Suddenly
+--------
 
-You are shown a line of code in a function. You can move around: (A subset of) vim keys work, with the slight catch the 'j'/'k' moves down/up the call stack, 'h'/'l' moves left/right along the block of statements, and 'g'/';' move out/in (through links to other code, e.g. function calls).
+You are shown a line of code in a function.
 
-You can edit the code of the function, which will change the availability of run-time data.
+You can move around, a subset of) vim keys work glitchily:
+* `j`/`k` moves down/up the call stack,
+* `h`/`l` moves left/right along the block of statements, and
+* `g`/`;` move out/in (through links to other code, e.g. function calls).
+
+You can edit the code of the function, which might change colours.
 
 Colours:
 
-Errors shown in red, good code shown in green, links shown in blue. Untried code shown in white.
+* White: untried code
+* Red: Errors
+* Green: good code
+* Blue: links
 
 Indices and tables
 ==================
