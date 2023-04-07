@@ -7,18 +7,18 @@ The translate module
 	...     show(result)
 
 	>>> def to_text(rule,source):
-	...     print translate.rias_cpp([source]).apply(rule)
+	...     print(translate.rias_cpp([source]).apply(rule))
 
 	>>> def tree_text(tree,source,text=None):
 	...     if not text: text = '%s_text' % tree
 	...     ast = translate.rias_cpp(source).apply(tree)
 	...     show(ast)
-	...     print '=== header ==='
+	...     print('=== header ===')
 	...     translate.write_file = 'header'
-	...     print translate.rias_cpp([ast]).apply(text)
-	...     print '=== cpp ==='
+	...     print(translate.rias_cpp([ast]).apply(text))
+	...     print('=== cpp ===')
 	...     translate.write_file = 'cpp'
-	...     print translate.rias_cpp([ast]).apply(text)
+	...     print(translate.rias_cpp([ast]).apply(text))
 
 	>>> to_tree('number','0')
 	'0'
@@ -458,12 +458,12 @@ The translate module
 	       'configuration.switchToBackupData();']]]]]]]
 
 	>>> import translate
-	>>> print translate.change_type('int')
+	>>> print(translate.change_type('int'))
 	int
-	>>> print translate.change_type('String')
+	>>> print(translate.change_type('String'))
 	ACE_CString
 
-	>>> print translate.rias_cpp('block').apply('block')
+	>>> print(translate.rias_cpp('block').apply('block'))
 	block
 
 	>>> to_tree('comment_first_line','''   from  <a href="http://www.confluence.org/confluence.php?lat=-90&lon=0">confluenc e.org</a>

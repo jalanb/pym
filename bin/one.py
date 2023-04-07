@@ -43,7 +43,7 @@ def main():
     try:
         print(render(args.path))
     except ValueError as e:
-        print >> sys.stderr, e
+        print(str(e), file=sys.stderr)
         return os.EX_USAGE
     return os.EX_OK
 

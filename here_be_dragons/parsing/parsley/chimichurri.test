@@ -2,10 +2,8 @@ The chimichurri module
 ======================
 
     >>> import chimichurri
-    >>> print chimichurri.__doc__
-    Chimichurri (IRL is a sauce which) uses parsley
+    >>> assert "is a sauce" in chimichurri.__doc__
     ...
 
     >>> grammar = chimichurri.minimal_grammar()
-    >>> grammar('x').target() == 'x'
-    True
+    >>> assert grammar('x').target() == 'x'

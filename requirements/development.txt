@@ -1,8 +1,6 @@
--r testing.txt
+-r devops.txt
 
-bumpversion
 ipython
 rich
 pudb
-pylint
 sh

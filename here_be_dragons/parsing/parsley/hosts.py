@@ -48,7 +48,7 @@ def main(args):
         try:
             show_parsed_hosts(arg)
         except ValueError, e:
-            print >> sys.stderr, e
+            print(str(e), file=sys.stderr)
             result = os.EX_NOHOST
     return result
 

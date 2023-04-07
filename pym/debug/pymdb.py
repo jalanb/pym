@@ -81,5 +81,5 @@ def set_trace():
     read = _line_reader(path)
     lines = lines_in_frame(path, line)
     text = '\n'.join(lines)
-    print text
+    print(text)
     ipdb.set_trace()

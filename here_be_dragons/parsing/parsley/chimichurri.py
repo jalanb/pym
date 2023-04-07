@@ -20,9 +20,9 @@ def _read_grammar(key):
 
 def trace(grammar_fragment, indices, input_position):
     start, end = indices
-    print 'fragment', grammar_fragment
-    print 'indices', start, end
-    print 'input', input_position
+    print('fragment', grammar_fragment)
+    print('indices', start, end)
+    print('input', input_position)
 
 
 def _make_grammar(grammar_text, symbols):

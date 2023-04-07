@@ -7,4 +7,4 @@ i > 0
 i is i
 i is not j
 if i in j:
-    print j not in i
+    print(j not in i)
