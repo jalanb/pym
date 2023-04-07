@@ -30,7 +30,7 @@ And when I do know that I can make the change an ordinary editor will force me t
  * goto the comma on the second line (down, right, right, ..., right) and delete, delete, ..., delete.
  * paste
 
-A better editor, like vim willl make that a bit easier by allowing me to delete words instead of mere characters and quickly find the next "colour", but will still insist on 4 distinct operations.
+A better editor, like vim will make that a bit easier by allowing me to delete words instead of mere characters and quickly find the next "colour", but will still insist on 4 distinct operations.
 
 But it is really one operation: "remove the variable", for only one reason: it was used as a debugging aid and is no longer needed.
 

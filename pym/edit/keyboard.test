@@ -2,30 +2,24 @@ The keyboard module
 ===================
 
     >>> from pym.edit import keyboard
-    >>> print keyboard.__doc__
+    >>> assert "Provide keys based on vim's" in keyboard.__doc__
     Provide keys based on vim's
 
-    >>> print '\n'.join([str('%s -> %s' % (k, v)) for k, v in keyboard.vim_keys.items()])
-    h -> left
-    k -> up
-    j -> down
-    l -> right
+    >>> assert keyboard.vim_keys['h'] == 'left'
+    >>> assert keyboard.vim_keys['j'] == 'down'
+    >>> assert keyboard.vim_keys['k'] == 'up'
+    >>> assert keyboard.vim_keys['l'] == 'right'
 
-    >>> print ', '.join([str('%s -> %s' % (k, v)) for k, v in keyboard.home_row.items()][:7])
+    >>> for key in keyboard.vim_keys.keys():
+    ...     assert keyboard.vim_keys[key] == keyboard.keys[key]
+
+    >>> print(', '.join([str('%s -> %s' % (k, v)) for k, v in keyboard.home_row.items()][:7]))
     a -> add, d -> delete, g -> go, f -> fix, h -> left, k -> up, j -> down
-    >>> print '. '.join([str('%s -> %s' % (k, v)) for k, v in keyboard.HOME_row.items()][:7])
+    >>> print('. '.join([str('%s -> %s' % (k, v)) for k, v in keyboard.HOME_row.items()][:7]))
     A -> insert. S -> substitute. : -> command. D -> destroy. G -> debug. F -> fuck. H -> home
-
-    >>> keyboard.keys['j'] == 'down'
-    True
-    >>> keyboard.keys['k'] == 'up'
-    True
-    >>> keyboard.keys['h'] == 'up'
-    False
 
     >>> class Fred(object):
     ...     def up(self):
-    ...         print 'Hello World'
+    ...         return "Going up"
 
-    >>> keyboard.move(Fred(),'k')
-    Hello World
+    >>> assert keyboard.move(Fred(),'k') == "Going up"

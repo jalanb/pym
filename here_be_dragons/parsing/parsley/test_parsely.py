@@ -60,7 +60,7 @@ def try_parse(target, string):
     """
     result, error = _parse(target, string)
     if error:
-        print error
+        print(error)
     return result
 
 
@@ -78,7 +78,7 @@ def try_match(target, test):
     """
     string, expected, actual = _actual_match(target, test)
     if actual != expected:
-        print 'Not matched: %r -> %r, not %r' % (string, actual, expected)
+        print('Not matched: %r -> %r, not %r' % (string, actual, expected))
         return False
     return True
 

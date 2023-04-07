@@ -7,7 +7,7 @@ reading the lines
 	... 	if hasattr(lines,'endswith'):
 	... 		lines = lines.split('\n')
 	... 	for line in lines:
-	...			print line.replace(' ','.').replace('\t','--->').replace('	','___>')
+	...			print(line.replace(' ','.').replace('\t','--->').replace('	','___>'))
 
 	>>> lines = rebrace.read_lines('text1.txt')
 	>>> show_spaces(lines)
@@ -19,7 +19,7 @@ reading the lines
 	--->int.fred.().{}
 	--->fred.=.{alan,was,here};.//.htttp://fred
 
-	>>> print rebrace.empty.search('\t fred {alan,was,here}').group(1)
+	>>> print(rebrace.empty.search('\t fred {alan,was,here}').group(1))
 	alan,was,here
 	>>> lines = rebrace.start(lines)
 	>>> show_spaces(lines)

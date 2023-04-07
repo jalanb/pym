@@ -1,11 +1,11 @@
 try:
-    print "Evenin', squire"
+    print("Evenin', squire")
 except ZeroDivisionError:
-    print 'Evening'
+    print('Evening')
 
 try:
-    print 'You married?'
+    print('You married?')
 except ValueError:
-    print 'Yes'
+    print('Yes')
 else:
-    print "I'm a bachelor meself. Is your wife a goer? Eh?"
+    print("I'm a bachelor meself. Is your wife a goer? Eh?")

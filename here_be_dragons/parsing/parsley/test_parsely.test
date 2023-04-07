@@ -2,8 +2,7 @@ The test_parsely module
 =======================
 
 	>>> import test_parsely
-	>>> print test_parsely.__doc__
-	Methods to aid testing parsely grammars
+	>>> assert "testing parsely grammars" in test_parsely.__doc__
 
 More imports for testing
 ------------------------
@@ -19,7 +18,7 @@ KeyboardInterrupt should be raised
 	We'll call the latter below,
 		just testing the interrupt here
 	>>> try: test_parsely.try_parse('not_a_target', 'test')
-	... except KeyboardInterrupt: print 'test interrupted'
+	... except KeyboardInterrupt: print('test interrupted')
 	test interrupted
 
 

@@ -445,12 +445,12 @@ def tree_like(l, indent=None):
         if indent is None:
                 indent = ''
         if type(l) == type([]):
-                print '%s[' % indent
+                print('%s[' % indent)
                 for item in l:
                         tree_like(item, indent + '\t')
-                print '%s]' % indent
+                print('%s]' % indent)
         else:
-                print '%s%s,' % (indent, l)
+                print('%s%s,' % (indent, l))
 
 
 class Klass:
@@ -482,21 +482,19 @@ def make_header(java, header, name):
         global write_file
         write_file = 'header'
         fred_text = rias_cpp([java]).apply('cpp_text')
-        out = file(header, 'w')
-        print >> out, '# ifndef %s_H ' % name.upper()
-        print >> out, '# define %s_H ' % name.upper()
-        print >> out, fred_text
-        print >> out, '# endif'
-        out.close()
+        with open(header, 'w') as stream:
+            stream.write('# ifndef %s_H ' % name.upper())
+            stream.write('# define %s_H ' % name.upper())
+            stream.write(fred_text)
+            stream.write('# endif')
 
 
 def make_cpp(java, cpp):
         global write_file
         write_file = 'cpp'
         fred_text = rias_cpp([java]).apply('cpp_text')
-        out = file(cpp, 'w')
-        print >> out, fred_text
-        out.close()
+        with open(header, 'w') as stream:
+            stream.write(fred_text)
 
 
 def wanted(name):
@@ -556,7 +554,7 @@ def translate_all():
                         names.append(name)
                 finally:
                         for name in names:
-                                print "         '%s'," % name
+                                print("         '%s'," % name)
 
 
 def glom_cpp_file(l):

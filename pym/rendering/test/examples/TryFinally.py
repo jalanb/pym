@@ -1,11 +1,11 @@
 try:
     1 / 0
 finally:
-    print 'Duh'
+    print('Duh')
 
 try:
     1 / 0
 except ZeroDivisionError:
-    print "D'oh!"
+    print("D'oh!")
 finally:
-    print 'Damn'
+    print('Damn')
