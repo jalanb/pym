@@ -1,12 +1,8 @@
 
 black
 flake8
-<<<<<<< HEAD
 flake8-comprehensions
 flake8-eradicate
 flake8-isort
 mypy
 types-mock
-=======
-mypy
->>>>>>> 7201a44 (Blacken code)
