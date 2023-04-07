@@ -23,9 +23,8 @@ class Example(object):
         print('-'*80)
         print('## Output from example:', self.name)
         print()
-        output = Serializer(
-            self.visitor_map,
-            self.input_encoding).serialize(self.content)
+        serializer = Serializer(self.visitor_map, self.input_encoding)
+        output = serializer.serialize(self.content)
         print(output.encode(get_default_encoding()))
 
 
@@ -37,7 +36,7 @@ Example(
         3,
         4.0,
         "a",
-        u"b",
+        "b",
         ("c", ("d", "e"), set(["f", "f"])),  # nested
         (i * 2 for i in xrange(10)),
     ],
