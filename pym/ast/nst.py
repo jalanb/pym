@@ -88,7 +88,6 @@ class PythonNormalSyntaxTree(NormalSyntaxTree, PythonSyntaxTree):
     pass
 
 
-#  pylint: disable=too-many-ancestors
 class ScriptFile(paths.FilePath):
     """Script files have text in a known language"""
 

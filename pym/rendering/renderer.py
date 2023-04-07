@@ -1,14 +1,12 @@
 """Render ASTs to text"""
 
-from pym.ast.visit.visitors import PymVisitor
-
-
 import ast
 import sys
 
-
+from pym.ast.nodes import BlankLine
+from pym.ast.nodes import Comment
+from pym.ast.visit.visitors import PymVisitor
 from pym.rendering.indent import Indenter
-from pym.ast.nodes import Comment, BlankLine
 
 
 class Punctuator(object):

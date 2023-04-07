@@ -1,14 +1,13 @@
 """Test rendering of code"""
 
 
-import os
 import ast
+import os
 from fnmatch import fnmatch
 from unittest import TestCase
 
-
-from pym.rendering import render
 from pym.ast.parse import parse
+from pym.rendering import render
 
 
 def path_hence(sub_path):

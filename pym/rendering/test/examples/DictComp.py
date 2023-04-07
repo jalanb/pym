@@ -1,1 +1,1 @@
-{key: value for key, value in {}}
+{key: value for key, value in {}}  # noqa

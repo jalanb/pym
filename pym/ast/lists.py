@@ -44,14 +44,14 @@ def _search(tree, compare, start=0, end=None, parents=None):
             # have an item at middle
             try:
                 diff = compare(item)
-            except Exception:  # pylint: disable=broad-except
+            except Exception:
                 # Default strategy, just ignore that item
                 copy = tree[:]
                 copy.remove(item)
                 if not copy:
                     return -1
                 return _search(copy, compare, start, end - 1, parents)
-                start = start + 1  # pylint: disable=unreachable
+                start = start + 1
                 continue  # Anything after here will return
             if not diff:
                 return item, parents

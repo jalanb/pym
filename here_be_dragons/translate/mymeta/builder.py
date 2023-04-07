@@ -9,9 +9,6 @@ from .compiler.pycodegen import ExpressionCodeGenerator
 from .utils import save_source
 
 
-# pylint: disable=no-self-use
-
-
 class TreeBuilder(object):
     """
     Produce an abstract syntax tree of OMeta operations.
@@ -422,7 +419,7 @@ class PythonBuilder(object):
             code = compile(source, filename, "exec")
         except SyntaxError:
             raise source
-        eval(code, mod.__dict__)  # pylint: disable=eval-used
+        eval(code, mod.__dict__)
         mod.__dict__[self.name].globals = self.globals
         sys.modules[modname] = mod
         linecache.getlines(filename, mod.__dict__)

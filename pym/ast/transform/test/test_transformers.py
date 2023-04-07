@@ -3,7 +3,6 @@
 
 from unittest import TestCase
 
-
 from pym.ast.transform.transformers import PymTransformer
 from pym.render import render
 
@@ -18,7 +17,6 @@ class PymTransformerTest(TestCase):
     def test_pass_removal(self):
         class PassRemover(PymTransformer):
             def visit_Pass(self, _node):
-                # pylint: disable-msg=no-self-use
                 return None
 
         transformer = PassRemover()
@@ -30,7 +28,6 @@ class PymTransformerTest(TestCase):
     def test_string_emptying(self):
         class StringBlanker(PymTransformer):
             def visit_Str(self, _node):
-                # pylint: disable-msg=no-self-use
                 return "pass"
 
         transformer = StringBlanker()
@@ -42,7 +39,6 @@ class PymTransformerTest(TestCase):
     def test_string_removal_from_module(self):
         class StringBlanker(PymTransformer):
             def visit_Expr(self, _node):
-                # pylint: disable-msg=no-self-use
                 return None
 
         transformer = StringBlanker()
@@ -54,7 +50,6 @@ class PymTransformerTest(TestCase):
     def test_string_removal_from_expression(self):
         class StringBlanker(PymTransformer):
             def visit_Expr(self, _node):
-                # pylint: disable-msg=no-self-use
                 return None
 
         transformer = StringBlanker()

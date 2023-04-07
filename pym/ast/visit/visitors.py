@@ -1,10 +1,10 @@
 """Visiting ASTs' nodes """
 
 
-import re
 import ast
-import types
 import linecache
+import re
+import types
 from decimal import Decimal
 
 

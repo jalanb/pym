@@ -1,8 +1,12 @@
 """Debug a method"""
+import inspect
 import json
+import linecache
 import os
 import re
 from itertools import takewhile
+
+import ipdb
 
 
 def _lines_before_at_same_indentation(read, end):
@@ -47,8 +51,8 @@ def _lines_before_at_same_indentation(read, end):
 
 def lines_in_frame(path, line):
     breakpoint()
-    from pym.edit.tree import Climber
     from pym.ast.parse import parse_path
+    from pym.edit.tree import Climber
 
     climber = Climber(parse_path(path))
     climber.to_line(line)
@@ -74,8 +78,6 @@ def continue_(_frame):
 
 def set_trace():
     class SourceFrame(object):
-        import linecache  # lazy import
-
         def __init__(self, path, i):
             self.path = path
             self.i = i
@@ -83,9 +85,8 @@ def set_trace():
         def __str__(self):
             linecache.getline(self.path, self.i).rstrip()
 
-    sources = [(path, line) for _, path, line, _, _, _ in inspect.stack()]
-    read = _line_reader(path)
-    lines = lines_in_frame(path, line)
-    text = "\n".join(lines)
-    print(text)
+    for _, path, line, _, _, _ in inspect.stack():
+        lines = lines_in_frame(path, line)
+        text = "\n".join(lines)
+        print(text)
     ipdb.set_trace()

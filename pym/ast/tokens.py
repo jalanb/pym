@@ -1,8 +1,9 @@
 """Find Python tokens in sources"""
 
 
-from six import StringIO
 import tokenize
+
+from six import StringIO
 
 
 def get_comments(string):

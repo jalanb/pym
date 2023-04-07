@@ -11,9 +11,6 @@
 # Then Vim can send requests to the server:
 #  :let response = ch_sendexpr(handle, 'hello!')
 #
-# And you can control Vim by typing a JSON message here, e.g.:
-#   ["ex","echo 'hi there'"]
-#
 # There is no prompt, just type a line and press Enter.
 # To exit cleanly type "quit<Enter>".
 #
@@ -23,15 +20,9 @@
 
 import json
 import socket
+import socketserver
 import sys
 import threading
-
-try:
-    # Python 3
-    import socketserver
-except ImportError:
-    # Python 2
-    import SocketServer as socketserver
 
 thesocket = None
 

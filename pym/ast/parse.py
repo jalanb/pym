@@ -1,14 +1,14 @@
 """Parse source text to an AST"""
 
-import os
 import ast
+import os
 from functools import singledispatch
 from typing import Callable
 
 from pysyte.types.methods import Method
-from pysyte.types.paths import StrPath
 from pysyte.types.paths import FilePath
 from pysyte.types.paths import NonePath
+from pysyte.types.paths import StrPath
 from pysyte.types.paths import makepath
 
 
@@ -20,7 +20,6 @@ def parse_path(source: str, path: str):
 @singledispatch
 def parse(arg):
     """In the face of ambiguity, refuse the temptation to guess."""
-    # breakpoint()
     raise NotImplementedError
 
 

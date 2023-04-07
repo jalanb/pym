@@ -1,10 +1,9 @@
 """Test parsing of code"""
 
 
-import os
 import ast
+import os
 from unittest import TestCase
-
 
 from pym.ast import parse
 

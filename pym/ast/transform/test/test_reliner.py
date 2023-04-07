@@ -3,11 +3,11 @@
 
 from unittest import TestCase
 
-
 from pym.ast.parse import parse
-from pym.ast.transform.reliner import Liner, adjust_lines
-from pym.rendering import render
 from pym.ast.transform.docstringer import recast_docstrings
+from pym.ast.transform.reliner import Liner
+from pym.ast.transform.reliner import adjust_lines
+from pym.rendering import render
 
 
 def render_text(module_text):

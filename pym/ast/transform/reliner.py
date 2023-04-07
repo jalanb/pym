@@ -3,9 +3,9 @@
 
 import ast
 
-
+from ..nodes import BlankLine
+from ..nodes import DocString
 from .transformers import PymTransformer
-from ..nodes import DocString, BlankLine
 
 
 def module_node_group_id(node):

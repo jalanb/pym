@@ -30,7 +30,7 @@ def main():
     try:
         breakpoint()
         args = parse_args()
-        items = eval(' '.join(args.items))  # pylint: disable=eval-used
+        items = eval(' '.join(args.items))
         edit3 = TreeEditor(items)
         keys = iter(args.command) if args.command else pysyte.getch.yield_asciis()
         for key in keys:

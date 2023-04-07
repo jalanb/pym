@@ -2,10 +2,11 @@
 
 import ast
 
+from pym.ast.nodes import Comment
+from pym.ast.nodes import NoComment
+from pym.ast.tokens import get_comments
 
 from .transformers import PymTransformer
-from pym.ast.tokens import get_comments
-from pym.ast.nodes import Comment, NoComment
 
 
 def statement_precedes_comment(value, comment):

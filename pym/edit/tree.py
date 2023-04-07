@@ -25,7 +25,6 @@ class Brancher(object):
             if items:
                 self.items = items
             assert j >= 0
-            # pylint: disable=pointless-statement
             self.items[j]
         except (AssertionError, TypeError, IndexError):
             raise Tundra

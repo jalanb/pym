@@ -1,6 +1,5 @@
 """This source is for testing only"""
 raise NotImplementedError('Do not run this code')
-#pylint: skip-file
 # All comments here are montyPythonic, (c) them, used for testing and LOLs
 ################### From "Army Protection Racket" #############################
 # No, no no no no, no, no no no. This is silly.                               #

@@ -3,6 +3,7 @@
 
 import os
 from unittest import TestCase
+
 import pysyte
 
 from pym.rendering import re_render
@@ -53,11 +54,10 @@ class ReRenderTest(TestCase):
         self.assertTrue("test_read_source" in source_text)
 
     def test_re_render(self):
-        # pylint: disable=unused-variable,no-self-use
         python_path = write_extension(__file__, "py")
         expected = re_render.read_source(python_path)
         actual = re_render.re_render(python_path)
         # TODO - fix problems with adding back blank lines
-        # self.assertEqual(expected, actual)
+        # self.assertEqual(expected, actual)  noqa
         self.assertTrue(expected)
         self.assertTrue(actual)

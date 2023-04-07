@@ -1,15 +1,15 @@
 """module to render python asts to text"""
 
 from ast import AST
-from pathlib import Path
 from functools import singledispatch
+from pathlib import Path
 
-from .lines import remove_empty_tail
-from .renderer import Renderer
 from ..ast.parse import parse
 from ..ast.transform.commenter import add_comments
-from ..ast.transform.reliner import adjust_lines
 from ..ast.transform.docstringer import recast_docstrings
+from ..ast.transform.reliner import adjust_lines
+from .lines import remove_empty_tail
+from .renderer import Renderer
 
 
 class UnParsable(ValueError):

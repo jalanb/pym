@@ -16,11 +16,9 @@ class PymTransformer(ast.NodeTransformer):
         pass
 
     def add_new_value(self, new_values, value):
-        # pylint: disable=no-self-use
         new_values.append(value)
 
     def handle_new_value(self, new_values, new_value):
-        # pylint: disable-msg=no-self-use
         if new_value is None:
             return True
         if not isinstance(new_value, ast.AST):
